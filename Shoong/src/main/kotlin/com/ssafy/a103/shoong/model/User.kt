@@ -1,8 +1,8 @@
 package com.ssafy.a103.shoong.model
 
+import com.querydsl.core.annotations.QueryEntity
 import lombok.Getter
 import lombok.Setter
-//import com.querydsl.core.annotations.QueryEntity
 import org.springframework.data.mongodb.core.mapping.Document
 import org.springframework.data.mongodb.core.mapping.Field
 import java.time.LocalDateTime
@@ -11,7 +11,7 @@ import javax.persistence.Entity
 @Getter
 @Setter
 @Entity
-//@QueryEntity
+@QueryEntity
 @Document(collection = "user")
 class User {
 
@@ -30,11 +30,12 @@ class User {
     @Field("user_nickname")
     var user_nickname: String = ""
 
+    // TODO 바로 해결하기
     // Nested Object 선언
-//    @Field("wallets")
-//    var wallets: List<Wallet> = mutableListOf()
+//    @Field("cards")
+//    var cards: List<Card> = mutableListOf()
 
-//    // Type이 일정하지 않은 가변 Key-Value 오브젝트는 Map으로 선언
+    // Type이 일정하지 않은 가변 Key-Value 오브젝트는 Map으로 선언
 //    @Field("dynamicObject")
 //    var dynamicObject: Map<String, Any> = mutableMapOf()
 
@@ -51,16 +52,16 @@ class User {
 @Getter
 @Setter
 @Entity
-//@QueryEntity
-class Wallet {
+@QueryEntity
+class Card {
     @javax.persistence.Id
-    var wallet_id: String? = null
+    var card_id: String? = null
 
     @Field("wallet_name")
-    var wallet_name: String = ""
+    var card_name: String = ""
 
     @Field("wallet_address")
-    var wallet_address: String = ""
+    var card_address: String = ""
 
     @Field("createdAt")
     var createdAt: LocalDateTime = LocalDateTime.now()

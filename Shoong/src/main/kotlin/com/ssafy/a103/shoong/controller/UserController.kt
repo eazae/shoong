@@ -8,6 +8,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse
 import io.swagger.v3.oas.annotations.responses.ApiResponses
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RestController
+import java.util.*
 
 @Api(value = "유저 API", tags = [ "User" ])
 @RestController
@@ -29,5 +30,13 @@ private class UserController(val userService: UserService) {
     fun getAll(): List<User>{
         println("/api/user/getAll")
         return userService.getAll()
+    }
+
+    @GetMapping("/api/user/getByEmail")
+    fun getByEmail(): Optional<User> {
+        // TODO 리퀘스트 인풋값 가져오기
+        var email = ""
+        println("/api/user/getByEmail")
+        return userService.getByEmail(email)
     }
 }

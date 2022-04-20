@@ -13,9 +13,7 @@ import org.springframework.data.mongodb.repository.config.EnableMongoRepositorie
 class MongoConfig : AbstractMongoClientConfiguration() {
 
     // DB 이름 설정
-    override fun getDatabaseName(): String {
-        return "S06P31A103"
-    }
+    override fun getDatabaseName(): String = "S06P31A103"
 
     override fun mongoClient(): MongoClient {
         // db 경로 설정
