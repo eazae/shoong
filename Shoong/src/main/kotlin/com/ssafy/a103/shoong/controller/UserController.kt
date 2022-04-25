@@ -9,7 +9,6 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse
 import io.swagger.v3.oas.annotations.responses.ApiResponses
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
-import java.util.*
 
 @Api(value = "유저 API", tags = [ "User" ])
 @RestController
@@ -33,12 +32,26 @@ private class UserController(val userService: UserService) {
         return ResponseEntity.ok().body(userService.getAll())
     }
 
+    @Operation(summary = "get user by Email", description = "get user by Email")
+    @ApiResponses(value=[
+        ApiResponse(responseCode = "200", description = "OK !!"),
+        ApiResponse(responseCode = "400", description = "BAD REQUEST !!"),
+        ApiResponse(responseCode = "404", description = "NOT FOUND !!"),
+        ApiResponse(responseCode = "500", description = "INTERNAL SERVER ERROR !!")
+    ])
     @GetMapping("/api/user/getByEmail")
-    fun getByEmail(@RequestParam email: String): ResponseEntity<Optional<User>> {
+    fun getByEmail(@RequestParam email: String): ResponseEntity<User> {
         println("/api/user/getByEmail")
         return ResponseEntity.ok().body(userService.getByEmail(email))
     }
 
+    @Operation(summary = "join new user", description = "join new user")
+    @ApiResponses(value=[
+        ApiResponse(responseCode = "200", description = "OK !!"),
+        ApiResponse(responseCode = "400", description = "BAD REQUEST !!"),
+        ApiResponse(responseCode = "404", description = "NOT FOUND !!"),
+        ApiResponse(responseCode = "500", description = "INTERNAL SERVER ERROR !!")
+    ])
     @PostMapping("/api/user/join")
     fun join(@RequestBody userJoinRequestBody: UserJoinRequestBody): ResponseEntity<Any> {
         println("/api/user/join")
