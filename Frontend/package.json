@@ -9,6 +9,7 @@
     "web": "expo start --web"
   },
   "dependencies": {
+    "@types/react-native-dotenv": "^0.2.0",
     "babel-plugin-transform-inline-environment-variables": "^0.4.3",
     "expo": "~44.0.2",
     "expo-cli": "^5.4.0",
@@ -19,6 +20,7 @@
     "react-dom": "17.0.1",
     "react-native": "0.64.3",
     "react-native-config": "^1.4.5",
+    "react-native-dotenv": "^3.3.1",
     "react-native-web": "0.17.1"
   },
   "devDependencies": {
