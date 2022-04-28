@@ -3,10 +3,22 @@ module.exports = function (api) {
   return {
     presets: ['babel-preset-expo'],
     plugins: [
-      'transform-inline-environment-variables',
-      {
-        include: ['API_KEY'],
-      },
+      [
+        'module-resolver',
+        {
+          root: ['./app'],
+          extension: ['.js', '.tsx', '.ts', '.jsx'],
+          alias: {
+            '@': './app',
+            '@components': './app/components',
+            '@containers': './app/containers',
+            '@screens': './app/screens',
+            '@services': './app/services',
+            '@theme': './app/theme',
+            '@utils': './app/utils',
+          },
+        },
+      ],
     ],
   };
 };
