@@ -9,7 +9,6 @@ module.exports = function (api) {
           root: ['./app'],
           extension: ['.js', '.tsx', '.ts', '.jsx'],
           alias: {
-            '@': './app',
             '@components': './app/components',
             '@containers': './app/containers',
             '@screens': './app/screens',
@@ -19,38 +18,17 @@ module.exports = function (api) {
           },
         },
       ],
+      [
+        'module:react-native-dotenv',
+        {
+          moduleName: '@env',
+          path: '.env',
+          blacklist: null,
+          whitelist: ['API_BASE_URL'],
+          safe: false,
+          allowUndefined: true,
+        },
+      ],
     ],
   };
 };
-
-// module.exports = {
-//   presets: ['module:metro-react-native-babel-preset'],
-//   plugins: [
-//     [
-//       'module-resolver',
-//       {
-//         root: ['.'],
-//         extensions: [
-//           '.ios.ts',
-//           '.android.ts',
-//           '.ts',
-//           '.ios.tsx',
-//           '.android.tsx',
-//           '.tsx',
-//           '.jsx',
-//           '.js',
-//           '.json',
-//         ],
-//         alias: {
-//           '@': '.',
-//           // '@components': './components',
-//           // '@containers': './containers',
-//           // '@screens': './screens',
-//           // '@services': './scenes',
-//           // '@utils': './utils',
-//           // '@theme': './theme',
-//         },
-//       },
-//     ],
-//   ],
-// };
