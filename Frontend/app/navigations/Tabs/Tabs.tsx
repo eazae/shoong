@@ -1,8 +1,9 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import CompTest from '@screens/CompTest';
 import Wallet from '@screens/Wallet';
 import Typography from '@theme/Typography';
 import { BlurView } from 'expo-blur';
-import { Cardholder, CurrencyEth, GasPump, Users } from 'phosphor-react-native';
+import { Cardholder, CurrencyEth, GasPump, Users, UserCircleGear } from 'phosphor-react-native';
 import { StyleSheet, useColorScheme } from 'react-native';
 import styled from 'styled-components/native';
 import { tabBarStyle } from './Tabs.styles';
@@ -75,6 +76,16 @@ const Tabs = () => {
           headerShown: true,
           tabBarIcon: ({ color, size }) => {
             return <GasPump color={color} size={size} />;
+          },
+        }}
+      />
+      <Screen
+        name="설정"
+        component={CompTest}
+        options={{
+          headerShown: true,
+          tabBarIcon: ({ color, size }) => {
+            return <UserCircleGear color={color} size={size} />;
           },
         }}
       />

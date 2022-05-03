@@ -18,9 +18,9 @@ interface ButtonProps {
   title: string;
 }
 
-const Button: React.FC<ButtonProps> = ({ onPress, title }) => (
+const Input: React.FC<ButtonProps> = ({ onPress, title }) => (
   <ButtonContainer onPress={onPress}>
     <ButtonText>{title}</ButtonText>
   </ButtonContainer>
 );
-export default Button;
+export default Input;
