@@ -14,19 +14,11 @@ const getWalletKey = async() =>{
     const derivePath = "m/44'/501'/0'/0'";
     const derivedSeed = ed25519.derivePath(derivePath,seed.toString('hex')).key
     const solanaKey = solanaWeb3.Keypair.fromSeed(derivedSeed);
-
+    console.log(solanaKey)
     // 지갑주소 publickey
     solanaWallet = solanaKey.publicKey.toBase58()
 
     console.log(`지갑주소 ${solanaWallet}`);
-
-
-    // 잔액조회하기(테스트 devnet)
-    const getSolanaBalance = async () => {
-    const solana = new solanaWeb3.Connection(solanaWeb3.clusterApiUrl('devnet'),
-    'confirmed');
-    console.log(`잔액조회 ${await solana.getBalance(solanaKey.publicKey)}`);
-
 
     // 테스트넷 토큰받기
     // var fromAirdropSignature = await solana.requestAirdrop(
@@ -35,10 +27,7 @@ const getWalletKey = async() =>{
     //   );
     // await solana.confirmTransaction(fromAirdropSignature);
     // console.log(await solana.getBalance(solanaWallet.publicKey));
-  }
 
-
-  getSolanaBalance()
 }
 
 
