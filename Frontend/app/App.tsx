@@ -10,14 +10,16 @@ import { useColorScheme } from 'react-native';
 export default function App() {
   const isDark = useColorScheme() === 'dark';
   return (
-    <NavigationContainer theme={isDark ? Theme.dark.navigation : Theme.light.navigation}>
-      {/* <ThemeProvider theme={isDark ? Theme.dark : Theme.light}> */}
+    <>
       <ThemeProvider theme={isDark ? DarkTheme : LightTheme}>
+        {/* <NavigationContainer theme={isDark ? Theme.dark.navigation : Theme.light.navigation}> */}
+        <NavigationContainer>
+          <Root />
+        </NavigationContainer>
         {/* <Typography color="primary">Open up App.js to start working on your app!</Typography>
-        <StatusBar style="auto" />
-        <Test /> */}
-        <Root />
+        <StatusBar style="auto" /> */}
+        {/* </NavigationContainer> */}
       </ThemeProvider>
-    </NavigationContainer>
+    </>
   );
 }

@@ -16,18 +16,18 @@ const Tabs = () => {
   return (
     <Navigator
       initialRouteName="내 지갑"
-      screenOptions={{
-        tabBarStyle,
-        tabBarBackground: () => (
-          <BlurView
-            tint={isDark ? 'dark' : 'light'}
-            intensity={30}
-            style={StyleSheet.absoluteFill}
-          />
-        ),
-      }}
+      // screenOptions={{
+      //   ...tabBarStyle,
+      //   tabBarBackground: () => (
+      //     <BlurView
+      //       tint={isDark ? 'dark' : 'light'}
+      //       intensity={30}
+      //       style={StyleSheet.absoluteFill}
+      //     />
+      //   ),
+      // }}
     >
-      {/* <Screen
+      <Screen
         name="지갑"
         component={Wallet}
         options={{
@@ -78,7 +78,7 @@ const Tabs = () => {
             return <GasPump color={color} size={size} />;
           },
         }}
-      /> */}
+      />
       <Screen
         name="설정"
         component={CompTest}
