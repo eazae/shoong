@@ -1,7 +1,7 @@
 import { Theme } from '@react-navigation/native';
 import 'styled-components';
 
-declare module 'styled-components' {
+declare module 'styled-components/native' {
   export interface DefaultTheme {
     textColor: string;
     mainBgColor: string;
