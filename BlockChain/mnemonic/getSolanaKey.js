@@ -9,7 +9,7 @@ const solanaWeb3 = require('@solana/web3.js')
 const mnemonicKey = 'pottery mistake dry purchase limit spawn consider steak wagon fashion feed edit student work lake you boss lecture march remember toddler drop drop frog'
 
 // 니모닉키를 이용해서 지갑을 생성합니다.
-const getWalletKey = async() =>{
+const getSolanaKey = async() =>{
     const seed = await bip39.mnemonicToSeed(mnemonicKey)
     const derivePath = "m/44'/501'/0'/0'";
     const derivedSeed = ed25519.derivePath(derivePath,seed.toString('hex')).key
@@ -32,6 +32,6 @@ const getWalletKey = async() =>{
 
 
 
-getWalletKey()
+getSolanaKey()
 
 
