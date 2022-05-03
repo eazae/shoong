@@ -4,6 +4,7 @@ npm install ethereumjs-wallet
 npm install @solana/web3
 npm install ed25519-hd-key
 npm install web3
+npm install ethereumjs-tx
 ```
 
 ```javascript
