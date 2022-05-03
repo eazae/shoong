@@ -1,3 +1,4 @@
+import { colors } from '@theme/Color/Color';
 import Palette from '@theme/Palette';
 import { DefaultTheme } from 'styled-components/native';
 
@@ -17,6 +18,7 @@ export const LightTheme: DefaultTheme = {
       notification: Palette.mono300,
     },
   },
+  lightBgColor: colors.WHITE,
 };
 
 export const DarkTheme: DefaultTheme = {
@@ -35,6 +37,7 @@ export const DarkTheme: DefaultTheme = {
       notification: Palette.mono300,
     },
   },
+  lightBgColor: colors.DARK_GREY,
 };
 
 // export { LightTheme, DarkTheme };
