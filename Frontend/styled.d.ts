@@ -1,10 +1,12 @@
-// import original module declarations
+import { Theme } from '@react-navigation/native';
 import 'styled-components';
 
-// and extend them!
 declare module 'styled-components' {
   export interface DefaultTheme {
-    mainBgColor: string;
     textColor: string;
+    mainBgColor: string;
+    cardColor: string;
+    borderColor: string;
+    navigation: Theme;
   }
 }
