@@ -16,8 +16,41 @@ const color: colorType = {
  * 신지우 - 임시
  */
 export const colors = {
+  // primary color
+  PRIMARY_DISABLED: '',
+  PRIMARY_LIGHT: '',
   PRIMARY: '#ffc048',
+  PRIMARY_DARK: '',
 
+  // secondary color
+  BLACK: '#1e272e',
+  DARK_GREY: '#d2d2d2',
+  LIGHT_GREY: '#808e9b',
+  WHITE: '#ffffff',
+
+  // grayscale color
+  // BLACK: '',
+  // DARK_GRAY: '',
+  // LIGHT_GRAY: '',
+  // DARK_GRAY: '',
+  // : "",
+  // DARK_GRAY: "",
+
+  // text color
+  // TEXT: ,
+
+  // accent color
+  SUCCESS: '',
+};
+
+export const lightMode = {
+  // primary color
+  PRIMARY_DISABLED: '',
+  PRIMARY_LIGHT: '',
+  PRIMARY: '#ffc048',
+  PRIMARY_DARK: '',
+
+  // secondary color
   BLACK: '#1e272e',
   DARK_GREY: '#d2d2d2',
   LIGHT_GREY: '#808e9b',
