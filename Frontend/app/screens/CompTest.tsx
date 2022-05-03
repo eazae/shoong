@@ -1,4 +1,5 @@
 import Button from '@components/common/Button/Button';
+import Input from '@components/common/Input/Input';
 import Modal from '@components/common/Modal/Modal';
 import { Switch } from '@components/common/Switch/Switch';
 import { useState } from 'react';
@@ -25,6 +26,8 @@ const CompTest: React.FC<any> = () => {
       <Pressable onPress={() => setModalVisible(true)}>
         <Text>Show Modal</Text>
       </Pressable>
+      {/* Text Input */}
+      <Input keyboardType="numeric" placeholder="입력하시오" />
     </>
   );
 };

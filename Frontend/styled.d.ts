@@ -8,5 +8,7 @@ declare module 'styled-components/native' {
     cardColor: string;
     borderColor: string;
     navigation: Theme;
+
+    lightBgColor: string;
   }
 }
