@@ -18,7 +18,8 @@
       "@screens/*": ["screens/*"],
       "@services/*": ["services/*"],
       "@theme/*": ["theme/*"],
-      "@utils/*": ["utils/*"]
+      "@utils/*": ["utils/*"],
+      "@navigations/*": ["navigations/*"]
     },
     "types": ["jest", "styled-components-react-native"]
   },
