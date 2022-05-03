@@ -13,5 +13,7 @@ getSolanaKey : 니모닉키로 솔라나 지갑주소를 가져옵니다.
 getWalletKey : 니모닉키로 이더리움 지갑주소를 가져옵니다.
 getEtherBalance : 이더리움 네트워크 기반의 잔고를 조회합니다.
 getSolanaBalance: 솔라나 네트워크 기반의 잔고를 조회합니다.
+EtherTokenTransfer: 이더리움 네트워크 기반의 토큰을 보냅니다.
+EtherTransfer: 이더리움을 보냅니다
 ```
 
