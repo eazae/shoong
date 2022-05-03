@@ -8,6 +8,7 @@ const {hdkey} = pkg;
 // const mnemonicKey = null
 const mnemonicKey = 'alter silver general theme fashion business width topple warfare canoe pledge satoshi improve balcony clump action donate people'
 
+let walletNumber = 0
 
 // 니모닉키를 이용해서 지갑을 생성합니다.
 const getWalletKey = async() =>{
@@ -17,7 +18,7 @@ const getWalletKey = async() =>{
 
     // 니모닉키를 이용한 기본주소
     // deriveChild값에 따라서 추가로 지갑 계속 생성가능 
-    const childKey = hardenedKey.deriveChild(0);
+    const childKey = hardenedKey.deriveChild(walletNumber);
 
     const wallet = childKey.getWallet();
     // 지갑 주소
