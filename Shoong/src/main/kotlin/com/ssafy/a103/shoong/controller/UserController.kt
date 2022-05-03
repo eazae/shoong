@@ -55,8 +55,6 @@ private class UserController(val userService: UserService) {
     @PostMapping("/api/user/join")
     fun join(@RequestBody userJoinRequestBody: UserJoinRequestBody): ResponseEntity<Any> {
         println("/api/user/join")
-        // TODO 구현하고 주석 풀기
-//        userService.join(userJoinRequestBody)
-        return ResponseEntity.ok().body(true)
+        return ResponseEntity.ok().body(userService.join(userJoinRequestBody))
     }
 }
