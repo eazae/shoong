@@ -1,26 +1,16 @@
-import styled from 'styled-components/native';
+import Color from '@theme/Color';
+import Typography from '@theme/Typography';
+import { Wallet } from 'phosphor-react-native';
+import { ButtonProps } from './Button.props';
+import { ButtonContainer, IconLayOut } from './Button.styled';
 
-const ButtonContainer = styled.TouchableOpacity`
-  width: 120px;
-  height: 40px;
-  padding: 12px;
-  border-radius: 10px;
-  background-color: ${(props) => props.theme.borderColor};
-`;
-
-const ButtonText = styled.Text`
-  font-size: 16px;
-  text-align: center;
-`;
-
-interface ButtonProps {
-  onPress: any;
-  title: string;
-}
-
-const Button: React.FC<ButtonProps> = ({ onPress, title }) => (
-  <ButtonContainer onPress={onPress}>
-    <ButtonText>{title}</ButtonText>
+const Button: React.FC<ButtonProps> = ({ icon, onPress, title, variant = 'primary' }) => (
+  <ButtonContainer onPress={onPress} variant={variant}>
+    <IconLayOut>{icon}</IconLayOut>
+    <Typography weight="regular" color="light">
+      {title}
+    </Typography>
   </ButtonContainer>
 );
+
 export default Button;
