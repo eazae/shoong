@@ -11,7 +11,7 @@ const MnemonicCard: React.FC<IMnemonic> = ({ mnemonicWords }) => {
             {[1, 2, 3, 4, 5, 6].map((index) => {
               const key = idx * 6 + index + '';
               return (
-                <Typography key={key} color="light">
+                <Typography key={key} weight="bold" color="light">
                   {key.padStart(2, '0')}
                 </Typography>
               );
