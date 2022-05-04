@@ -1,0 +1,19 @@
+{
+  "name": "mnemonic",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@solana/web3.js": "^1.41.3",
+    "bip39": "^3.0.4",
+    "ed25519-hd-key": "^1.2.0",
+    "ethereumjs-tx": "^2.1.2",
+    "ethereumjs-wallet": "^1.0.2",
+    "web3": "^1.7.3"
+  }
+}
