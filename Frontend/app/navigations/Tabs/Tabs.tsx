@@ -3,30 +3,38 @@ import CompTest from '@screens/CompTest';
 import Settings from '@screens/Settings';
 import Wallet from '@screens/Wallet';
 import Typography from '@theme/Typography';
+import { isAndroid } from '@utils/native';
 import { BlurView } from 'expo-blur';
 import { Cardholder, CurrencyEth, GasPump, Users, UserCircleGear } from 'phosphor-react-native';
 import { StyleSheet, useColorScheme } from 'react-native';
 import styled from 'styled-components/native';
-import { tabBarStyle } from './Tabs.styles';
+import { useTheme } from 'styled-components';
 
 const { Navigator, Screen } = createBottomTabNavigator();
 
 const Tabs = () => {
   const isDark = useColorScheme() === 'dark';
-
+  const theme = useTheme();
   return (
     <Navigator
       initialRouteName="내 지갑"
-      // screenOptions={{
-      //   ...tabBarStyle,
-      //   tabBarBackground: () => (
-      //     <BlurView
-      //       tint={isDark ? 'dark' : 'light'}
-      //       intensity={30}
-      //       style={StyleSheet.absoluteFill}
-      //     />
-      //   ),
-      // }}
+      screenOptions={{
+        tabBarStyle: {
+          backgroundColor: isAndroid() ? theme.cardColor : 'transparent',
+          borderRadius: 40,
+          padding: 10,
+          height: 90,
+          position: 'absolute',
+          overflow: 'hidden',
+        },
+        tabBarBackground: () => (
+          <BlurView
+            tint={isDark ? 'dark' : 'light'}
+            intensity={30}
+            style={StyleSheet.absoluteFill}
+          />
+        ),
+      }}
     >
       {/* <Screen
         name="지갑"
