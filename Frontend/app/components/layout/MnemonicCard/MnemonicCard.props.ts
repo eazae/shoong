@@ -1,0 +1,3 @@
+interface IMnemonic {
+  mnemonicWords: string[];
+}
