@@ -12,13 +12,9 @@ export default function App() {
   return (
     <>
       <ThemeProvider theme={isDark ? DarkTheme : LightTheme}>
-        {/* <NavigationContainer theme={isDark ? Theme.dark.navigation : Theme.light.navigation}> */}
-        <NavigationContainer>
+        <NavigationContainer theme={isDark ? Theme.dark.navigation : Theme.light.navigation}>
           <Root />
         </NavigationContainer>
-        {/* <Typography color="primary">Open up App.js to start working on your app!</Typography>
-        <StatusBar style="auto" /> */}
-        {/* </NavigationContainer> */}
       </ThemeProvider>
     </>
   );
