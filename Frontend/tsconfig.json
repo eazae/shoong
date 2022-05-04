@@ -11,18 +11,20 @@
     "strict": true,
     "target": "esnext",
     "typeRoots": ["./types"],
-    "baseUrl": "./app",
+    "baseUrl": "./",
     "paths": {
-      "@components/*": ["components/*"],
-      "@containers/*": ["containers/*"],
-      "@screens/*": ["screens/*"],
-      "@services/*": ["services/*"],
-      "@theme/*": ["theme/*"],
-      "@utils/*": ["utils/*"],
-      "@navigations/*": ["navigations/*"]
+      "@/*": ["app/*"],
+      "@components/*": ["app/components/*"],
+      "@containers/*": ["app/containers/*"],
+      "@screens/*": ["app/screens/*"],
+      "@services/*": ["app/services/*"],
+      "@theme/*": ["app/theme/*"],
+      "@utils/*": ["app/utils/*"],
+      "@navigations/*": ["app/navigations/*"]
     },
     "types": ["jest", "styled-components-react-native"]
   },
+  "include": ["./"],
   "exclude": ["node_modules", "babel.config.js", "metro.config.js", "jest.config.js"],
   "extends": "expo/tsconfig.base"
 }
