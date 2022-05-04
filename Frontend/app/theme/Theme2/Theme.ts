@@ -18,7 +18,7 @@ export const LightTheme: DefaultTheme = {
       notification: Palette.mono300,
     },
   },
-  lightBgColor: colors.WHITE,
+  lightBgColor: Palette.mono100,
 };
 
 export const DarkTheme: DefaultTheme = {
@@ -37,7 +37,7 @@ export const DarkTheme: DefaultTheme = {
       notification: Palette.mono300,
     },
   },
-  lightBgColor: colors.DARK_GREY,
+  lightBgColor: Palette.mono400,
 };
 
 // export { LightTheme, DarkTheme };
