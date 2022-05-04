@@ -1,5 +1,6 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import CompTest from '@screens/CompTest';
+import Settings from '@screens/Settings';
 import Wallet from '@screens/Wallet';
 import Typography from '@theme/Typography';
 import { BlurView } from 'expo-blur';
@@ -27,7 +28,7 @@ const Tabs = () => {
       //   ),
       // }}
     >
-      <Screen
+      {/* <Screen
         name="지갑"
         component={Wallet}
         options={{
@@ -78,10 +79,10 @@ const Tabs = () => {
             return <GasPump color={color} size={size} />;
           },
         }}
-      />
+      /> */}
       <Screen
         name="설정"
-        component={CompTest}
+        component={Settings}
         options={{
           headerShown: true,
           tabBarIcon: ({ color, size }) => {
