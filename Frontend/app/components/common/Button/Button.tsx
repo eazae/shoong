@@ -1,7 +1,7 @@
 import styled from 'styled-components/native';
 
 const ButtonContainer = styled.TouchableOpacity`
-  width: 120px;
+  width: 100%;
   height: 40px;
   padding: 12px;
   border-radius: 10px;
