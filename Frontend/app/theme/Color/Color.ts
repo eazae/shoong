@@ -1,5 +1,5 @@
 import Palette from '@theme/Palette';
-import { borderColorType, colorType, textColorType } from './Color.props';
+import { borderColorType, buttonColorType, colorType, textColorType } from './Color.props';
 
 const textColor: textColorType = {
   primary: Palette.primary,
@@ -15,9 +15,17 @@ const borderColor: borderColorType = {
   light: Palette.mono100,
 };
 
+const buttonColor: buttonColorType = {
+  primary: Palette.primary,
+  secondary: Palette.primaryOpacity,
+  error: Palette.danger,
+  disabled: Palette.mono300,
+};
+
 const color: colorType = {
   textColor,
   borderColor,
+  buttonColor,
 };
 
 /**
