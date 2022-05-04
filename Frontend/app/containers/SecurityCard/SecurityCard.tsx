@@ -1,31 +1,31 @@
 import MnemonicCard from '@components/layout/MnemonicCard';
 import Typography from '@theme/Typography';
-import { LayOut, Title, TmpButton } from './SecurityCard.styled';
-
-// https://github.com/bitcoin/bips/blob/master/bip-0039/korean.txt
-const mnemonicWords = [
-  '가격',
-  '가끔',
-  '가난',
-  '가뭄',
-  '가방',
-  '가상',
-  '동화책',
-  '뒷산',
-  '막걸리',
-  '무관심',
-  '삼계탕',
-  '세종대왕',
-];
+import { LayOut, Title } from './SecurityCard.styled';
+import { useEffect, useState } from 'react';
+import Button from '@components/common/Button/Button';
+import { Key } from 'phosphor-react-native';
+import Color from '@theme/Color';
+import { generateMnemonic } from './SecurityCardHooks';
 
 const SecurityCard = () => {
+  const [mnemonicWords, setMnemonicWords] = useState<string[]>([]);
+  useEffect(() => {
+    generateMnemonic().then((res) => {
+      setMnemonicWords(res.split(' '));
+    });
+  }, []);
   return (
     <LayOut>
       <Title>
-        <Typography>일련번호 SHOONG - ID</Typography>
+        <Typography weight="regular">일련번호 SHOONG - ID</Typography>
       </Title>
       <MnemonicCard mnemonicWords={mnemonicWords} />
-      <TmpButton />
+      <Button
+        icon={<Key color={Color.textColor.light} />}
+        title="보안카드 인증하러 가기"
+        variant="primary"
+        onPress={() => console.log('어디로 가지')}
+      ></Button>
     </LayOut>
   );
 };
