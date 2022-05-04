@@ -21,80 +21,56 @@ const color: colorType = {
 };
 
 /**
- * 신지우 - 임시
+ * @author eazae
  */
 export const colors = {
-  // primary color
-  PRIMARY_DISABLED: '',
-  PRIMARY_LIGHT: '',
-  PRIMARY: '#ffc048',
-  PRIMARY_DARK: '',
+  /* Primary Colors */
+  PRIMARY_DISABLED: '#D0DBFF',
+  PRIMARY_FOCUSED: '',
+  PRIMARY_DEFAULT: '#2752E7',
+  PRIMARY_HOVER: '',
 
-  // secondary color
-  BLACK: '#1e272e',
-  DARK_GREY: '#d2d2d2',
-  LIGHT_GREY: '#808e9b',
-  WHITE: '#ffffff',
+  PRIMARY120: '#3C63EC',
+  PRIMARY100: '#3D66F5',
+  PRIMARY80: '#6485F7',
+  PRIMARY60: '#8BA3F9',
+  PRIMARY40: '#B1C2FB',
+  PRIMARY20: '#D8E0FD',
 
-  // grayscale color
-  // BLACK: '',
-  // DARK_GRAY: '',
-  // LIGHT_GRAY: '',
-  // DARK_GRAY: '',
-  // : "",
-  // DARK_GRAY: "",
+  /* Secondary Colors */
+  SECONDARY120: '#F4AE45',
+  SECONDARY100: '#FFB545',
+  SECONDARY80: '#FFC46A',
+  SECONDARY60: '#FFD38F',
+  SECONDARY40: '#FFE1B5',
+  SECONDARY20: '#FFF0DA',
 
-  // text color
-  // TEXT: ,
+  /* Neutrals */
+  /* Text Colors */
+  // MONO100: '#2C3131',
+  // MONO80: '#626262',
+  // MONO60: '#A9A9A9',
+  // MONO40: '#CACACA',
+  // MONO20: '#E9E9E9',
+  // MONO0: '#ffffff',
+  MONO100: '#2C3131',
+  MONO80: '#717784',
+  MONO60: '#9CA1AA',
+  MONO40: '#C8CBD0',
+  MONO20: '#F4F5F6',
+  MONO0: '#ffffff',
 
-  // accent color
-  SUCCESS: '',
+  /* Background Colors */
+  BACKGROUND_DARK: '',
+  BACKGROUND_DEFAULT: '',
+  BACKGROUND_LIGHT: '',
+
+  /* Semantics */
+  SUCCESS: '#3F845F',
+  WARNING: '#E4C65B',
+  ERROR: '#E25C5C',
+  INFO: '#2685CA',
 };
-
-export const lightMode = {
-  // primary color
-  PRIMARY_DISABLED: '',
-  PRIMARY_LIGHT: '',
-  PRIMARY: '#ffc048',
-  PRIMARY_DARK: '',
-
-  // secondary color
-  BLACK: '#1e272e',
-  DARK_GREY: '#d2d2d2',
-  LIGHT_GREY: '#808e9b',
-  WHITE: '#ffffff',
-};
-
-/**
- * 신지우 - 임시
- */
-// export const colors = {
-//   // primary color
-//   PRIMARY_DISABLED: '',
-//   PRIMARY_LIGHT: '',
-//   PRIMARY: '#ffc048',
-//   PRIMARY_DARK: '',
-
-//   // secondary color
-//   BLACK: '#1e272e',
-//   DARK_GREY: '#d2d2d2',
-//   LIGHT_GREY: '#808e9b',
-//   WHITE: '#ffffff',
-
-//   // grayscale color
-//   // BLACK: '',
-//   // DARK_GRAY: '',
-//   // LIGHT_GRAY: '',
-//   // DARK_GRAY: '',
-//   // : "",
-//   // DARK_GRAY: "",
-
-//   // text color
-//   // TEXT: ,
-
-//   // accent color
-//   SUCCESS: '',
-// };
 
 // export const lightMode = {
 //   // primary color
@@ -109,5 +85,105 @@ export const lightMode = {
 //   LIGHT_GREY: '#808e9b',
 //   WHITE: '#ffffff',
 // };
+
+/**
+ * @author eazae
+ */
+export const lightColors = {
+  /* Primary Colors */
+  PRIMARY_DISABLED: '#D0DBFF',
+  PRIMARY_FOCUSED: '',
+  PRIMARY_DEFAULT: '#2752E7',
+  PRIMARY_HOVER: '',
+
+  PRIMARY120: '#3C63EC',
+  PRIMARY100: '#3D66F5',
+  PRIMARY80: '#6485F7',
+  PRIMARY60: '#8BA3F9',
+  PRIMARY40: '#B1C2FB',
+  PRIMARY20: '#D8E0FD',
+
+  /* Secondary Colors */
+  SECONDARY120: '#F4AE45',
+  SECONDARY100: '#FFB545',
+  SECONDARY80: '#FFC46A',
+  SECONDARY60: '#FFD38F',
+  SECONDARY40: '#FFE1B5',
+  SECONDARY20: '#FFF0DA',
+
+  /* Neutrals */
+  /* Text Colors */
+  MONO100: '#2C3131',
+  MONO80: '#717784',
+  MONO60: '#9CA1AA',
+  MONO40: '#C8CBD0',
+  MONO20: '#F4F5F6',
+  MONO0: '#ffffff',
+
+  /* Background Colors */
+  BACKGROUND_DEFAULT: '#F5F7FF',
+  BACKGROUND_VARIANT: '#ECF0FE',
+
+  /* Semantics */
+  SUCCESS: '#3F845F',
+  WARNING: '#E4C65B',
+  ERROR: '#E25C5C',
+  INFO: '#2685CA',
+};
+
+/**
+ * @author eazae
+ */
+export const darkColors = {
+  /* Primary Colors */
+  PRIMARY_DISABLED: '#D0DBFF',
+  PRIMARY_FOCUSED: '',
+  PRIMARY_DEFAULT: '#2752E7',
+  PRIMARY_HOVER: '',
+
+  PRIMARY120: '#25314B',
+  PRIMARY100: '#333C4E',
+  PRIMARY80: '#2D4281',
+  PRIMARY60: '#324DA4',
+  PRIMARY40: '#3758C8',
+  PRIMARY20: '#3C63EC',
+
+  /* Secondary Colors */
+  SECONDARY120: '#F4AE45',
+  SECONDARY100: '#FFB545',
+  SECONDARY80: '#FFC46A',
+  SECONDARY60: '#FFD38F',
+  SECONDARY40: '#FFE1B5',
+  SECONDARY20: '#FFF0DA',
+
+  /* Neutrals */
+  /* Text Colors */
+  MONO100: '#2C3131',
+  MONO80: '#717784',
+  MONO60: '#9CA1AA',
+  MONO40: '#C8CBD0',
+  MONO20: '#F4F5F6',
+  MONO0: '#ffffff',
+
+  /* Background Colors */
+  BACKGROUND_DEFAULT: '#111013',
+  BACKGROUND_VARIANT: '#2D2B31',
+
+  /* Semantics */
+  SUCCESS: '#0C66A6',
+  WARNING: '#D8AC11',
+  ERROR: '#2B7B2A',
+  INFO: '#B42020',
+};
+
+export const textColors = {
+  /* Text Colors */
+  MONO100: '#2C3131',
+  MONO80: '#717784',
+  MONO60: '#9CA1AA',
+  MONO40: '#C8CBD0',
+  MONO20: '#F4F5F6',
+  MONO0: '#ffffff',
+};
 
 export default color;
