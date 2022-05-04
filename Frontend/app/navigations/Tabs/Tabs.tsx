@@ -1,5 +1,6 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import CompTest from '@screens/CompTest';
+import Settings from '@screens/Settings';
 import Wallet from '@screens/Wallet';
 import Typography from '@theme/Typography';
 import { isAndroid } from '@utils/native';
@@ -7,7 +8,7 @@ import { BlurView } from 'expo-blur';
 import { Cardholder, CurrencyEth, GasPump, Users, UserCircleGear } from 'phosphor-react-native';
 import { StyleSheet, useColorScheme } from 'react-native';
 import styled from 'styled-components/native';
-import { useTheme } from 'styled-components';
+import { useTheme } from 'styled-components/native';
 
 const { Navigator, Screen } = createBottomTabNavigator();
 
@@ -89,7 +90,8 @@ const Tabs = () => {
       />
       <Screen
         name="설정"
-        component={CompTest}
+        component={Settings}
+        // component={CompTest}
         options={{
           headerShown: true,
           tabBarIcon: ({ color, size }) => {

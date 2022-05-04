@@ -4,7 +4,7 @@ import styled from 'styled-components/native';
 import { ButtonProps } from './Button.props';
 
 export const ButtonContainer = styled.TouchableOpacity<ButtonProps>`
-  /* width: 120px; */
+  width: 100%;
   height: 45px;
   padding: 12px;
   border-radius: 10px;
