@@ -55,6 +55,9 @@ dependencies {
     // swagger
     implementation("io.springfox:springfox-boot-starter:3.0.0")
 
+    // password
+    implementation("org.springframework.security:spring-security-core:5.6.3")
+
     // jwt 토큰
     implementation("io.jsonwebtoken:jjwt:0.9.1")
 
