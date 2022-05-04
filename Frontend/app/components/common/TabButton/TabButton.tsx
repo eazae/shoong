@@ -1,26 +1,36 @@
+import { CaretRight } from 'phosphor-react-native';
 import styled from 'styled-components/native';
 
 const TabButtonContainer = styled.TouchableOpacity`
   width: 100%;
-  height: 60px;
-  padding: 0px 16px;
-  background-color: rgba(255, 255, 255, 0.2);
+  /* height: 60px; */
+  padding: 8px 16px;
+  background-color: rgba(255, 255, 255, 0.1);
   display: flex;
   flex-direction: row;
-  justify-content: flex-start;
+  justify-content: space-between;
   align-items: center;
 `;
 
-const TabIcon = styled.View`
-  align-items: center;
-  margin-right: 8px;
+const TabButtonIcon = styled.View`
+  /* align-items: center; */
+  /* margin-right: 8px; */
 `;
 
-const TabButtonText = styled.Text`
-  width: 100%;
+const TabButtonContent = styled.View`
+  width: 75%;
+  padding: 8px;
+`;
+
+const TabButtonTitle = styled.Text`
   font-size: 16px;
   font-weight: 500;
   color: ${(props) => props.theme.textColor};
+  line-height: 30px;
+`;
+
+const TabIcon = styled.View`
+  margin-left: 8px;
 `;
 
 interface TabButtonProps {
@@ -29,10 +39,17 @@ interface TabButtonProps {
   title: string;
 }
 
-const TabButton: React.FC<TabButtonProps> = ({ onPress, icon, title }) => (
+const TabButton: React.FC<TabButtonProps> = ({ onPress, icon, title, children }) => (
   <TabButtonContainer onPress={onPress}>
-    <TabIcon>{icon}</TabIcon>
-    <TabButtonText>이동하기:{title}</TabButtonText>
+    {icon ? <TabButtonIcon>{icon}</TabButtonIcon> : null}
+
+    <TabButtonContent>
+      <TabButtonTitle>{title}</TabButtonTitle>
+      {children}
+    </TabButtonContent>
+    <TabIcon>
+      <CaretRight size={16} style={{ alignItems: 'flex-end' }} weight="bold" color="white" />
+    </TabIcon>
   </TabButtonContainer>
 );
 export default TabButton;

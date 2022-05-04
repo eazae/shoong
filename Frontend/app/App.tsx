@@ -13,10 +13,6 @@ export default function App() {
     <>
       <ThemeProvider theme={isDark ? DarkTheme : LightTheme}>
         <NavigationContainer theme={isDark ? Theme.dark.navigation : Theme.light.navigation}>
-<<<<<<< HEAD
-          {/* <NavigationContainer> */}
-=======
->>>>>>> 743d60c08546d76c98718bf0ab4b18b063f8ffc3
           <Root />
         </NavigationContainer>
       </ThemeProvider>
