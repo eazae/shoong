@@ -17,6 +17,7 @@ const Tabs = () => {
   return (
     <Navigator
       initialRouteName="내 지갑"
+<<<<<<< HEAD
       screenOptions={{
         tabBarStyle: {
           backgroundColor: isAndroid() ? theme.cardColor : 'transparent',
