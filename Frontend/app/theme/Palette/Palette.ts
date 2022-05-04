@@ -1,5 +1,6 @@
 const Palette = {
   primary: 'rgb(97, 39, 221)',
+  primaryOpacity: 'rgba(97, 39, 221, 0.5)',
 
   danger: '#F23A65',
 

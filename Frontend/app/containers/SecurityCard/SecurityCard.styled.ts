@@ -16,9 +16,3 @@ export const Title = styled.View`
   margin: 5px 0px;
   align-self: flex-end;
 `;
-
-export const TmpButton = styled.TouchableOpacity`
-  height: 50px;
-  border-radius: 12px;
-  background-color: ${Palette.primary};
-`;
