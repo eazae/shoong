@@ -3,8 +3,10 @@ import Input from '@components/common/Input/Input';
 import Modal from '@components/common/Modal/Modal';
 import { Switch } from '@components/common/Switch/Switch';
 import TabButton from '@components/common/TabButton/TabButton';
+import { getSolanaBalance } from '@services/web3/solana';
+import { getSecureStoreValue, setSecureStoreValue } from '@utils/secureStore';
 import { Alien, UserCircleGear } from 'phosphor-react-native';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Alert, Dimensions, Pressable, Text } from 'react-native';
 import styled from 'styled-components/native';
 
@@ -17,6 +19,17 @@ const CompTest: React.FC<any> = () => {
     Alert.alert('Modal has been closed.');
     setModalVisible(!modalVisible);
   };
+
+  // JWT 저장 테스트
+  async function test() {
+    // getSecureStoreValue('jwt');
+    // setSecureStoreValue('jwt', '테스트JWT값');
+    // getSolanaBalance('CqKfJPQFRn6sSN2zWbKUckR68XPFYSDY42D2grecCwr1');
+  }
+  useEffect(() => {
+    test();
+  }, []);
+
   return (
     <>
       {/* Button */}

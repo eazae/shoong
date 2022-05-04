@@ -8,7 +8,7 @@ import { BlurView } from 'expo-blur';
 import { Cardholder, CurrencyEth, GasPump, Users, UserCircleGear } from 'phosphor-react-native';
 import { StyleSheet, useColorScheme } from 'react-native';
 import styled from 'styled-components/native';
-import { useTheme } from 'styled-components';
+import { useTheme } from 'styled-components/native';
 
 const { Navigator, Screen } = createBottomTabNavigator();
 
@@ -36,7 +36,7 @@ const Tabs = () => {
         ),
       }}
     >
-      {/* <Screen
+      <Screen
         name="지갑"
         component={Wallet}
         options={{
@@ -87,10 +87,11 @@ const Tabs = () => {
             return <GasPump color={color} size={size} />;
           },
         }}
-      /> */}
+      />
       <Screen
         name="설정"
         component={Settings}
+        // component={CompTest}
         options={{
           headerShown: true,
           tabBarIcon: ({ color, size }) => {

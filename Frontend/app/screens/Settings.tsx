@@ -1,9 +1,10 @@
+import { getSecureStoreValue, setSecureStoreValue } from '@utils/secureStore';
 import Divider from '@components/common/Divider/Divider';
 import TabButton from '@components/common/TabButton/TabButton';
 import AccountTabButton from '@containers/Settings/AccountTabButton/AccountTabButton';
 import AppVersionText from '@containers/Settings/AppVersionText.tsx/AppVersionText';
 import { Alien, UserCircle } from 'phosphor-react-native';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Text } from 'react-native';
 
 const Settings: React.FC<any> = () => {
