@@ -14,7 +14,7 @@ export const AvatarStyle = css<IAvatarImage>`
   height: ${({ size }) => AvatarSize[size!]}px;
 `;
 
-export const Loader = styled.View`
+export const Loader = styled.View<IAvatarImage>`
   ${AvatarStyle}
   background-color: ${({ theme }) => theme.cardColor};
 `;
