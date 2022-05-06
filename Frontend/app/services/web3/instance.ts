@@ -8,7 +8,7 @@ import * as solanaWeb3 from '@solana/web3.js';
 //* Remote Node Provider
 // Using a remote node provider, like Alchemy (https://www.alchemyapi.io/supernode), is simple.
 /* Client instance for ETH contract  */
-export const getETHContract = (contractAddress: string) => {
+export const createETHConnection = (contractAddress: string) => {
   const Web3Client = new Web3(
     Web3.givenProvider || new Web3.providers.HttpProvider(ETH_HTTP_PROVIDER)
   );
@@ -26,6 +26,6 @@ export const getETHContract = (contractAddress: string) => {
   );
 };
 /* Client instance for SOL contract  */
-export const getSOLClient = () => {
+export const createSOLConnection = () => {
   return new solanaWeb3.Connection(solanaWeb3.clusterApiUrl('devnet'), 'confirmed');
 };

@@ -4,6 +4,9 @@ import Theme from '@theme/Theme';
 import { ThemeProvider } from '@theme/Theme2/styled-components';
 import { DarkTheme, LightTheme } from '@theme/Theme2/Theme';
 
+// (https://moviendo.me/building-a-solana-wallet-cross-platform-app-with-expo-web3-and-react-native.html)
+import 'react-native-url-polyfill/auto';
+
 import { useColorScheme } from 'react-native';
 // import { ThemeProvider } from 'styled-components/native';
 
