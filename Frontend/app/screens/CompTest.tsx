@@ -24,7 +24,7 @@ const CompTest: React.FC<any> = () => {
   async function test() {
     // getSecureStoreValue('jwt');
     // setSecureStoreValue('jwt', '테스트JWT값');
-    // getSolanaBalance('CqKfJPQFRn6sSN2zWbKUckR68XPFYSDY42D2grecCwr1');
+    getSolanaBalance('CqKfJPQFRn6sSN2zWbKUckR68XPFYSDY42D2grecCwr1');
   }
   useEffect(() => {
     test();
