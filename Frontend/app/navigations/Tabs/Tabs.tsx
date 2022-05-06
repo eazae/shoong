@@ -90,8 +90,8 @@ const Tabs = () => {
       />
       <Screen
         name="설정"
-        component={Settings}
-        // component={CompTest}
+        // component={Settings}
+        component={CompTest}
         options={{
           headerShown: true,
           tabBarIcon: ({ color, size }) => {
