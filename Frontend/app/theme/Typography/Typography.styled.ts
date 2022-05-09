@@ -1,4 +1,5 @@
 import Color from '@theme/Color';
+import { isIos } from '@utils/native';
 import styled from 'styled-components/native';
 import fontSize from './Size';
 import { ITypography } from './Typography.props';
@@ -9,4 +10,5 @@ export const Text = styled.Text<ITypography>`
   font-weight: ${({ weight }) => fontWeight[weight!]};
   color: ${({ color, theme }) => (color ? Color.textColor[color] : theme.textColor)};
   opacity: ${({ variant }) => (variant === 'normal' ? 0.7 : 1)};
+  /* margin-bottom: ${isIos() ? 3 : 0}px; */
 `;
