@@ -13,7 +13,7 @@
     "typeRoots": ["./types"],
     "baseUrl": "./",
     "paths": {
-      // "@/*": ["app/*"],
+      // "@assets/*": ["assets/*"],
       "@components/*": ["app/components/*"],
       "@containers/*": ["app/containers/*"],
       "@screens/*": ["app/screens/*"],
@@ -24,7 +24,6 @@
     },
     "types": ["jest", "styled-components-react-native"]
   },
-  "include": ["./"],
   "exclude": ["node_modules", "babel.config.js", "metro.config.js", "jest.config.js"],
   "extends": "expo/tsconfig.base"
 }

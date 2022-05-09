@@ -7,8 +7,9 @@ module.exports = function (api) {
         'module-resolver',
         {
           root: ['./app'],
-          extension: ['.js', '.tsx', '.ts', '.jsx'],
+          extension: ['.js', '.tsx', '.ts', '.jsx', 'cjs'],
           alias: {
+            // '@assets': './assets',
             '@components': './app/components',
             '@containers': './app/containers',
             '@screens': './app/screens',
@@ -25,7 +26,7 @@ module.exports = function (api) {
           moduleName: '@env',
           path: '.env',
           blacklist: null,
-          whitelist: ['API_BASE_URL'],
+          whitelist: ['API_BASE_URL', 'ETH_HTTP_PROVIDER'],
           safe: false,
           allowUndefined: true,
         },
