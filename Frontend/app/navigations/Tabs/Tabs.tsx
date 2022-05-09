@@ -1,6 +1,9 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import CompTest from '@screens/CompTest';
-import Settings from '@screens/Settings';
+import BiometricSettings from '@screens/Settings/BiometricSettings';
+import NotificationSettings from '@screens/Settings/NotificationSettings';
+import Settings from '@screens/Settings/Settings';
+import UserInfoSettings from '@screens/Settings/UserInfoSettings';
 import Wallet from '@screens/Wallet';
 import Typography from '@theme/Typography';
 import { isAndroid } from '@utils/native';
@@ -36,7 +39,7 @@ const Tabs = () => {
         ),
       }}
     >
-      <Screen
+      {/* <Screen
         name="지갑"
         component={Wallet}
         options={{
@@ -87,11 +90,12 @@ const Tabs = () => {
             return <GasPump color={color} size={size} />;
           },
         }}
-      />
+      /> */}
       <Screen
         name="설정"
         // component={Settings}
-        component={CompTest}
+        // component={CompTest}
+        component={UserInfoSettings}
         options={{
           headerShown: true,
           tabBarIcon: ({ color, size }) => {
