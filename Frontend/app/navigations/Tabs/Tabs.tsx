@@ -1,5 +1,4 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import CompTest from '@screens/CompTest';
 import Settings from '@screens/Settings';
 import Wallet from '@screens/Wallet';
 import Typography from '@theme/Typography';
@@ -40,7 +39,7 @@ const Tabs = () => {
         name="지갑"
         component={Wallet}
         options={{
-          headerShown: true,
+          headerShown: false,
           tabBarIcon: ({ color, size }) => {
             return <Cardholder color={color} size={size} />;
           },
