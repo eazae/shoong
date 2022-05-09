@@ -1,15 +1,11 @@
-import { colors } from '@theme/Color/Color';
-import Palette from '@theme/Palette';
-import React, { useState } from 'react';
-import { Switch as RNSwitch } from 'react-native';
+// import { Switch as RNSwitch } from 'react-native';
 import styled from 'styled-components/native';
 
-// const Sw = styled.Switch`
-//   track-color {
-//     color: #005555;
-//     ${(props) => (props.ios_backgroundColor = '#005555')};
-//   }
-// `;
+const SwitchComp = styled.Switch.attrs((props) => ({
+  trackColor: { false: props.theme.disabledColor, true: props.theme.enabledColor },
+  thumbColor: props.value ? 'white' : 'white',
+  // ios_backgroundColor: props.theme.mainBgColor,
+}))``;
 
 interface SwitchProps {
   isEnabled: boolean;
@@ -20,14 +16,5 @@ export const Switch = ({ isEnabled, onChange }: SwitchProps) => {
   // const [isEnabled, setIsEnabled] = useState(false);
   // const toggleSwitch = () => setIsEnabled((previousState) => !previousState);
 
-  return (
-    <RNSwitch
-      trackColor={{ false: colors.DARK_GREY, true: colors.PRIMARY }}
-      thumbColor={isEnabled ? colors.WHITE : colors.WHITE}
-      ios_backgroundColor={colors.LIGHT_GREY}
-      // onValueChange={toggleSwitch}
-      onValueChange={onChange}
-      value={isEnabled}
-    />
-  );
+  return <SwitchComp onValueChange={onChange} value={!isEnabled} />;
 };

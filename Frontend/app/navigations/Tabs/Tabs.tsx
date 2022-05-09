@@ -1,3 +1,5 @@
+import Button from '@components/common/Button';
+import TextButton from '@components/common/TextButton/TextButton';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import CompTest from '@screens/CompTest';
 import BiometricSettings from '@screens/Settings/BiometricSettings';
@@ -9,7 +11,7 @@ import Typography from '@theme/Typography';
 import { isAndroid } from '@utils/native';
 import { BlurView } from 'expo-blur';
 import { Cardholder, CurrencyEth, GasPump, Users, UserCircleGear } from 'phosphor-react-native';
-import { StyleSheet, useColorScheme } from 'react-native';
+import { StyleSheet, Text, TouchableOpacity, useColorScheme } from 'react-native';
 import styled from 'styled-components/native';
 import { useTheme } from 'styled-components/native';
 
@@ -91,13 +93,14 @@ const Tabs = () => {
           },
         }}
       /> */}
+
       <Screen
         name="설정"
-        // component={Settings}
+        component={Settings}
         // component={CompTest}
-        component={UserInfoSettings}
+        // component={UserInfoSettings}
         options={{
-          headerShown: true,
+          headerShown: false,
           tabBarIcon: ({ color, size }) => {
             return <UserCircleGear color={color} size={size} />;
           },

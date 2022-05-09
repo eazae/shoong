@@ -1,11 +1,12 @@
 import { CaretRight } from 'phosphor-react-native';
-import styled from 'styled-components/native';
+import styled, { useTheme } from 'styled-components/native';
 
 const TabButtonContainer = styled.TouchableOpacity`
   width: 100%;
   /* height: 60px; */
   padding: 8px 16px;
-  background-color: rgba(255, 255, 255, 0.1);
+  /* background-color: rgba(255, 255, 255, 0.1); */
+  background-color: ${(props) => props.theme.subBgColor};
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -48,7 +49,12 @@ const TabButton: React.FC<TabButtonProps> = ({ onPress, icon, title, children })
       {children}
     </TabButtonContent>
     <TabIcon>
-      <CaretRight size={16} style={{ alignItems: 'flex-end' }} weight="bold" color="white" />
+      <CaretRight
+        size={16}
+        style={{ alignItems: 'flex-end' }}
+        weight="bold"
+        color={useTheme().textColor}
+      />
     </TabIcon>
   </TabButtonContainer>
 );
