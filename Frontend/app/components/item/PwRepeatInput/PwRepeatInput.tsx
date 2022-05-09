@@ -21,7 +21,7 @@ const PwRepeatInput = ({ control, errors, getValues }: IPwRepeatInput) => {
         required: '비밀번호 재확인이 필요해요',
         validate: {
           shouldMatch: (repeat: string) => {
-            const passWord = getValues().password;
+            const passWord = getValues().passWord;
             return repeat === passWord || '비밀번호가 일치하는지 확인해주세요';
           },
         },
