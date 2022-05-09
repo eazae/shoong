@@ -4,17 +4,17 @@ import styled from 'styled-components/native';
 
 const Label = styled.Text`
   color: ${(props) => props.theme.textColor};
-  margin-left: 12px;
+  margin: 12px 16px;
 `;
-const TextInputSC = styled.TextInput`
+const TextInputComp = styled.TextInput`
   height: 40px;
-  margin: 12px;
+  margin: 0px 16px 10px 16px;
   border-width: 0.2px;
   border-radius: 5px;
-  border-color: ${(props) => props.theme.textColor};
+  border-color: ${(props) => props.theme.borderColor};
   padding: 10px;
   color: ${(props) => props.theme.textColor};
-  background-color: ${(props) => props.theme.lightBgColor};
+  background-color: ${(props) => props.theme.subBgColor};
 `;
 
 interface InputProps {
@@ -38,9 +38,8 @@ const Input: React.FC<InputProps> = ({
 
   return (
     <>
-      <Label>{label}</Label>
-      <TextInputSC
-        // style={styles.input}
+      {label ? <Label>{label}</Label> : null}
+      <TextInputComp
         onChangeText={(curr) => setValue(curr)}
         value={value}
         placeholder={placeholder}
@@ -51,14 +50,5 @@ const Input: React.FC<InputProps> = ({
     </>
   );
 };
-
-// const styles = StyleSheet.create({
-//   input: {
-//     height: 40,
-//     margin: 12,
-//     borderWidth: 1,
-//     padding: 10,
-//   },
-// });
 
 export default Input;

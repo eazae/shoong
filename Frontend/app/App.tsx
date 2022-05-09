@@ -15,7 +15,8 @@ export default function App() {
   return (
     <>
       <ThemeProvider theme={isDark ? DarkTheme : LightTheme}>
-        <NavigationContainer theme={isDark ? Theme.dark.navigation : Theme.light.navigation}>
+        {/* <NavigationContainer theme={isDark ? Theme.dark.navigation : Theme.light.navigation}> */}
+        <NavigationContainer theme={isDark ? DarkTheme.navigation : LightTheme.navigation}>
           <Root />
         </NavigationContainer>
       </ThemeProvider>

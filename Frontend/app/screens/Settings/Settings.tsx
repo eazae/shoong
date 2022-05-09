@@ -1,25 +1,52 @@
-import { getSecureStoreValue, setSecureStoreValue } from '@utils/secureStore';
-import Divider from '@components/common/Divider/Divider';
-import TabButton from '@components/common/TabButton/TabButton';
-import AccountTabButton from '@containers/Settings/AccountTabButton/AccountTabButton';
-import AppVersionText from '@containers/Settings/AppVersionText.tsx/AppVersionText';
-import { Alien, UserCircle } from 'phosphor-react-native';
-import { useEffect, useState } from 'react';
-import { Text } from 'react-native';
+import TextButton from '@components/common/TextButton/TextButton';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import BiometricSettings from './BiometricSettings';
+import NotificationSettings from './NotificationSettings';
+import SettingsHome from './SettingsHome';
+import ThemeSettings from './ThemeSettings';
+import UserInfoSettings from './UserInfoSettings';
 
-const Settings: React.FC<any> = () => {
+const { Navigator, Screen } = createNativeStackNavigator();
+
+const Settings = () => {
   return (
     <>
-      <AccountTabButton />
-      <Divider />
-      <TabButton onPress={() => console.log('알림')} title={'알림'} />
-      <TabButton onPress={() => console.log('QR코드')} title={'QR코드 관리'} />
-      <TabButton onPress={() => console.log('대표 카드 설정')} title={'대표 카드 설정'} />
-      <TabButton onPress={() => console.log('생체 인증 설정')} title={'생체 인증 설정'} />
-      <TabButton onPress={() => console.log('화면 테마')} title={'화면 테마'} />
-      <Divider />
-      <TabButton onPress={() => console.log('로그아웃')} title={'로그아웃'} />
-      <AppVersionText />
+      <Navigator
+        initialRouteName="설정"
+        // defaultScreenOptions={{ headerShown: false }}
+        screenOptions={{
+          headerBackTitleVisible: false,
+          // headerShown: false,
+          // tabBarStyle: {
+          //   backgroundColor: isAndroid() ? theme.cardColor : 'transparent',
+          //   borderRadius: 40,
+          //   padding: 10,
+          //   height: 90,
+          //   position: 'absolute',
+          //   overflow: 'hidden',
+          // },
+          // tabBarBackground: () => (
+          //   <BlurView
+          //     tint={isDark ? 'dark' : 'light'}
+          //     intensity={30}
+          //     style={StyleSheet.absoluteFill}
+          //   />
+          // ),
+        }}
+      >
+        <Screen name="설정메인" component={SettingsHome} />
+        <Screen
+          name="사용자 정보"
+          component={UserInfoSettings}
+          options={{
+            headerRight: () => <TextButton title="수정하기" />,
+          }}
+        />
+        <Screen name="알림" component={NotificationSettings} />
+        {/* <Screen name="대표 카드 설정" component={SettingsHome} /> */}
+        <Screen name="생체 인증 설정" component={BiometricSettings} />
+        <Screen name="화면 테마" component={ThemeSettings} />
+      </Navigator>
     </>
   );
 };
