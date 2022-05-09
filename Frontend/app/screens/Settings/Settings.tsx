@@ -14,6 +14,7 @@ const Settings: React.FC<any> = () => {
       <Divider />
       <TabButton onPress={() => console.log('알림')} title={'알림'} />
       <TabButton onPress={() => console.log('QR코드')} title={'QR코드 관리'} />
+      <TabButton onPress={() => console.log('대표 카드 설정')} title={'대표 카드 설정'} />
       <TabButton onPress={() => console.log('생체 인증 설정')} title={'생체 인증 설정'} />
       <TabButton onPress={() => console.log('화면 테마')} title={'화면 테마'} />
       <Divider />

@@ -1,4 +1,6 @@
+import Avatar from '@components/common/Avatar';
 import TabButton from '@components/common/TabButton/TabButton';
+import Typography from '@theme/Typography';
 
 import { CaretRight, UserCircle } from 'phosphor-react-native';
 import styled from 'styled-components/native';
@@ -50,12 +52,14 @@ const AccountTabButton = () => {
       >
         <Text>내 정보 수정하기</Text>
       </TabButton> */}
-      {/* TODO: <Avatar> 로 대체 */}
       <TabButtonContainer>
+        {/* TODO: <Avatar> 로 대체 */}
         <UserCircle size={50} color="#ffffff" weight="fill" />
         <TabButtonContent>
           <Nickname>닉네임</Nickname>
-          <Text>내 정보 수정하기</Text>
+          <Typography color="light" size="body3">
+            내 정보 수정하기
+          </Typography>
         </TabButtonContent>
         <TabIcon>
           <CaretRight size={16} style={{ alignItems: 'flex-end' }} weight="bold" color="white" />

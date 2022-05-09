@@ -11,16 +11,22 @@ import styled from 'styled-components/native';
 //   }
 // `;
 
-export const Switch = () => {
-  const [isEnabled, setIsEnabled] = useState(false);
-  const toggleSwitch = () => setIsEnabled((previousState) => !previousState);
+interface SwitchProps {
+  isEnabled: boolean;
+  onChange: (value: boolean) => void | Promise<void>;
+}
+
+export const Switch = ({ isEnabled, onChange }: SwitchProps) => {
+  // const [isEnabled, setIsEnabled] = useState(false);
+  // const toggleSwitch = () => setIsEnabled((previousState) => !previousState);
 
   return (
     <RNSwitch
       trackColor={{ false: colors.DARK_GREY, true: colors.PRIMARY }}
       thumbColor={isEnabled ? colors.WHITE : colors.WHITE}
       ios_backgroundColor={colors.LIGHT_GREY}
-      onValueChange={toggleSwitch}
+      // onValueChange={toggleSwitch}
+      onValueChange={onChange}
       value={isEnabled}
     />
   );
