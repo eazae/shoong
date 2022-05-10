@@ -26,3 +26,10 @@ const sendTime = async (gas) =>{
     const second = result.data.result
     return second
 }
+
+// 입력된 값을 이더단위로 바꾸기
+const getEth = (num) =>{
+    const inputEth = Web3.utils.toWei(`${num}`, 'ether')
+    const convertEth = Web3.utils.toHex(inputEth)
+    return convertEth
+}
