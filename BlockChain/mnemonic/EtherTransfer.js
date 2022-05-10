@@ -30,7 +30,7 @@ const ethereumTransfer = async(address, privateKey, toAddress,inputEth,gasFee) =
         gasLimit: maxGasPrice,
         gasPrice: web3.utils.toHex(web3.utils.toWei(`${gasFee}`, 'gwei')),
         to: toAddress,
-        value : web3.utils.toHex(inputEth)
+        value : inputEth
     }
     const tx = await web3.eth.accounts.signTransaction(txObject,privateKey)
     const receipt = await web3.eth.sendSignedTransaction(tx.rawTransaction)
