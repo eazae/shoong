@@ -1,17 +1,39 @@
 import Divider from '@components/common/Divider/Divider';
 import SettingsItem from '@containers/Settings/SettingsItem/SettingsItem';
-import { useState } from 'react';
+import { getNotificationSettings, setNotificationDetailSettings } from '@utils/asyncStorage';
+import { useEffect, useState } from 'react';
 import { Text, View } from 'react-native';
 
 const NotificationSettings = () => {
   // TODO 임시
-  const [totalSetting, setTotalSetting] = useState(true);
-  const [sendRequestSetting, setSendRequestSetting] = useState(true);
-  const [sendSuccessSetting, setSendSuccessSetting] = useState(true);
-  const [sendFailSetting, setSendFailSetting] = useState(true);
-  const [receiveRequestSetting, setReceiveRequestSetting] = useState(true);
-  const [receiveSuccessSetting, setReceiveSuccessSetting] = useState(true);
-  const [purchaceTokenSetting, setPurchaceTokenSetting] = useState(true);
+  const [totalSetting, setTotalSetting] = useState(false);
+  const [sendRequestSetting, setSendRequestSetting] = useState(false);
+  const [sendSuccessSetting, setSendSuccessSetting] = useState(false);
+  const [sendFailSetting, setSendFailSetting] = useState(false);
+  const [receiveRequestSetting, setReceiveRequestSetting] = useState(false);
+  const [receiveSuccessSetting, setReceiveSuccessSetting] = useState(false);
+  const [purchaceTokenSetting, setPurchaceTokenSetting] = useState(false);
+
+  const saveSettings = async (setting: object) => {
+    await setNotificationDetailSettings(setting);
+  };
+
+  const getSettings = async () => {
+    const data = await getNotificationSettings();
+    console.log(data);
+    setTotalSetting(data.enableNotificationSettings);
+    setSendRequestSetting(data.notificationDetailSettings.sendRequestSetting);
+    setSendSuccessSetting(data.notificationDetailSettings.sendSuccessSetting);
+    setSendFailSetting(data.notificationDetailSettings.sendFailSetting);
+    setReceiveRequestSetting(data.notificationDetailSettings.receiveRequestSetting);
+    setReceiveSuccessSetting(data.notificationDetailSettings.receiveSuccessSetting);
+    setPurchaceTokenSetting(data.notificationDetailSettings.purchaceTokenSetting);
+  };
+
+  useEffect(() => {
+    getSettings();
+  }, []);
+
   return (
     <>
       <SettingsItem
@@ -22,37 +44,56 @@ const NotificationSettings = () => {
       <Divider />
       {totalSetting ? (
         <>
-          <Text style={{ color: 'white' }}>기능별 알림 (임시 컴포넌트)</Text>
+          {/* <Text style={{ color: 'white' }}>기능별 알림 (임시 컴포넌트)</Text> */}
           <SettingsItem
             label="송금 요청 알림"
             isEnabled={sendRequestSetting}
-            onChange={() => setSendRequestSetting((prev) => !prev)}
+            onChange={() => {
+              saveSettings({ sendRequestSetting: !sendRequestSetting });
+              setSendRequestSetting((prev) => !prev);
+            }}
           />
           <SettingsItem
             label="송금 완료 알림"
             isEnabled={sendSuccessSetting}
-            onChange={() => setSendSuccessSetting((prev) => !prev)}
+            onChange={() => {
+              saveSettings({ sendSuccessSetting: !sendSuccessSetting });
+              setSendSuccessSetting((prev) => !prev);
+            }}
           />
           <SettingsItem
             label="송금 실패 알림"
             isEnabled={sendFailSetting}
-            onChange={() => setSendFailSetting((prev) => !prev)}
+            onChange={() => {
+              saveSettings({ sendFailSetting: !sendFailSetting });
+              setSendFailSetting((prev) => !prev);
+            }}
           />
           <Divider />
           <SettingsItem
             label="입금 시도 알림"
             isEnabled={receiveRequestSetting}
-            onChange={() => setReceiveRequestSetting((prev) => !prev)}
+            onChange={() => {
+              saveSettings({ receiveRequestSetting: !receiveRequestSetting });
+              setReceiveRequestSetting((prev) => !prev);
+            }}
           />
           <SettingsItem
             label="입금 성공 알림"
             isEnabled={receiveSuccessSetting}
-            onChange={() => setReceiveSuccessSetting((prev) => !prev)}
+            onChange={() => {
+              saveSettings({ receiveSuccessSetting: !receiveSuccessSetting });
+              setReceiveSuccessSetting((prev) => !prev);
+            }}
           />
+          <Divider />
           <SettingsItem
             label="구매 결정 알림"
             isEnabled={purchaceTokenSetting}
-            onChange={() => setPurchaceTokenSetting((prev) => !prev)}
+            onChange={() => {
+              saveSettings({ purchaceTokenSetting: !purchaceTokenSetting });
+              setPurchaceTokenSetting((prev) => !prev);
+            }}
           />
         </>
       ) : null}
