@@ -1,4 +1,3 @@
-import Palette from '@theme/Palette';
 import Shadows from '@theme/Shadows';
 import styled from 'styled-components/native';
 
@@ -8,7 +7,7 @@ export const LayOut = styled.View`
   background-color: ${({ theme }) => theme.cardColor};
   border: 1px solid ${({ theme }) => theme.borderColor};
   box-shadow: ${Shadows.common};
-  height: 450px;
+  height: 420px;
   justify-content: space-between;
 `;
 
