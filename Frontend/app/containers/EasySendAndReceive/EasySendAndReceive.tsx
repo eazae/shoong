@@ -1,4 +1,5 @@
 import Dropdown from "@components/common/Dropdown";
+import QRGen from "@components/QR/QRGen/QRGen";
 import React, { useState } from "react"
 import { Text, View } from "react-native";
 
@@ -27,7 +28,7 @@ const EasySendAndReceive: React.FC<EasySendAndReceiveProps> = ({ address }) => {
                 )
             } */}
             <Dropdown items={itemList} />
-            <Text>11</Text>
+            <QRGen address="1234" />
         </View>
     );
 }

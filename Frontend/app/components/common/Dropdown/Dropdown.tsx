@@ -28,7 +28,9 @@ const Dropdown: React.FC<DropdownProps> = ({ items }) => {
                 setItems={setItem}
                 loading={loading}
                 closeAfterSelecting={true}
+                listMode="SCROLLVIEW"
             />
+
         </View>
     );
 };
