@@ -1,6 +1,7 @@
 import Button from '@components/common/Button';
 import TextButton from '@components/common/TextButton/TextButton';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import CompTest from '@screens/CompTest';
 import Settings from '@screens/Settings/Settings';
 import Wallet from '@screens/Wallet';
 import Typography from '@theme/Typography';
