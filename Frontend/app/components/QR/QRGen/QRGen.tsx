@@ -6,7 +6,7 @@ import React from 'react';
 import QRCode from 'react-native-qrcode-svg';
 
 interface QRGenProps {
-    address: string;
+    address: string | undefined;
 }
 
 const QRGen: React.FC<QRGenProps> = ({ address }) => {
