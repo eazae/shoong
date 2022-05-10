@@ -1,9 +1,9 @@
 {
   "expo": {
-    "name": "Shoong",
-    "slug": "Shoong",
+    "name": "Frontend",
+    "slug": "Frontend",
     "version": "1.0.0",
     "assetBundlePatterns": ["**/*"]
   },
-  "name": "Shoong"
+  "name": "Frontend"
 }
