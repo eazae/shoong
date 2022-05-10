@@ -5,9 +5,9 @@ import { ButtonProps } from './Button.props';
 
 export const ButtonContainer = styled.TouchableOpacity<ButtonProps>`
   width: 100%;
-  height: 45px;
-  padding: 12px;
-  border-radius: 10px;
+  padding: 15px;
+  margin-bottom: 6px;
+  border-radius: 8px;
   background-color: ${({ variant }) => Color.buttonColor[variant!]};
   flex-direction: row;
   justify-content: center;

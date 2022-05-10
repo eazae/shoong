@@ -1,11 +1,7 @@
 import Button from '@components/common/Button';
 import TextButton from '@components/common/TextButton/TextButton';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import CompTest from '@screens/CompTest';
-import BiometricSettings from '@screens/Settings/BiometricSettings';
-import NotificationSettings from '@screens/Settings/NotificationSettings';
 import Settings from '@screens/Settings/Settings';
-import UserInfoSettings from '@screens/Settings/UserInfoSettings';
 import Wallet from '@screens/Wallet';
 import Typography from '@theme/Typography';
 import { isAndroid } from '@utils/native';
@@ -45,7 +41,7 @@ const Tabs = () => {
         name="지갑"
         component={Wallet}
         options={{
-          headerShown: true,
+          headerShown: false,
           tabBarIcon: ({ color, size }) => {
             return <Cardholder color={color} size={size} />;
           },

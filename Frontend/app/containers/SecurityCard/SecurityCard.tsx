@@ -25,7 +25,7 @@ const SecurityCard = () => {
         title="보안카드 인증하러 가기"
         variant="primary"
         onPress={() => console.log('어디로 가지')}
-      ></Button>
+      />
     </LayOut>
   );
 };
