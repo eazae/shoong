@@ -4,6 +4,9 @@
 
 #import <Expo/Expo.h>
 
+#import <UserNotifications/UNUserNotificationCenter.h>
+
 @interface AppDelegate : EXAppDelegateWrapper <RCTBridgeDelegate>
+@interface AppDelegate : UIResponder <UIApplicationDelegate, RCTBridgeDelegate, UNUserNotificationCenterDelegate>
 
 @end
