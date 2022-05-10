@@ -17,6 +17,7 @@ module.exports = function (api) {
             '@theme': './app/theme',
             '@utils': './app/utils',
             '@navigations': './app/navigations',
+            '@atoms': './app/atoms',
           },
         },
       ],
