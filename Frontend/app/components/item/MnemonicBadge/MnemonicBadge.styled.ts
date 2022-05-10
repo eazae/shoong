@@ -9,7 +9,7 @@ export const LayOut = styled.View<IMnemonicBadge>`
   align-items: center;
   width: 80%;
   border-radius: 12px;
-  padding: 8px 5px;
+  padding: 7px 5px;
   margin: 0px 5px;
   border: 1.5px ${({ variant }) => variant} ${Color.borderColor.primary};
 `;

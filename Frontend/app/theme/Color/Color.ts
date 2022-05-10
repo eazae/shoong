@@ -20,6 +20,7 @@ const buttonColor: buttonColorType = {
   secondary: Palette.primaryOpacity,
   error: Palette.danger,
   disabled: Palette.mono300,
+  transparent: 'transparent',
 };
 
 const color: colorType = {

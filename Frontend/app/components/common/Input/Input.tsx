@@ -1,53 +1,61 @@
-import React, { useState } from 'react';
-import { SafeAreaView, StyleSheet, TextInput } from 'react-native';
-import styled from 'styled-components/native';
+import { useState } from 'react';
+import { Keyboard, View } from 'react-native';
+import { IInput } from './Input.props';
+import {
+  Error,
+  ErrorMessage,
+  Label,
+  LabelMessage,
+  KeyboardArea,
+  TextInput,
+  LayOut,
+} from './Input.styled';
 
-const Label = styled.Text`
-  color: ${(props) => props.theme.textColor};
-  margin: 12px 16px;
-`;
-const TextInputComp = styled.TextInput`
-  height: 40px;
-  margin: 0px 16px 10px 16px;
-  border-width: 0.2px;
-  border-radius: 5px;
-  border-color: ${(props) => props.theme.borderColor};
-  padding: 10px;
-  color: ${(props) => props.theme.textColor};
-  background-color: ${(props) => props.theme.subBgColor};
-`;
-
-interface InputProps {
-  placeholder: string;
-  keyboardType: 'numeric' | 'default' | 'phone-pad';
-  disabled?: boolean;
-  label?: string;
-  presetValue?: string;
-  isPassword?: boolean;
-}
-
-const Input: React.FC<InputProps> = ({
-  placeholder,
-  keyboardType,
-  disabled,
+const Input: React.FC<IInput> = ({
+  type = 'default',
   label,
-  presetValue,
-  isPassword,
+  onBlur,
+  error,
+  onChange,
+  placeholder,
+  value,
 }) => {
-  const [value, setValue] = useState(presetValue ?? '');
+  const [isFocused, setIsFocused] = useState(false);
 
   return (
-    <>
-      {label ? <Label>{label}</Label> : null}
-      <TextInputComp
-        onChangeText={(curr) => setValue(curr)}
-        value={value}
-        placeholder={placeholder}
-        keyboardType={keyboardType}
-        editable={!disabled}
-        secureTextEntry={isPassword}
-      />
-    </>
+    <KeyboardArea onPress={Keyboard.dismiss}>
+      <LayOut>
+        {label ? (
+          <LabelMessage>
+            <Label weight="bold" size="body1">
+              {label}
+            </Label>
+          </LabelMessage>
+        ) : null}
+        <TextInput
+          secureTextEntry={type === 'password'}
+          error={error || ''}
+          onBlur={() => {
+            setIsFocused(false);
+            return onBlur;
+          }}
+          autoCapitalize="none"
+          onChangeText={onChange}
+          placeholder={placeholder}
+          value={value}
+          onFocus={() => setIsFocused(true)}
+          isFocused={isFocused}
+          keyboardType={type !== 'password' ? type : 'default'}
+        />
+        {error ? (
+          <ErrorMessage>
+            <Error size="body3" color="error">
+              {error}
+            </Error>
+          </ErrorMessage>
+        ) : null}
+      </LayOut>
+    </KeyboardArea>
   );
 };
 
