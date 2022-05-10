@@ -42,19 +42,22 @@ interface TabButtonProps {
 
 const TabButton: React.FC<TabButtonProps> = ({ onPress, icon, title, children }) => (
   <TabButtonContainer onPress={onPress}>
-    {icon ? <TabButtonIcon>{icon}</TabButtonIcon> : null}
-
+    {/* {icon ? <TabButtonIcon>{icon}</TabButtonIcon> : null} */}
     <TabButtonContent>
       <TabButtonTitle>{title}</TabButtonTitle>
       {children}
     </TabButtonContent>
     <TabIcon>
-      <CaretRight
-        size={16}
-        style={{ alignItems: 'flex-end' }}
-        weight="bold"
-        color={useTheme().textColor}
-      />
+      {icon ? (
+        <TabButtonIcon>{icon}</TabButtonIcon>
+      ) : (
+        <CaretRight
+          size={16}
+          style={{ alignItems: 'flex-end' }}
+          weight="bold"
+          color={useTheme().textColor}
+        />
+      )}
     </TabIcon>
   </TabButtonContainer>
 );

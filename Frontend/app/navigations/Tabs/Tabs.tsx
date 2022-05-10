@@ -41,7 +41,7 @@ const Tabs = () => {
         ),
       }}
     >
-      {/* <Screen
+      <Screen
         name="지갑"
         component={Wallet}
         options={{
@@ -92,7 +92,7 @@ const Tabs = () => {
             return <GasPump color={color} size={size} />;
           },
         }}
-      /> */}
+      />
 
       <Screen
         name="설정"

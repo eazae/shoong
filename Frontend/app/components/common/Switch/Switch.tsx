@@ -16,5 +16,5 @@ export const Switch = ({ isEnabled, onChange }: SwitchProps) => {
   // const [isEnabled, setIsEnabled] = useState(false);
   // const toggleSwitch = () => setIsEnabled((previousState) => !previousState);
 
-  return <SwitchComp onValueChange={onChange} value={!isEnabled} />;
+  return <SwitchComp onValueChange={onChange} value={isEnabled} />;
 };
