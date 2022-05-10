@@ -2,6 +2,7 @@ import Button from '@components/common/Button';
 import TextButton from '@components/common/TextButton/TextButton';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import CompTest from '@screens/CompTest';
+import Send from '@screens/Send';
 import Settings from '@screens/Settings/Settings';
 import Wallet from '@screens/Wallet';
 import Typography from '@theme/Typography';
@@ -51,9 +52,7 @@ const Tabs = () => {
       <Screen
         name="송금"
         component={() => (
-          <TmpView>
-            <Typography>송금</Typography>
-          </TmpView>
+          <Send address="" />
         )}
         options={{
           headerShown: true,
