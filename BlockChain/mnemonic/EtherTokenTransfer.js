@@ -23,7 +23,7 @@ const gasFee = 10
 const contractAddr = "0x70cBa46d2e933030E2f274AE58c951C800548AeF"; //bat
 
 
-const ethereumTokenTransfer = async(address, privateKey,toAddress,inputToken,gasFee) =>{
+const ethereumTokenTransfer = async(address, privateKey,toAddress,contractAddr,inputToken,gasFee) =>{
     // 토큰 보내기 
     let minABI = [
         // transfer
@@ -78,4 +78,4 @@ const ethereumTokenTransfer = async(address, privateKey,toAddress,inputToken,gas
 
 }
 
-ethereumTokenTransfer(address,privateKey,toAddress,inputToken,gasFee)
+ethereumTokenTransfer(address,privateKey,toAddress,contractAddr,inputToken,gasFee)
