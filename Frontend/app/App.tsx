@@ -10,6 +10,7 @@ import 'react-native-url-polyfill/auto';
 import { useColorScheme } from 'react-native';
 import { getAppThemeSettings } from '@utils/asyncStorage';
 import { useEffect, useState } from 'react';
+import { RecoilRoot } from 'recoil';
 // import { ThemeProvider } from 'styled-components/native';
 
 export default function App() {
@@ -27,12 +28,14 @@ export default function App() {
 
   return (
     <>
-      <ThemeProvider theme={isDark ? DarkTheme : LightTheme}>
-        {/* <NavigationContainer theme={isDark ? Theme.dark.navigation : Theme.light.navigation}> */}
-        <NavigationContainer theme={isDark ? DarkTheme.navigation : LightTheme.navigation}>
-          <Root />
-        </NavigationContainer>
-      </ThemeProvider>
+      <RecoilRoot>
+        <ThemeProvider theme={isDark ? DarkTheme : LightTheme}>
+          {/* <NavigationContainer theme={isDark ? Theme.dark.navigation : Theme.light.navigation}> */}
+          <NavigationContainer theme={isDark ? DarkTheme.navigation : LightTheme.navigation}>
+            <Root />
+          </NavigationContainer>
+        </ThemeProvider>
+      </RecoilRoot>
     </>
   );
 }
