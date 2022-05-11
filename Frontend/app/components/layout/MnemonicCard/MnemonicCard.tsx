@@ -20,9 +20,13 @@ const MnemonicCard: React.FC<IMnemonic> = ({ mnemonicWords }) => {
           <List>
             {[1, 2, 3, 4, 5, 6].map((index) => {
               const key = idx * 6 + index - 1;
+              const word = mnemonicWords[idx * 6 + index - 1];
               return (
-                <MnemonicBadge key={'mnemonic' + key}>
-                  {mnemonicWords[idx * 6 + index - 1]}
+                <MnemonicBadge
+                  variant={word === undefined ? 'dashed' : 'solid'}
+                  key={'mnemonic' + key}
+                >
+                  {word === undefined ? ' ' : word}
                 </MnemonicBadge>
               );
             })}
