@@ -1,5 +1,5 @@
 import Avatar from '@components/common/Avatar';
-import Input from '@components/common/Input/Input';
+import Input from '@components/common/TextInput/TextInput';
 import { UserCircle } from 'phosphor-react-native';
 import { useState } from 'react';
 import { View } from 'react-native';
