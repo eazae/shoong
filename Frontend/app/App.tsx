@@ -8,17 +8,34 @@ import { DarkTheme, LightTheme } from '@theme/Theme2/Theme';
 import 'react-native-url-polyfill/auto';
 
 import { useColorScheme } from 'react-native';
+import { getAppThemeSettings } from '@utils/asyncStorage';
+import { useEffect, useState } from 'react';
+import { RecoilRoot } from 'recoil';
 // import { ThemeProvider } from 'styled-components/native';
 
 export default function App() {
-  const isDark = useColorScheme() === 'dark';
+  const isSystemDark = useColorScheme() === 'dark';
+  const [isDark, setIsDark] = useState<boolean>(true);
+
+  const getThemeSettings = async () => {
+    const appSetting = await getAppThemeSettings();
+    setIsDark(appSetting === 'system' ? isSystemDark : appSetting === 'dark');
+  };
+
+  useEffect(() => {
+    getThemeSettings();
+  }, [isSystemDark]);
+
   return (
     <>
-      <ThemeProvider theme={isDark ? DarkTheme : LightTheme}>
-        <NavigationContainer theme={isDark ? Theme.dark.navigation : Theme.light.navigation}>
-          <Root />
-        </NavigationContainer>
-      </ThemeProvider>
+      <RecoilRoot>
+        <ThemeProvider theme={isDark ? DarkTheme : LightTheme}>
+          {/* <NavigationContainer theme={isDark ? Theme.dark.navigation : Theme.light.navigation}> */}
+          <NavigationContainer theme={isDark ? DarkTheme.navigation : LightTheme.navigation}>
+            <Root />
+          </NavigationContainer>
+        </ThemeProvider>
+      </RecoilRoot>
     </>
   );
 }

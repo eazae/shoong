@@ -15,5 +15,6 @@ getEtherBalance : 이더리움 네트워크 기반의 잔고를 조회합니다.
 getSolanaBalance: 솔라나 네트워크 기반의 잔고를 조회합니다.
 EtherTokenTransfer: 이더리움 네트워크 기반의 토큰을 보냅니다.
 EtherTransfer: 이더리움을 보냅니다
+getGasFee: 가스비용3단계 구하기, 입력된 가스,코인,토큰 단위 바꿔주기 
 ```
 

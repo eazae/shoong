@@ -8,6 +8,10 @@ import Size from '@theme/Typography/Size';
 import { ArrowRight } from 'phosphor-react-native';
 import { useForm } from 'react-hook-form';
 import { AuthLayOut } from './LoginAuth.styled';
+// recoil
+import { useSetRecoilState } from 'recoil';
+import { isLoggedState } from '@atoms/atoms';
+import { login } from '@services/api/user/userAPI';
 
 const NOT_REGISTERED = '회원이 아니세요? 가입하러 가기';
 
@@ -17,6 +21,14 @@ const LoginAuth = () => {
     control,
     formState: { errors },
   } = useForm<ILogin>();
+
+  // @신지우
+  // const setIsLogged = useSetRecoilState(isLoggedState);
+  /* 로그인 시 */
+  // const result = await login('아이디', '비밀번호');
+  // if (result.successCode) {
+  //   setIsLogged((curr) => !curr);
+  // }
 
   const { navigate } = useNavigation();
   const goToJoin = () => navigate('Join');

@@ -1,10 +1,11 @@
 import Button from '@components/common/Button/Button';
-import Input from '@components/common/Input/Input';
+
 import Modal from '@components/common/Modal/Modal';
 import { Switch } from '@components/common/Switch/Switch';
 import TabButton from '@components/common/TabButton/TabButton';
+import Input from '@components/common/TextInput/TextInput';
 import { getSolanaBalance } from '@services/web3/solana';
-import { getSecureStoreValue, setSecureStoreValue } from '@utils/secureStore';
+import { getSecureStoreValue, setJWTValue, setSecureStoreValue } from '@utils/secureStore';
 import { Alien, UserCircleGear } from 'phosphor-react-native';
 import { useEffect, useState } from 'react';
 import { Alert, Dimensions, Pressable, Text } from 'react-native';
@@ -22,6 +23,7 @@ const CompTest: React.FC<any> = () => {
 
   // JWT 저장 테스트
   async function test() {
+    setJWTValue('테스트');
     // getSecureStoreValue('jwt');
     // setSecureStoreValue('jwt', '테스트JWT값');
     await getSolanaBalance('CqKfJPQFRn6sSN2zWbKUckR68XPFYSDY42D2grecCwr1').catch((err) =>
@@ -37,7 +39,7 @@ const CompTest: React.FC<any> = () => {
       {/* Button */}
       <Button onPress={() => console.log('PRESSED')} title={'버튼'} />
       {/* Switch */}
-      <Switch />
+      <Switch isEnabled onChange={() => {}} />
       {/* Modal */}
       <Modal modalVisible={modalVisible} onModalClosed={onModalClosed} />
       <Pressable onPress={() => setModalVisible(true)}>
