@@ -6,7 +6,6 @@ import { clearJWTValue, getJWTValue, setJWTValue } from '@utils/secureStore';
 import { isLoggedState } from '@atoms/atoms';
 import { useEffect, useState } from 'react';
 import { useRecoilValue } from 'recoil';
-import { Alert } from 'react-native';
 
 const Nav = createNativeStackNavigator();
 
@@ -24,10 +23,9 @@ const Root = () => {
   useEffect(() => {
     // 로그인 시 JWT 저장
     // setJWTValue('테스트');
-
     // 로그아웃 시 JWT 삭제
     // clearJWTValue();
-    checkLoggedIn();
+    // checkLoggedIn();
   }, [isLogged]);
 
   return (
