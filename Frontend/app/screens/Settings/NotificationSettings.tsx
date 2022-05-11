@@ -40,8 +40,8 @@ const NotificationSettings = () => {
 
   const getDetailSettings = async () => {
     const data = await getNotificationSettings();
-    const authStatus = (await messaging().requestPermission()) === 1;
-    setTotalSetting(authStatus || data.enableNotificationSettings);
+    // const authStatus = (await messaging().requestPermission()) === 1;
+    // setTotalSetting(authStatus || data.enableNotificationSettings);
     setSendRequestSetting(data.notificationDetailSettings.sendRequestSetting);
     setSendSuccessSetting(data.notificationDetailSettings.sendSuccessSetting);
     setSendFailSetting(data.notificationDetailSettings.sendFailSetting);
