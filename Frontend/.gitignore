@@ -57,3 +57,6 @@ dist/
 # misc
 .DS_Store
 # .env
+
+# secret
+*secret.ts
