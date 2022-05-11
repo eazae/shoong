@@ -19,6 +19,7 @@ import { useEffect, useState } from 'react';
 import { useFormContext } from 'react-hook-form';
 import Instruction from '../Instruction';
 import { IJoin } from '../Join.props';
+import { submit } from './JoinCustom.hooks';
 import { Phone, Row, Verify } from './JoinCustom.styled';
 
 const message = ['다른 분이', '회원님을 알아보기 쉽게', '추가 정보를 입력해주세요'];
@@ -80,11 +81,11 @@ const JoinCustom: React.FC<NativeStackNavigationProp<any, 'JoinCustom'>> = () =>
               <DefaultInput
                 type="phone-pad"
                 name="phoneNumber"
-                placeholder="전화번호는 '-'를 제외하고 입력"
+                placeholder="핸드폰 번호는 '-'를 제외하고 입력"
                 control={control}
                 errors={errors}
                 rules={{
-                  required: '전화번호는 필수입니다.',
+                  required: '핸드폰 번호는 필수입니다.',
                   validate: {
                     shouldPhoneNumber: (phoneNumber: string) => {
                       const regExp = /^010\d{3,4}\d{4}$/;
@@ -122,9 +123,14 @@ const JoinCustom: React.FC<NativeStackNavigationProp<any, 'JoinCustom'>> = () =>
             }}
           />
           <Button
-            onPress={handleSubmit((data) => {
-              navigate('Join', { screen: 'JoinCreateOrLoad' });
-            })}
+            onPress={handleSubmit((data) =>
+              submit(data)
+                .then((res) => {
+                  console.log(res.data);
+                  navigate('Join', { screen: 'JoinCreateOrLoad' });
+                })
+                .catch((err) => alert(err))
+            )}
             icon={<ArrowRight size={Size.body1} color={Color.textColor.light} />}
             title="다음"
           />
