@@ -1,4 +1,4 @@
-package com.frontend;
+package com.shoong;
 
 import android.app.Application;
 import android.content.Context;
@@ -20,6 +20,9 @@ import com.facebook.react.bridge.JSIModulePackage;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
+// Push Notifications
+import com.dieam.reactnativepushnotification.ReactNativePushNotificationPackage;  // <--- Import Package
+
 public class MainApplication extends Application implements ReactApplication {
   private final ReactNativeHost mReactNativeHost = new ReactNativeHostWrapper(
     this,
@@ -35,6 +38,9 @@ public class MainApplication extends Application implements ReactApplication {
       List<ReactPackage> packages = new PackageList(this).getPackages();
       // Packages that cannot be autolinked yet can be added manually here, for example:
       // packages.add(new MyReactNativePackage());
+      /* Push Notifications */
+      packages.add(new MainReactPackage());
+      packages.add(new ReactNativePushNotificationPackage());
       return packages;
     }
 
@@ -79,7 +85,7 @@ public class MainApplication extends Application implements ReactApplication {
          We use reflection here to pick up the class that initializes Flipper,
         since Flipper library is not available in release mode
         */
-        Class<?> aClass = Class.forName("com.frontend.ReactNativeFlipper");
+        Class<?> aClass = Class.forName("com.shoong.ReactNativeFlipper");
         aClass
             .getMethod("initializeFlipper", Context.class, ReactInstanceManager.class)
             .invoke(null, context, reactInstanceManager);
