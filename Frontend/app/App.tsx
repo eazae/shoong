@@ -59,6 +59,15 @@ export default function App() {
     requestUserPermission();
   }, []);
 
+  // (https://rnfirebase.io/messaging/usage#foreground-state-messages)
+  useEffect(() => {
+    const unsubscribe = messaging().onMessage(async (remoteMessage) => {
+      Alert.alert('A new FCM message arrived!', JSON.stringify(remoteMessage));
+    });
+
+    return unsubscribe;
+  }, []);
+
   useEffect(() => {
     getThemeSettings();
   }, [isSystemDark]);
