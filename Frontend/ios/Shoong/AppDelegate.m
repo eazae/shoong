@@ -1,10 +1,16 @@
 #import "AppDelegate.h"
 
+#import <UserNotifications/UserNotifications.h>
+#import <RNCPushNotificationIOS.h>
+
 #import <React/RCTBridge.h>
 #import <React/RCTBundleURLProvider.h>
 #import <React/RCTRootView.h>
 #import <React/RCTLinkingManager.h>
 #import <React/RCTConvert.h>
+
+// (// Add Line Must Before #ifdef FB_SONARKIT_ENABLED) (https ://github.com/react-native-camera/react-native-camera/issues/3008)
+#import <Firebase.h>
 
 #if defined(FB_SONARKIT_ENABLED) && __has_include(<FlipperKit/FlipperClient.h>)
 #import <FlipperKit/FlipperClient.h>
@@ -14,8 +20,7 @@
 #import <SKIOSNetworkPlugin/SKIOSNetworkAdapter.h>
 #import <FlipperKitReactPlugin/FlipperKitReactPlugin.h>
 
-#import <UserNotifications/UserNotifications.h>
-#import <RNCPushNotificationIOS.h>
+
 
 static void InitializeFlipper(UIApplication *application) {
   FlipperClient *client = [FlipperClient sharedClient];
@@ -46,6 +51,15 @@ static void InitializeFlipper(UIApplication *application) {
   [self.window makeKeyAndVisible];
 
   [super application:application didFinishLaunchingWithOptions:launchOptions];
+
+  // Push Notifications
+  if ([FIRApp defaultApp] == nil) {
+      [FIRApp configure];
+  }
+
+  // Define UNUserNotificationCenter
+  UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];
+  center.delegate = self;
 
   return YES;
  }
@@ -98,16 +112,6 @@ didReceiveNotificationResponse:(UNNotificationResponse *)response
          withCompletionHandler:(void (^)(void))completionHandler
 {
   [RNCPushNotificationIOS didReceiveNotificationResponse:response];
-}
-
-- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
-{
-  ...
-  // Define UNUserNotificationCenter
-  UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];
-  center.delegate = self;
-
-  return YES;
 }
 
 //Called when a notification is delivered to a foreground app.
