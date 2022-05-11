@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Keyboard, View } from 'react-native';
+import { Keyboard } from 'react-native';
 import { IInput } from './Input.props';
 import {
   Error,
