@@ -33,7 +33,9 @@ class User {
             val passwordEncoder = BCryptPasswordEncoder()
             field = passwordEncoder.encode(value)
         }
-
+    fun comparePassword(user_password:String):Boolean{
+        return BCryptPasswordEncoder().matches(user_password,this.user_password)
+    }
     @Field("user_nickname")
     var user_nickname: String = ""
 

@@ -1,5 +1,4 @@
 import Button from '@components/common/Button';
-import HeaderGoBackBtn from '@components/item/HeaderGoBackBtn';
 import { LayOut } from '@screens/Login/Login.styled';
 import Color from '@theme/Color';
 import { Cardholder } from 'phosphor-react-native';
@@ -11,7 +10,6 @@ const messages = ['계정정보 입력을', '성공적으로 마쳤어요', '연
 const JoinCreateOrLoad = ({ navigation: { navigate } }) => {
   return (
     <>
-      <HeaderGoBackBtn />
       <LayOut>
         <Instruction messages={messages} />
         <Seperator />
