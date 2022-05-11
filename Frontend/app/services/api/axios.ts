@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { Alert } from 'react-native';
 import * as SecureStore from 'expo-secure-store';
-import { getSecureStoreValue, setSecureStoreValue } from '@utils/secureStore';
+import { getJWTValue, getSecureStoreValue, setSecureStoreValue } from '@utils/secureStore';
 import { API_BASE_URL } from '@env';
 
 const instance = axios.create({
@@ -17,7 +17,7 @@ const instance = axios.create({
 // HTTP request interceptor
 instance.interceptors.request.use(
   (config) => {
-    const jwt = getSecureStoreValue('jwt');
+    const jwt = getJWTValue();
     if (jwt) {
       config.headers!.Authorization = 'Bearer ' + jwt;
     }

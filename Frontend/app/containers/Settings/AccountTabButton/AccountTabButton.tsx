@@ -1,7 +1,10 @@
+import Avatar from '@components/common/Avatar';
 import TabButton from '@components/common/TabButton/TabButton';
+import { useNavigation } from '@react-navigation/native';
+import Typography from '@theme/Typography';
 
 import { CaretRight, UserCircle } from 'phosphor-react-native';
-import styled from 'styled-components/native';
+import styled, { useTheme } from 'styled-components/native';
 
 const Text = styled.Text`
   margin-bottom: 8px;
@@ -12,11 +15,12 @@ const TabButtonContainer = styled.TouchableOpacity`
   width: 100%;
   /* height: 60px; */
   padding: 8px 16px;
-  background-color: rgba(255, 255, 255, 0.1);
+  background-color: ${(props) => props.theme.subBgColor};
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+  color: ${(props) => props.theme.errorColor};
 `;
 
 const TabButtonIcon = styled.View`
@@ -36,29 +40,40 @@ const Nickname = styled.Text`
   line-height: 40px;
 `;
 
+const TabText = styled.Text`
+  font-size: 12px;
+  font-weight: 500;
+  color: ${(props) => props.theme.textDisabledColor};
+`;
+
 const TabIcon = styled.View`
   margin-left: 8px;
 `;
 
 const AccountTabButton = () => {
+  const theme = useTheme();
+  const navigation = useNavigation();
+
+  const goToUserInfoSettings = () => {
+    //@ts-ignore
+    navigation.navigate('사용자 정보', {});
+  };
   return (
     <>
-      {/* <TabButton
-        onPress={() => console.log('사용자 계정 설정')}
-        title={'닉네임'}
-        icon={<UserCircle size={32} color="#ffffff" weight="fill" />}
-      >
-        <Text>내 정보 수정하기</Text>
-      </TabButton> */}
-      {/* TODO: <Avatar> 로 대체 */}
-      <TabButtonContainer>
-        <UserCircle size={50} color="#ffffff" weight="fill" />
+      <TabButtonContainer onPress={goToUserInfoSettings}>
+        {/* TODO: <Avatar> 로 대체 */}
+        <UserCircle size={50} color={theme.disabledColor} weight="fill" />
         <TabButtonContent>
           <Nickname>닉네임</Nickname>
-          <Text>내 정보 수정하기</Text>
+          <TabText>내 정보 수정하기</TabText>
         </TabButtonContent>
         <TabIcon>
-          <CaretRight size={16} style={{ alignItems: 'flex-end' }} weight="bold" color="white" />
+          <CaretRight
+            size={16}
+            style={{ alignItems: 'flex-end' }}
+            weight="bold"
+            color={theme.textColor}
+          />
         </TabIcon>
       </TabButtonContainer>
     </>

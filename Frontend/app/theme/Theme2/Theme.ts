@@ -1,19 +1,34 @@
-import { colors } from '@theme/Color/Color';
+import { DarkColors, LightColors, TextColors } from '@theme/Color/Color';
 import Palette from '@theme/Palette';
 import { DefaultTheme } from 'styled-components/native';
 
 export const LightTheme: DefaultTheme = {
-  textColor: Palette.mono500,
-  mainBgColor: Palette.mono150,
+  /* Text */
+  textColor: TextColors.MONO100,
+  textDisabledColor: TextColors.MONO60,
+  textHighlightColor: TextColors.HIGHLIGHT,
+
+  /* Background */
+  mainBgColor: LightColors.BACKGROUND_DEFAULT,
+  subBgColor: LightColors.BACKGROUND_VARIANT,
+
+  /* Components */
+  enabledColor: LightColors.PRIMARY100,
+  disabledColor: LightColors.PRIMARY20,
+  borderColor: LightColors.MONO60,
+
+  /* Semantics */
+  errorColor: LightColors.ERROR,
+
   cardColor: Palette.mono100,
-  borderColor: Palette.mono200,
+
   navigation: {
     dark: false,
     colors: {
-      primary: Palette.primary,
-      background: Palette.mono150,
-      card: Palette.mono150,
-      text: Palette.mono500,
+      primary: LightColors.PRIMARY100,
+      background: LightColors.BACKGROUND_DEFAULT,
+      card: LightColors.BACKGROUND_VARIANT,
+      text: TextColors.MONO100,
       border: 'transparent',
       notification: Palette.mono300,
     },
@@ -22,17 +37,32 @@ export const LightTheme: DefaultTheme = {
 };
 
 export const DarkTheme: DefaultTheme = {
-  textColor: Palette.mono100,
-  mainBgColor: Palette.mono500,
-  cardColor: Palette.mono400,
-  borderColor: Palette.mono300,
+  /* Text */
+  textColor: TextColors.MONO0,
+  textDisabledColor: TextColors.MONO60,
+  textHighlightColor: TextColors.HIGHLIGHT,
+
+  /* Background */
+  mainBgColor: DarkColors.BACKGROUND_DEFAULT,
+  subBgColor: DarkColors.BACKGROUND_VARIANT,
+
+  /* Components */
+  enabledColor: DarkColors.PRIMARY20,
+  disabledColor: DarkColors.PRIMARY100,
+
+  borderColor: DarkColors.MONO60,
+
+  /* Semantics */
+  errorColor: DarkColors.ERROR,
+
+  cardColor: Palette.mono100,
   navigation: {
     dark: true,
     colors: {
-      primary: Palette.primary,
-      background: Palette.mono500,
-      card: Palette.mono500,
-      text: Palette.mono100,
+      primary: DarkColors.PRIMARY20,
+      background: DarkColors.BACKGROUND_DEFAULT,
+      card: DarkColors.BACKGROUND_DEFAULT,
+      text: TextColors.MONO0,
       border: 'transparent',
       notification: Palette.mono300,
     },

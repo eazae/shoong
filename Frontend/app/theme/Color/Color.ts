@@ -81,24 +81,10 @@ export const colors = {
   INFO: '#2685CA',
 };
 
-// export const lightMode = {
-//   // primary color
-//   PRIMARY_DISABLED: '',
-//   PRIMARY_LIGHT: '',
-//   PRIMARY: '#ffc048',
-//   PRIMARY_DARK: '',
-
-//   // secondary color
-//   BLACK: '#1e272e',
-//   DARK_GREY: '#d2d2d2',
-//   LIGHT_GREY: '#808e9b',
-//   WHITE: '#ffffff',
-// };
-
 /**
  * @author eazae
  */
-export const lightColors = {
+export const LightColors = {
   /* Primary Colors */
   PRIMARY_DISABLED: '#D0DBFF',
   PRIMARY_FOCUSED: '',
@@ -131,7 +117,8 @@ export const lightColors = {
 
   /* Background Colors */
   BACKGROUND_DEFAULT: '#F5F7FF',
-  BACKGROUND_VARIANT: '#ECF0FE',
+  // BACKGROUND_VARIANT: '#ebecef',
+  BACKGROUND_VARIANT: '#FFFFFF',
 
   /* Semantics */
   SUCCESS: '#3F845F',
@@ -143,7 +130,7 @@ export const lightColors = {
 /**
  * @author eazae
  */
-export const darkColors = {
+export const DarkColors = {
   /* Primary Colors */
   PRIMARY_DISABLED: '#D0DBFF',
   PRIMARY_FOCUSED: '',
@@ -185,7 +172,7 @@ export const darkColors = {
   INFO: '#B42020',
 };
 
-export const textColors = {
+export const TextColors = {
   /* Text Colors */
   MONO100: '#2C3131',
   MONO80: '#717784',
@@ -193,6 +180,8 @@ export const textColors = {
   MONO40: '#C8CBD0',
   MONO20: '#F4F5F6',
   MONO0: '#ffffff',
+
+  HIGHLIGHT: '#3C63EC',
 };
 
 export default color;
