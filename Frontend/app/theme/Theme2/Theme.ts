@@ -47,7 +47,7 @@ export const DarkTheme: DefaultTheme = {
   subBgColor: DarkColors.BACKGROUND_VARIANT,
 
   /* Components */
-  enabledColor: DarkColors.PRIMARY20,
+  enabledColor: DarkColors.PRIMARY40,
   disabledColor: DarkColors.PRIMARY100,
 
   borderColor: DarkColors.MONO60,
