@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "304031919849",
+    "project_id": "shoong-49054",
+    "storage_bucket": "shoong-49054.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:304031919849:android:02215e7d08e3bdba048a78",
+        "android_client_info": {
+          "package_name": "com.shoong"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "304031919849-ajgajabchslejtlja57pb3dvmanl3134.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBwAHteTr991CObJ1gLKosW640mTKcWd0k"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "304031919849-ajgajabchslejtlja57pb3dvmanl3134.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

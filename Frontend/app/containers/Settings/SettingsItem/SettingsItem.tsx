@@ -9,7 +9,7 @@ const Container = styled.View`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  background-color: ${(props) => props.theme.lightBgColor};
+  background-color: ${(props) => props.theme.subBgColor};
 `;
 
 const Label = styled.Text`
