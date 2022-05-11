@@ -1,3 +1,4 @@
+import { JoinRequestProps } from '@screens/Join/Join.props';
 import { setJWTValue } from '@utils/secureStore';
 import instance from '../axios';
 
@@ -15,4 +16,9 @@ export const login = async (userId: string, userPw: string) => {
     setJWTValue(response.data.accessToken);
   }
   return response.data;
+};
+
+export const join = async (body: JoinRequestProps) => {
+  const response = await instance.post(COMMON + '/join', body);
+  return response;
 };

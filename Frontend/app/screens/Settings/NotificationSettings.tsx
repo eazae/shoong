@@ -1,11 +1,18 @@
 import Divider from '@components/common/Divider/Divider';
 import SettingsItem from '@containers/Settings/SettingsItem/SettingsItem';
 import { getNotificationSettings, setNotificationDetailSettings } from '@utils/asyncStorage';
-import { useEffect, useState } from 'react';
-import { Text, View } from 'react-native';
+import { useEffect, useRef, useState } from 'react';
+import messaging from '@react-native-firebase/messaging';
+import PushNotificationIOS from '@react-native-community/push-notification-ios';
+import { Alert, AppState, Linking } from 'react-native';
+import { useIsFocused } from '@react-navigation/native';
 
 const NotificationSettings = () => {
-  // TODO 임시
+  // 사용자가 (네이티브) 설정 화면으로 갔다가 다시 돌아올 시, 설정 변경사항을 알기 위해서
+  // const isFocused = useIsFocused();
+  const appState = useRef(AppState.currentState);
+  const [appStateVisible, setAppStateVisible] = useState(appState.current);
+
   const [totalSetting, setTotalSetting] = useState(false);
   const [sendRequestSetting, setSendRequestSetting] = useState(false);
   const [sendSuccessSetting, setSendSuccessSetting] = useState(false);
@@ -14,14 +21,27 @@ const NotificationSettings = () => {
   const [receiveSuccessSetting, setReceiveSuccessSetting] = useState(false);
   const [purchaceTokenSetting, setPurchaceTokenSetting] = useState(false);
 
+  const toggleNotificationSetting = async () => {
+    // PushNotificationIOS.requestPermissions();
+    //.then((permissions) => console.log(permissions));
+    // Linking.openSettings();
+    Linking.openURL('App-Prefs:NOTIFICATIONS_ID&path=org.name.Shoong');
+  };
+
   const saveSettings = async (setting: object) => {
     await setNotificationDetailSettings(setting);
   };
 
-  const getSettings = async () => {
+  const getTotalSettings = async () => {
+    const authStatus = await messaging().requestPermission();
+    setTotalSetting(authStatus === 1);
+    if (authStatus === 1) getDetailSettings();
+  };
+
+  const getDetailSettings = async () => {
     const data = await getNotificationSettings();
-    console.log(data);
-    setTotalSetting(data.enableNotificationSettings);
+    // const authStatus = (await messaging().requestPermission()) === 1;
+    // setTotalSetting(authStatus || data.enableNotificationSettings);
     setSendRequestSetting(data.notificationDetailSettings.sendRequestSetting);
     setSendSuccessSetting(data.notificationDetailSettings.sendSuccessSetting);
     setSendFailSetting(data.notificationDetailSettings.sendFailSetting);
@@ -30,8 +50,27 @@ const NotificationSettings = () => {
     setPurchaceTokenSetting(data.notificationDetailSettings.purchaceTokenSetting);
   };
 
+  // 앱이 foreground에 있는지 검사하는 방법
+  // (https://reactnative.dev/docs/appstate)
   useEffect(() => {
-    getSettings();
+    const subscription = AppState.addEventListener('change', (nextAppState) => {
+      if (appState.current.match(/inactive|background/) && nextAppState === 'active') {
+        console.log('App has come to the foreground!');
+        getTotalSettings();
+      }
+
+      appState.current = nextAppState;
+      setAppStateVisible(appState.current);
+      console.log('AppState', appState.current);
+    });
+
+    return () => {
+      subscription.remove();
+    };
+  }, []);
+
+  useEffect(() => {
+    getTotalSettings();
   }, []);
 
   return (
@@ -39,7 +78,10 @@ const NotificationSettings = () => {
       <SettingsItem
         label="전체알림"
         isEnabled={totalSetting}
-        onChange={() => setTotalSetting((prev) => !prev)}
+        onChange={() => {
+          toggleNotificationSetting();
+          // setTotalSetting((prev) => !prev);
+        }}
       />
       <Divider />
       {totalSetting ? (

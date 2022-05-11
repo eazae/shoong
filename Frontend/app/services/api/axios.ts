@@ -5,7 +5,7 @@ import { getJWTValue, getSecureStoreValue, setSecureStoreValue } from '@utils/se
 import { API_BASE_URL } from '@env';
 
 const instance = axios.create({
-  baseURL: API_BASE_URL,
+  baseURL: API_BASE_URL + '/api/',
   timeout: 30000,
   headers: {
     'Content-type': 'application/json',
