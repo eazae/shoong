@@ -2,12 +2,12 @@ import Shadows from '@theme/Shadows';
 import styled from 'styled-components/native';
 
 export const LayOut = styled.View`
-  padding: 20px;
+  padding: 20px 15px 9px;
   border-radius: 16px;
   background-color: ${({ theme }) => theme.cardColor};
   border: 1px solid ${({ theme }) => theme.borderColor};
   box-shadow: ${Shadows.common};
-  height: 420px;
+  /* height: 420px; */
   justify-content: space-between;
 `;
 
