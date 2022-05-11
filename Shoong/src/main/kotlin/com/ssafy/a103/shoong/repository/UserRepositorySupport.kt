@@ -18,4 +18,7 @@ class UserRepositorySupport (
                 user.user_email.eq(email)
             )
     }
+    fun getById(Id:String):Optional<User>{
+        return userRepository.findOne(user.id.eq(Id))
+    }
 }

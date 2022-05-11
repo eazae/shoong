@@ -50,12 +50,12 @@ export const DarkTheme: DefaultTheme = {
   enabledColor: DarkColors.PRIMARY40,
   disabledColor: DarkColors.PRIMARY100,
 
-  borderColor: DarkColors.MONO60,
+  borderColor: Palette.mono300,
 
   /* Semantics */
   errorColor: DarkColors.ERROR,
 
-  cardColor: Palette.mono100,
+  cardColor: Palette.mono400,
   navigation: {
     dark: true,
     colors: {
