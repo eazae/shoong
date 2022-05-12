@@ -6,5 +6,8 @@ module.exports = getDefaultConfig(__dirname);
 module.exports = {
   resolver: {
     sourceExts: ['jsx', 'js', 'ts', 'tsx', 'cjs'],
+    // extraNodeModules: {
+    //   notification: path.resolve(__dirname, 'notification'),
+    // },
   },
 };

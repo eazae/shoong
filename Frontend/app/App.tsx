@@ -12,8 +12,10 @@ import { getAppThemeSettings } from '@utils/asyncStorage';
 import { useEffect, useState } from 'react';
 import { RecoilRoot } from 'recoil';
 // import { ThemeProvider } from 'styled-components/native';
-import messaging from '@react-native-firebase/messaging';
+import messaging, { FirebaseMessagingTypes } from '@react-native-firebase/messaging';
 import { isIos } from '@utils/native';
+import { fcmService } from '@services/notifications/FCMService';
+import { notificationService } from '@services/notifications/NotificationService';
 
 export default function App() {
   const isSystemDark = useColorScheme() === 'dark';
@@ -64,8 +66,36 @@ export default function App() {
     const unsubscribe = messaging().onMessage(async (remoteMessage) => {
       Alert.alert('A new FCM message arrived!', JSON.stringify(remoteMessage));
     });
-
     return unsubscribe;
+  }, []);
+
+  useEffect(() => {
+    fcmService.registerAppWithFCM();
+    fcmService.register(onRegister, onNotification, onOpenNotification);
+    notificationService.configure(onOpenNotification);
+
+    function onRegister(token: string) {
+      console.log('[App] onRegister : token :', token);
+    }
+
+    function onNotification(notify: FirebaseMessagingTypes.Notification) {
+      console.log('[App] onNotification : notify :', notify);
+      const options = {
+        soundName: 'default',
+        playSound: true,
+      };
+      notificationService.showNotification(0, notify.title, notify.body, notify, options);
+    }
+
+    function onOpenNotification(notify: FirebaseMessagingTypes.Notification) {
+      console.log('[App] onOpenNotification : notify :', notify);
+      alert('Open Notification : notify.body :' + notify.body);
+    }
+    return () => {
+      console.log('[App] unRegister');
+      fcmService.unRegister();
+      notificationService.unRegister();
+    };
   }, []);
 
   useEffect(() => {

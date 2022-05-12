@@ -39,8 +39,8 @@ public class MainApplication extends Application implements ReactApplication {
       // Packages that cannot be autolinked yet can be added manually here, for example:
       // packages.add(new MyReactNativePackage());
       /* Push Notifications */
-      packages.add(new MainReactPackage());
-      packages.add(new ReactNativePushNotificationPackage());
+      // packages.add(new MainReactPackage());
+      // packages.add(new ReactNativePushNotificationPackage());
       return packages;
     }
 
