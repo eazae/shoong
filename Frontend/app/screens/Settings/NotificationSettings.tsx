@@ -24,8 +24,8 @@ const NotificationSettings = () => {
   const toggleNotificationSetting = async () => {
     // PushNotificationIOS.requestPermissions();
     //.then((permissions) => console.log(permissions));
-    // Linking.openSettings();
-    Linking.openURL('App-Prefs:NOTIFICATIONS_ID&path=org.name.Shoong');
+    Linking.openSettings();
+    // Linking.openURL('App-Prefs:NOTIFICATIONS_ID&path=org.name.Shoong');
   };
 
   const saveSettings = async (setting: object) => {

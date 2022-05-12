@@ -5,6 +5,7 @@ import JoinCreateOrLoad from '@screens/Join/JoinCreateOrLoad';
 import JoinCustom from '@screens/Join/JoinCustom';
 import JoinMnemonic from '@screens/Join/JoinMnemonic';
 import JoinMnemonicIntroduce from '@screens/Join/JoinMnemonicIntroduce';
+import JoinMnemonicVerification from '@screens/Join/JoinMnemonicVerification.';
 import { FormProvider, useForm } from 'react-hook-form';
 
 const { Navigator, Screen } = createNativeStackNavigator();
@@ -22,6 +23,7 @@ const JoinNav = () => {
         <Screen name="JoinCreateOrLoad" component={JoinCreateOrLoad} />
         <Screen name="JoinMnemonic" component={JoinMnemonic} />
         <Screen name="JoinMnemonicIntroduce" component={JoinMnemonicIntroduce} />
+        <Screen name="JoinMnemonicVerification" component={JoinMnemonicVerification} />
       </Navigator>
     </FormProvider>
   );

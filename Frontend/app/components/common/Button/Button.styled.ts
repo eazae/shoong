@@ -13,6 +13,7 @@ export const ButtonContainer = styled.TouchableOpacity<ButtonProps>`
   justify-content: center;
   align-items: center;
   box-shadow: ${Shadows.button};
+  opacity: ${({ disabled }) => (disabled ? 0.7 : 1)};
 `;
 
 export const IconLayOut = styled.View`
