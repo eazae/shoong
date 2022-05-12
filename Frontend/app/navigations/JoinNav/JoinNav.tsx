@@ -5,7 +5,7 @@ import JoinCreateOrLoad from '@screens/Join/JoinCreateOrLoad';
 import JoinCustom from '@screens/Join/JoinCustom';
 import JoinMnemonic from '@screens/Join/JoinMnemonic';
 import JoinMnemonicIntroduce from '@screens/Join/JoinMnemonicIntroduce';
-import JoinMnemonicVerification from '@screens/Join/JoinMnemonicVerification.';
+import JoinMnemonicVerification from '@screens/Join/JoinMnemonicVerification';
 import { FormProvider, useForm } from 'react-hook-form';
 
 const { Navigator, Screen } = createNativeStackNavigator();
