@@ -16,10 +16,13 @@ import messaging, { FirebaseMessagingTypes } from '@react-native-firebase/messag
 import { isIos } from '@utils/native';
 import { fcmService } from '@services/notifications/FCMService';
 import { notificationService } from '@services/notifications/NotificationService';
+import { QueryClient, QueryClientProvider } from 'react-query';
 
 export default function App() {
   const isSystemDark = useColorScheme() === 'dark';
   const [isDark, setIsDark] = useState<boolean>(true);
+
+  const queryClient = new QueryClient();
 
   const requestUserPermission = async () => {
     /* 0 이 들어올 경우 : 거절 상태일 때.
@@ -108,7 +111,9 @@ export default function App() {
         <ThemeProvider theme={isDark ? DarkTheme : LightTheme}>
           {/* <NavigationContainer theme={isDark ? Theme.dark.navigation : Theme.light.navigation}> */}
           <NavigationContainer theme={isDark ? DarkTheme.navigation : LightTheme.navigation}>
-            <Root />
+            <QueryClientProvider client={queryClient}>
+              <Root />
+            </QueryClientProvider>
           </NavigationContainer>
         </ThemeProvider>
       </RecoilRoot>

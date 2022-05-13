@@ -4,11 +4,13 @@ import styled from 'styled-components/native';
 import { ButtonProps } from './Button.props';
 
 export const ButtonContainer = styled.TouchableOpacity<ButtonProps>`
-  width: 100%;
+  /* width: 100%; */
   padding: 15px;
-  margin-bottom: 6px;
+  margin: 6px 16px;
   border-radius: 8px;
-  background-color: ${({ variant }) => Color.buttonColor[variant!]};
+  background-color: ${(props) =>
+    props.disabled ? props.theme.disabledColor : props.theme.enabledColor};
+  /* background-color: ${({ variant }) => Color.buttonColor[variant!]}; */
   flex-direction: row;
   justify-content: center;
   align-items: center;

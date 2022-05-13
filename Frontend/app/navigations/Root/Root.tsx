@@ -26,7 +26,7 @@ const Root = () => {
 
     // 로그아웃 시 JWT 삭제
     // clearJWTValue();
-    // checkLoggedIn();
+    checkLoggedIn();
   }, [isLogged]);
 
   return (

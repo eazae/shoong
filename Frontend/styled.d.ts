@@ -15,6 +15,9 @@ import 'styled-components';
 
 declare module 'styled-components/native' {
   export interface DefaultTheme {
+    primaryColor: string;
+    secondaryColor: string;
+
     textColor: string;
     textDisabledColor: string;
     textHighlightColor: string;
@@ -24,6 +27,7 @@ declare module 'styled-components/native' {
 
     enabledColor: string;
     disabledColor: string;
+    subColor: string;
 
     errorColor: string;
 

@@ -34,7 +34,7 @@ const Settings = () => {
           // ),
         }}
       >
-        <Screen name="설정메인" component={SettingsHome} />
+        <Screen name="설정" component={SettingsHome} />
         <Screen
           name="사용자 정보"
           component={UserInfoSettings}
