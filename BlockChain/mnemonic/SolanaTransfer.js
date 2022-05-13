@@ -55,8 +55,5 @@ const solanaTransfer = async (myKeypair, toAddress,sol) => {
     console.log(`받은 사람 잔액조회 ${await solana.getBalance(toPublickey)}`);
 }
 
-const myKeypair = await getMyKey(mySecretkey)
-solanaTransfer(myKeypair,toAddress,1)
-
 export {getMyKey, solanaTransfer}
 
