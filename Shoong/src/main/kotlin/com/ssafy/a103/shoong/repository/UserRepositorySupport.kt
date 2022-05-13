@@ -21,4 +21,11 @@ class UserRepositorySupport (
     fun getById(Id:String):Optional<User>{
         return userRepository.findOne(user.id.eq(Id))
     }
+    fun getByPhone(phone_number:String):Optional<User>{
+        return userRepository.findOne(user.user_phone_number.eq(phone_number))
+    }
+
+    fun getByNickName(nickname:String):Optional<User>{
+        return  userRepository.findOne(user.user_nickname.eq(nickname))
+    }
 }
