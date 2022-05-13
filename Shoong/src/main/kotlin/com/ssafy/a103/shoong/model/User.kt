@@ -47,11 +47,8 @@ class User {
     @Field("cards")
     var cards: List<Card> = mutableListOf()
 
-    @Field("Followers")
-    var followers: List<Friend> = mutableListOf()
-
-    @Field("Followees")
-    var followees: List<Friend> = mutableListOf()
+    @Field("friends")
+    var friends: List<Friend> = mutableListOf()
 
     // Type이 일정하지 않은 가변 Key-Value 오브젝트는 Map으로 선언
 //    @Field("dynamicObject")
@@ -101,9 +98,6 @@ class Friend {
     @Id
     var id: String? = null
 
-    @Field("friend_follower_user")
-    var Follower: String? = null
-
-    @Field("frined_followee_user")
-    var Followee: String? = null
+    @Field("friend_id")
+    var friend_id: String? = null
 }
