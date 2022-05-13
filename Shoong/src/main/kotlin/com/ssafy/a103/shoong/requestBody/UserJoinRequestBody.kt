@@ -8,5 +8,5 @@ data class UserJoinRequestBody (
     var user_phone_number: String,
     var user_email: String,
     var user_password: String,
-    var user_nickname: String
+    var user_nickname: String,
 )
