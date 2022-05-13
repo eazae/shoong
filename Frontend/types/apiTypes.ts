@@ -1,5 +1,5 @@
 export interface UserInfoType {
-  cards: Array<CardTypes>;
+  cards: Array<CardType>;
   createdAt: string;
   deletedAt: string;
   id: string;
@@ -10,11 +10,21 @@ export interface UserInfoType {
   user_phone_number: string;
 }
 
-export interface CardTypes {
+export interface CardType {
   card_address: string;
   card_name: string;
   createdAt: string;
   deletedAt: string;
   id: string;
   updatedAt: string;
+}
+
+export interface FriendsListType {
+  list: Array<FriendType>;
+}
+
+export interface FriendType {
+  user_nickname: string;
+  user_phone_number: string;
+  user_image: string;
 }

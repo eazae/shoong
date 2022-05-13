@@ -1,9 +1,12 @@
-import Button from '@components/common/Button';
+import AddFriendsButton from '@containers/Friends/AddFriendsButton.tsx/AddFriendsButton';
+import FriendsList from '@containers/Friends/FriendsList/FriendsList';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
 
-const FriendsHome = () => {
+const FriendsHome: React.FC<NativeStackScreenProps<any, 'Friends'>> = ({ navigation }) => {
   return (
     <>
-      <Button title="친구 추가" />
+      <FriendsList />
+      <AddFriendsButton navigation={navigation} />
     </>
   );
 };

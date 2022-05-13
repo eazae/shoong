@@ -3,6 +3,8 @@ import Palette from '@theme/Palette';
 import { DefaultTheme } from 'styled-components/native';
 
 export const LightTheme: DefaultTheme = {
+  primaryColor: LightColors.PRIMARY100,
+  secondaryColor: LightColors.SECONDARY100,
   /* Text */
   textColor: TextColors.MONO100,
   textDisabledColor: TextColors.MONO60,
@@ -14,7 +16,8 @@ export const LightTheme: DefaultTheme = {
 
   /* Components */
   enabledColor: LightColors.PRIMARY100,
-  disabledColor: LightColors.PRIMARY20,
+  disabledColor: LightColors.PRIMARY40,
+  subColor: LightColors.MONO40,
   borderColor: LightColors.MONO60,
 
   /* Semantics */
@@ -37,6 +40,8 @@ export const LightTheme: DefaultTheme = {
 };
 
 export const DarkTheme: DefaultTheme = {
+  primaryColor: DarkColors.PRIMARY100,
+  secondaryColor: DarkColors.SECONDARY100,
   /* Text */
   textColor: TextColors.MONO0,
   textDisabledColor: TextColors.MONO60,
@@ -48,7 +53,8 @@ export const DarkTheme: DefaultTheme = {
 
   /* Components */
   enabledColor: DarkColors.PRIMARY40,
-  disabledColor: DarkColors.PRIMARY100,
+  disabledColor: DarkColors.PRIMARY80,
+  subColor: DarkColors.MONO80,
 
   borderColor: Palette.mono300,
 
