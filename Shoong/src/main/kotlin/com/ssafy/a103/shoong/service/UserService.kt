@@ -4,10 +4,7 @@ import com.ssafy.a103.shoong.model.Friend
 import com.ssafy.a103.shoong.model.User
 import com.ssafy.a103.shoong.repository.UserRepository
 import com.ssafy.a103.shoong.repository.UserRepositorySupport
-import com.ssafy.a103.shoong.requestBody.MakeFriendRequestBody
-import com.ssafy.a103.shoong.requestBody.UserJoinRequestBody
-import com.ssafy.a103.shoong.requestBody.UserUpdatePasswordRequestBody
-import com.ssafy.a103.shoong.requestBody.UserUpdateRequestBody
+import com.ssafy.a103.shoong.requestBody.*
 import org.springframework.stereotype.Service
 import org.springframework.web.bind.annotation.CookieValue
 import java.util.*
@@ -107,7 +104,18 @@ class UserService(val userRepository: UserRepository, val userRepositorySupport:
             }
         }
         return userRepository.save(user)
-        //중복검사체크 , follower+ follwee 정리 deletefriend api 구현
+        //친구가 없을 때 알림이 없음
+    }
+
+    fun deleteFriend(user:User, deleteFriendRequestBody: DeleteFriendRequestBody):User{
+        val tmp_user = this.getByNickName(deleteFriendRequestBody.user_nickname).get() //삭제할 친구
+        for(friend in user.friends){
+            if(friend.friend_id.equals(tmp_user.id)){
+                user.friends-=friend
+                break
+            }
+        }
+        return userRepository.save(user)
     }
     fun checkJWT(@CookieValue("jwt")jwt:String?):Boolean{
         if(jwt==null){
