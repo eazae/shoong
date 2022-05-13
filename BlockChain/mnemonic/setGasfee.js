@@ -1,5 +1,8 @@
-const { default: axios } = require('axios');
-const Web3 = require('web3');
+// const { default: axios } = require('axios');
+// const Web3 = require('web3');
+
+import axios from 'axios';
+import Web3 from 'web3';
 
 const API_KEY = 'UM43AKX746A62RU5YFTUGQPX23PD3INAYG'
 const URL = `https://api.etherscan.io/api?module=gastracker&action=gasoracle&apikey=${API_KEY}`
@@ -26,6 +29,8 @@ const sendTime = async (gas) =>{
     const second = result.data.result
     return second
 }
+
+export {setGas, sendTime}
 
 
 
