@@ -17,9 +17,10 @@ import {
 
 export class ScanScreen extends Component {
     onSuccess = (e: any) => {
-        Linking.openURL(e.data).catch(err =>
-            console.error('An error occured', err)
-        );
+        // Linking.openURL(e.data).catch(err =>
+        //     console.error('An error occured', err)
+        // );
+        console.log(e.data);
     };
     render() {
         return (

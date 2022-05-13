@@ -6,6 +6,7 @@ import QRGen from '@components/QR/QRGen/QRGen';
 import { ScanScreen } from '@components/QR/QRScan/QRScan';
 import ExpandableView from '@containers/ExpandableView';
 import Button from '@components/common/Button';
+import { SendConfirm } from './SendConfirm';
 
 interface SendProps {
     address: string | undefined;
@@ -80,15 +81,18 @@ const Send: React.FC<SendProps> = ({ address }) => {
     }
     return (
         <ScrollView nestedScrollEnabled={true}>
-            <Button title='송금 카드 선택' onPress={() => { expnadSwitch(card) }} />
+            <Button title='송금 카드 선택' onPress={() => { expnadSwitch(card) }} variant='secondary' />
             <ExpandableView width={card.width} height={card.height}>
                 <Text>송금 카드 선택</Text>
             </ExpandableView>
             <Button title='송금 대상 선택' onPress={() => { expnadSwitch(target) }} />
             <ExpandableView width={target.width} height={target.height}>
-                <View>
-                    <EasySendAndReceive address={address} />
-                </View>
+                {target.width === FOLDED ? <></> : (
+                    <View>
+                        <EasySendAndReceive address={address} />
+                    </View>
+                )
+                }
             </ExpandableView>
             <Button title='토큰 종류 선택' onPress={() => { expnadSwitch(token) }} />
             <ExpandableView width={token.width} height={token.height}>
@@ -98,6 +102,8 @@ const Send: React.FC<SendProps> = ({ address }) => {
             <ExpandableView width={amount.width} height={amount.height}>
                 <Text>수량선택</Text>
             </ExpandableView>
+            <Button title='송 금' onPress={() => { console.log('송금') }} />
+            <SendConfirm />
         </ScrollView >
     );
 };
