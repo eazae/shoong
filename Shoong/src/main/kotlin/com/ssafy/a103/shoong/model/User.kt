@@ -95,9 +95,6 @@ class Card {
 @QueryEntity
 class Friend {
 
-    @Id
-    var id: String? = null
-
     @Field("friend_id")
     var friend_id: String? = null
 }
