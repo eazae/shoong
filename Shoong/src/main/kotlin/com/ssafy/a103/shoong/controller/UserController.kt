@@ -96,6 +96,22 @@ private class UserController(val userService: UserService) {
         }
         return ResponseEntity.ok(Message("success"))
     }
+    @PostMapping("api/user/checkphone")
+    @ApiResponses(value=[
+        ApiResponse(responseCode = "200", description = "OK !!"),
+        ApiResponse(responseCode = "400", description = "BAD REQUEST !!"),
+        ApiResponse(responseCode = "404", description = "NOT FOUND !!"),
+        ApiResponse(responseCode = "500", description = "INTERNAL SERVER ERROR !!")
+    ])
+    fun checkphone(@RequestBody userJoinRequestBody: UserJoinRequestBody): ResponseEntity<Any>{
+        if(userJoinRequestBody.user_phone_number !=""){
+            val user = this.userService.getByPhone(userJoinRequestBody.user_phone_number)
+            if(user != Optional.empty<User>()){
+                return ResponseEntity.status(409).body(Message("Conflick"))//중복에러코드
+            }
+        }
+        return ResponseEntity.ok(Message("success"))
+    }
     @PutMapping("api/user/update")
     fun update(@CookieValue("jwt")jwt:String?,@RequestBody userUpdateRequestBody: UserUpdateRequestBody): ResponseEntity<Any>{
         if(!this.userService.checkJWT(jwt)){

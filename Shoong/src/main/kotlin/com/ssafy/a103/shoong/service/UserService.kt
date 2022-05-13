@@ -82,28 +82,27 @@ class UserService(val userRepository: UserRepository, val userRepositorySupport:
     }
     fun makeFriend(user:User, makeFriendRequestBody: MakeFriendRequestBody):User{
         val friend = Friend()
-        friend.Follower = user.id
         if(makeFriendRequestBody.user_nickname != "") {
             val user2 = this.getByNickName(makeFriendRequestBody.user_nickname)
             if(user2 != Optional.empty<User>()) {
-                friend.Followee = user2.get().id
-                user.followers+=friend
+                friend.friend_id = user2.get().id
+                user.friends+=friend
                 return userRepository.save(user)
             }
         }
         if(makeFriendRequestBody.user_email != "") {
             val user2 = this.getByEmail(makeFriendRequestBody.user_email)
             if(user2 != Optional.empty<User>()) {
-                friend.Followee = user2.get().id
-                user.followers+=friend
+                friend.friend_id = user2.get().id
+                user.friends+=friend
                 return userRepository.save(user)
             }
         }
         if(makeFriendRequestBody.user_phone_number != "") {
             val user2 = this.getByPhone(makeFriendRequestBody.user_phone_number)
             if(user2 != Optional.empty<User>()) {
-                friend.Followee = user2.get().id
-                user.followers+=friend
+                friend.friend_id = user2.get().id
+                user.friends+=friend
                 return userRepository.save(user)
             }
         }
