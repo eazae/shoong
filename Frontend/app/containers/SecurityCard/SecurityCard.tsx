@@ -1,13 +1,15 @@
 import MnemonicCard from '@components/layout/MnemonicCard';
 import Typography from '@theme/Typography';
-import { LayOut, Title } from './SecurityCard.styled';
+import { LayOut, Privacy, PrivacySep, Title } from './SecurityCard.styled';
 import { useEffect, useState } from 'react';
 import Button from '@components/common/Button/Button';
-import { Key } from 'phosphor-react-native';
+import { EyeSlash, Key } from 'phosphor-react-native';
 import Color from '@theme/Color';
 import { generateMnemonic } from './SecurityCardHooks';
 import { useNavigation } from '@react-navigation/native';
 import styled from 'styled-components/native';
+import Size from '@theme/Typography/Size';
+import { useTheme } from 'styled-components';
 
 function shuffleArray(array: string[]) {
   const arr = array.slice();
@@ -21,6 +23,7 @@ function shuffleArray(array: string[]) {
 const SecurityCard = () => {
   const [mnemonicWords, setMnemonicWords] = useState<string[]>([]);
   const [shuffledMnemonics, setShuffledMnemonics] = useState<string[]>([]);
+  const [privacyMode, setPrivacyMode] = useState(true);
 
   useEffect(() => {
     generateMnemonic().then((res) => {
@@ -32,12 +35,32 @@ const SecurityCard = () => {
   }, []);
 
   const { navigate } = useNavigation();
+
   return (
     <LayOut>
       <Title>
         <Typography weight="regular">일련번호 SHOONG - ID</Typography>
       </Title>
-      <MnemonicCard mnemonicWords={mnemonicWords} />
+      {privacyMode ? (
+        <Privacy>
+          <EyeSlash size={Size.h1} color={useTheme().textColor} />
+          <PrivacySep />
+          <Typography size="body1" weight="regular">
+            보안카드 기록 전 주변을 확인하세요
+          </Typography>
+          <Typography size="body3">다른 사람이 없으면 버튼을 누르세요</Typography>
+          <PrivacySep />
+          <Button
+            onPress={() => {
+              setPrivacyMode(false);
+            }}
+            variant="error"
+            title="보기"
+          />
+        </Privacy>
+      ) : (
+        <MnemonicCard mnemonicWords={mnemonicWords} />
+      )}
       <Sep />
       <Button
         icon={<Key color={Color.textColor.light} />}
