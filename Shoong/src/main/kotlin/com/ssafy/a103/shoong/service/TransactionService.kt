@@ -11,7 +11,6 @@ import java.util.*
 
 @Service
 class TransactionService(val transactionRepository: TransactionRepository, val transactionRepositorySupport: TransactionRepositorySupport) {
-    fun getAll(): List<Transaction> = transactionRepository.findAll()
     fun getAllByUserId(user: User): List<Transaction> {
         return transactionRepositorySupport.getAllByUserId(user)
     }
