@@ -1,24 +1,27 @@
 import { JoinRequestProps } from '@screens/Join/Join.props';
-import { setJWTValue } from '@utils/secureStore';
+import { ILogin } from '@screens/Login/Login.props';
 import instance from '../axios';
 
 // 공통되는 경로는 다음과 같이 별도로 정의해둠
 const COMMON = '/user';
 
-/* 로그인 (임시) */
-export const login = async (userId: string, userPw: string) => {
+export const login = async ({ email: user_email, passWord: user_password }: ILogin) => {
   const response = await instance.post(COMMON + '/login', {
-    userId,
-    userPw,
+    user_email,
+    user_password,
   });
-  if (response.data) {
-    // save JWT token
-    setJWTValue(response.data.accessToken);
-  }
-  return response.data;
+  return response;
 };
 
 export const join = async (body: JoinRequestProps) => {
-  const response = await instance.post(COMMON + '/join', body);
+  const response = await instance
+    .post(COMMON + '/join', body)
+    .then((res) => console.log(res))
+    .catch((err) => console.log(err));
+  return response;
+};
+
+export const isJWTValid = async (jwt: string) => {
+  const response = await instance.get(COMMON + `/JWT?jwt=${jwt}`);
   return response;
 };

@@ -7,10 +7,10 @@ import { Alert } from 'react-native';
 import { StackActions } from '@react-navigation/native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { useSetRecoilState } from 'recoil';
-import { isLoggedState } from '@atoms/atoms';
+import { isLoggedInState } from '@atoms/atoms';
 
 const SettingsHome: React.FC<NativeStackScreenProps<any, '설정'>> = ({ navigation }) => {
-  const setIsLogged = useSetRecoilState(isLoggedState);
+  const setIsLogged = useSetRecoilState(isLoggedInState);
 
   const logout = () => {
     Alert.alert('로그아웃', '정말 로그아웃 하시겠습니까?', [

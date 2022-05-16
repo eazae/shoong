@@ -7,7 +7,7 @@ import { atom } from 'recoil';
 // });
 
 /* 로그인 상태 */
-export const isLoggedState = atom({
-  key: 'isLoggedState',
-  default: false,
+export const isLoggedInState = atom({
+  key: 'isLoggedInState',
+  default: true,
 });
