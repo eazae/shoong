@@ -16,7 +16,7 @@ const WalletListTitle = ({ title }: WalletListTitleProps) => {
 };
 
 const LayOut = styled.View`
-  margin: 10px 0px;
+  margin: 12px 0px;
 `;
 
 export default WalletListTitle;
