@@ -12,18 +12,24 @@ interface HFlatListProps extends SepProps {
 
 const HFlatList = ({ margin, data, renderItem }: HFlatListProps) => {
   return (
-    <FlatList
-      horizontal
-      data={data}
-      renderItem={renderItem}
-      ItemSeparatorComponent={() => <Sep margin={margin} />}
-      showsHorizontalScrollIndicator={false}
-    />
+    <LayOut>
+      <FlatList
+        horizontal
+        data={data}
+        renderItem={renderItem}
+        ItemSeparatorComponent={() => <Sep margin={margin} />}
+        showsHorizontalScrollIndicator={false}
+      />
+    </LayOut>
   );
 };
 
 const Sep = styled.View<SepProps>`
   width: ${({ margin }) => `${margin}px`};
+`;
+
+const LayOut = styled.View`
+  margin-right: -20px;
 `;
 
 export default HFlatList;
