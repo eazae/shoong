@@ -3,7 +3,6 @@ package com.ssafy.a103.shoong.model
 import com.querydsl.core.annotations.QueryEntity
 import lombok.Getter
 import lombok.Setter
-import org.hibernate.annotations.Where
 import org.springframework.data.mongodb.core.mapping.Document
 import org.springframework.data.mongodb.core.mapping.Field
 import javax.persistence.Entity
@@ -13,7 +12,7 @@ import javax.persistence.Entity
 @Entity
 @QueryEntity
 @Document(collection = "Transaction")
-@Where(clause = "deletedAt IS NULL")
+//@Where(clause = "deletedAt IS NULL")
 class Transaction: BaseModel() {
 
     @Field("transaction_gasprice")
