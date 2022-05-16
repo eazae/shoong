@@ -11,8 +11,8 @@ import { AuthLayOut } from './LoginAuth.styled';
 // recoil
 import { useSetRecoilState } from 'recoil';
 import { isLoggedInState } from '@atoms/atoms';
-import { isJWTValid, login } from '@services/api/user/userAPI';
-import { getJWTValue, setJWTValue } from '@utils/secureStore';
+import { login } from '@services/api/user/userAPI';
+import { setJWTValue } from '@utils/secureStore';
 import { Alert } from 'react-native';
 
 const NOT_REGISTERED = '회원이 아니세요? 가입하러 가기';
@@ -25,7 +25,7 @@ const LoginAuth = () => {
   } = useForm<ILogin>();
 
   // @신지우, updated by @yoonBaek
-  const setIsLogged = useSetRecoilState(isLoggedInState);
+  const setIsLoggedIn = useSetRecoilState(isLoggedInState);
   /* 로그인 시 */
   // const result = login('아이디', '비밀번호').then();
   // if (result.successCode) {
@@ -41,13 +41,10 @@ const LoginAuth = () => {
       <PassWordInput control={control} errors={errors} />
       <Button
         onPress={handleSubmit((data) => {
-          // getJWTValue().then((res) => {
-          //   isJWTValid(res || '').then((res) => console.log(res.status));
-          //   Alert.alert('Your jwt', res || '');
-          // });
           login(data)
             .then((res) => {
               setJWTValue(res.data);
+              setIsLoggedIn(() => true);
             })
             .catch(() =>
               Alert.alert('로그인이 되지 않아요', '아이디와 비밀번호를 다시 한 번 확인해주세요')
