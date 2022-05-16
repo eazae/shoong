@@ -25,3 +25,14 @@ export const isJWTValid = async (jwt: string) => {
   const response = await instance.get(COMMON + `/JWT?jwt=${jwt}`);
   return response;
 };
+
+/* (로그인된) 사용자 정보 요청 */
+export const getUserInfo = async () => {
+  const response = await instance.get(COMMON + '/getUser');
+  return response;
+};
+
+/* 사용자 정보 수정 */
+export const updateUserInfo = async (userInfo: UserInfoBaseType) => {
+  const response = await instance.put(COMMON + '/update', userInfo);
+};
