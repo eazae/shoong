@@ -1,15 +1,19 @@
+import { changeAppTheme } from '@atoms/atoms';
 import TabButton from '@components/common/TabButton/TabButton';
 import { LightColors, TextColors } from '@theme/Color/Color';
 import { getAppThemeSettings, setAppThemeSettings } from '@utils/asyncStorage';
 import { Check } from 'phosphor-react-native';
 import { useEffect, useState } from 'react';
+import { useSetRecoilState } from 'recoil';
 
 const ThemeSettings = () => {
   const [setting, setSetting] = useState('');
+  const setChangeAppTheme = useSetRecoilState(changeAppTheme);
 
   const saveSettings = async (data: 'light' | 'dark' | 'system') => {
     await setAppThemeSettings(data);
     setSetting(data);
+    setChangeAppTheme((curr: boolean) => !curr);
   };
 
   const getSettings = async () => {
