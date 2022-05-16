@@ -11,3 +11,9 @@ export const isLoggedState = atom({
   key: 'isLoggedState',
   default: false,
 });
+
+/* 앱 테마 변경 */
+export const changeAppTheme = atom({
+  key: 'changeAppTheme',
+  default: false,
+});
