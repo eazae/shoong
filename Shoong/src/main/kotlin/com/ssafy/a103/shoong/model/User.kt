@@ -71,13 +71,17 @@ class User {
 class Card {
 
     @Id
-    var id: String? = null
+    var id: String? = ObjectId.get().toString()
+
 
     @Field("wallet_name")
-    var card_name: String = ""
+    var card_name: String = "" //card_memo
 
     @Field("wallet_address")
     var card_address: String = ""
+
+    @Field("wallet_profile_image")
+    var card_profile_image: String = ""
 
     @Field("createdAt")
     var createdAt: LocalDateTime = LocalDateTime.now()

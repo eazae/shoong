@@ -1,5 +1,6 @@
 package com.ssafy.a103.shoong.service
 
+import com.ssafy.a103.shoong.model.Card
 import com.ssafy.a103.shoong.model.Friend
 import com.ssafy.a103.shoong.model.User
 import com.ssafy.a103.shoong.repository.UserRepository
@@ -8,9 +9,9 @@ import com.ssafy.a103.shoong.requestBody.*
 import org.springframework.stereotype.Service
 import org.springframework.web.bind.annotation.CookieValue
 import java.util.*
-import javax.jws.soap.SOAPBinding.Use
 import javax.servlet.http.Cookie
 import javax.servlet.http.HttpServletResponse
+import javax.xml.ws.Response
 
 @Service
 class UserService(val userRepository: UserRepository, val userRepositorySupport: UserRepositorySupport) {
@@ -106,14 +107,15 @@ class UserService(val userRepository: UserRepository, val userRepositorySupport:
         return userRepository.save(user)
         //친구가 없을 때 알림이 없음
     }
-    fun loadFriend(user:User): MutableList<User?> {
-        val users = mutableListOf<User?>()
+    fun loadFriend(user:User): List<User> {
+        val tmp_users : MutableList<User> = mutableListOf<User>().toMutableList()
         for(friend in user.friends){
-            var tmp_user = friend.friend_id?.let { this.getById(it).get() }
-            users += tmp_user
+            val tmp_user = friend.friend_id?.let { getById(it) }?.get()
+            if (tmp_user != null) {
+                tmp_users += tmp_user
+            }
         }
-        println(users)
-        return users
+        return tmp_users
     }
     fun deleteFriend(user:User, deleteFriendRequestBody: DeleteFriendRequestBody):User{
         val tmp_user = this.getByNickName(deleteFriendRequestBody.user_nickname).get() //삭제할 친구
@@ -125,6 +127,49 @@ class UserService(val userRepository: UserRepository, val userRepositorySupport:
         }
         return userRepository.save(user)
     }
+
+    fun checkMakeCardRequestBody(makeCardRequestBody: MakeCardRequestBody):Boolean{
+        if(makeCardRequestBody.card_name =="" || makeCardRequestBody.card_address ==""){
+            return false
+        }
+        return true
+    }
+
+    fun makeCard(user:User, makeCardRequestBody: MakeCardRequestBody):User{
+        if(!checkMakeCardRequestBody(makeCardRequestBody)){
+            return userRepository.save(user)
+        }
+        val card = Card()
+        card.card_address = makeCardRequestBody.card_address
+        card.card_name = makeCardRequestBody.card_name
+        card.card_profile_image = makeCardRequestBody.card_profile_image
+        user.cards += card
+        return userRepository.save(user)
+    }
+    fun deleteCard(user:User, makeCardRequestBody: MakeCardRequestBody):User{
+        for(card in user.cards){
+            if(card.card_address == makeCardRequestBody.card_address && card.card_name == makeCardRequestBody.card_name){
+                user.cards -= card
+                break;
+            }
+        }
+        return userRepository.save(user)
+    }
+    fun updateCard(user:User, updateCardRequestBody: UpdateCardRequestBody):User{
+        for(card in user.cards){
+            if(card.id==updateCardRequestBody.card_id){
+                card.card_name = updateCardRequestBody.card_name
+                card.card_profile_image = updateCardRequestBody.card_profile_image
+                break;
+            }
+        }
+        return userRepository.save(user)
+    }
+
+    fun loadCard(user:User): List<Card> {
+        return user.cards
+    }
+
     fun checkJWT(@CookieValue("jwt")jwt:String?):Boolean{
         if(jwt==null){
             return false
