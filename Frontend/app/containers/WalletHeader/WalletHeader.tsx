@@ -4,7 +4,7 @@ import { StyleSheet, useColorScheme } from 'react-native';
 import Avatar from '@components/common/Avatar';
 import Typography from '@theme/Typography';
 
-export const WALLET_HEADER_HEIGHT = 80;
+export const WALLET_HEADER_HEIGHT = 125;
 
 interface WalletHeaderProps {
   userName: string;
@@ -51,7 +51,7 @@ const ContentLayOut = styled.View`
   padding: 10px 20px;
   flex-direction: row;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-end;
 `;
 
 const TextLayOut = styled.View``;
