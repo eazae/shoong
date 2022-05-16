@@ -1,9 +1,5 @@
-// import web3 from 'web3';
-const Web3 = require('web3');
-
-// import tx = from 'ethereum-tx';
-const Tx = require('ethereumjs-tx')
-
+import Web3 from 'web3';
+// const Web3 = require('web3');
 // 싸피 네트워크
 // const web3 = new Web3('http://20.196.209.2:8545');
 // goer 네트워크
@@ -40,3 +36,5 @@ const ethereumTransfer = async(address, privateKey, toAddress,inputEth,gasFee) =
 
 
     };
+
+export default ethereumTransfer

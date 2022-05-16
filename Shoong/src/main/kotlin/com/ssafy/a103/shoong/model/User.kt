@@ -39,10 +39,19 @@ class User {
     @Field("user_nickname")
     var user_nickname: String = ""
 
+    @Field("profile_image")
+    var user_profile_image: String = "deafult image url" // URL
+
     // TODO 바로 해결하기
 //     Nested Object 선언
     @Field("cards")
     var cards: List<Card> = mutableListOf()
+
+    @Field("Followers")
+    var followers: List<Friend> = mutableListOf()
+
+    @Field("Followees")
+    var followees: List<Friend> = mutableListOf()
 
     // Type이 일정하지 않은 가변 Key-Value 오브젝트는 Map으로 선언
 //    @Field("dynamicObject")
@@ -81,4 +90,20 @@ class Card {
 
     @Field("deletedAt")
     var deletedAt: LocalDateTime? = null
+}
+
+@Getter
+@Setter
+@Entity
+@QueryEntity
+class Friend {
+
+    @Id
+    var id: String? = null
+
+    @Field("friend_follower_user")
+    var Follower: String? = null
+
+    @Field("frined_followee_user")
+    var Followee: String? = null
 }

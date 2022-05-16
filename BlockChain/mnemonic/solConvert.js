@@ -12,3 +12,5 @@ const convertSol = (num) =>{
     console.log(sol)
     return sol
 }
+
+export {solToLamport, convertSol}
