@@ -3,23 +3,17 @@ package com.ssafy.a103.shoong.model
 import com.querydsl.core.annotations.QueryEntity
 import lombok.Getter
 import lombok.Setter
-import org.bson.types.ObjectId
 import org.springframework.data.mongodb.core.mapping.Document
 import org.springframework.data.mongodb.core.mapping.Field
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
-import java.time.LocalDateTime
 import javax.persistence.Entity
-import javax.persistence.Id
 
 @Getter
 @Setter
 @Entity
 @QueryEntity
 @Document(collection = "user")
-class User {
-
-    @Id
-    var id: String? = ObjectId.get().toString()
+class User : BaseModel()  {
 
     @Field("user_phone_number")
     var user_phone_number: String = ""
@@ -39,46 +33,47 @@ class User {
     @Field("user_nickname")
     var user_nickname: String = ""
 
+    @Field("profile_image")
+    var user_profile_image: String = "deafult image url" // URL
+
     // TODO 바로 해결하기
 //     Nested Object 선언
     @Field("cards")
     var cards: List<Card> = mutableListOf()
 
+    @Field("Followers")
+    var followers: List<Friend> = mutableListOf()
+
+    @Field("Followees")
+    var followees: List<Friend> = mutableListOf()
+
     // Type이 일정하지 않은 가변 Key-Value 오브젝트는 Map으로 선언
 //    @Field("dynamicObject")
 //    var dynamicObject: Map<String, Any> = mutableMapOf()
-
-    @Field("createdAt")
-    var createdAt: LocalDateTime = LocalDateTime.now()
-
-    @Field("updatedAt")
-    var updatedAt: LocalDateTime? = null
-
-    @Field("deletedAt")
-    var deletedAt: LocalDateTime? = null
 }
 
 @Getter
 @Setter
 @Entity
 @QueryEntity
-class Card {
+class Card : BaseModel()  {
 
-    @Id
-    var id: String? = null
-
-    @Field("wallet_name")
+    @Field("card_name")
     var card_name: String = ""
 
-    @Field("wallet_address")
+    @Field("card_address")
     var card_address: String = ""
+}
 
-    @Field("createdAt")
-    var createdAt: LocalDateTime = LocalDateTime.now()
+@Getter
+@Setter
+@Entity
+@QueryEntity
+class Friend : BaseModel() {
 
-    @Field("updatedAt")
-    var updatedAt: LocalDateTime? = null
+    @Field("friend_follower_user")
+    var Follower: String? = null
 
-    @Field("deletedAt")
-    var deletedAt: LocalDateTime? = null
+    @Field("frined_followee_user")
+    var Followee: String? = null
 }

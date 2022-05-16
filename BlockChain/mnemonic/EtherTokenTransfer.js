@@ -1,21 +1,21 @@
-// import web3 from 'web3';
-const Web3 = require('web3');
+import Web3 from 'web3';
+// const Web3 = require('web3');
 
 // 싸피 네트워크
 // const web3 = new Web3('http://20.196.209.2:8545');
 // goer 네트워크
 const web3 = new Web3('https://goerli.infura.io/v3/43b62be4d86946688b1fb5b4bf4df6c9');
 
+
 /// test
 const address= '0xc1b13D6A6ade2d587f134c015109D9fA43f01445'
 const privateKey ='0xf75de4b52af767d0fd647f3514f072a5c5a4b7893e9f5a3d50de8af3e725b001'
 const toAddress = '0x3ba20130f28232ad75f6a2d4be7ea3164a34c8ce'
 const inputToken = '10000000000000000' // getToken()타입:string
-const gasFee = 10
-// token
+const gasFee = null
+
 //ssafy코인 컨트랙트
 // const contractAddr = "0x6C927304104cdaa5a8b3691E0ADE8a3ded41a333";
-
 //goer 테스트 코인 컨트랙트
 // const contractAddr = "0xe4E81Fa6B16327D4B78CFEB83AAdE04bA7075165"; // zrx
 // const contractAddr = "0xD87Ba7A50B2E7E660f678A895E4B72E7CB4CCd9C"; //usdc
@@ -53,12 +53,6 @@ const ethereumTokenTransfer = async(address, privateKey,toAddress,contractAddr,i
     // 토큰 트랜스퍼 생성
     const contract = new web3.eth.Contract(minABI, contractAddr,{from:address});
     const data = contract.methods.transfer(toAddress, inputToken).encodeABI()
-    
-    // zx 1,000,000,000,000,000,000
-    // usdc 1,000,000
-    //dai 1,000,000,000,000,000,000
-    //bat 1,000,000,000,000,000,000
-
     const block = await web3.eth.getBlock("latest");
     const maxGas = block.gasLimit/block.transactions.length;
     const maxGasPrice = Math.round(maxGas)
@@ -78,4 +72,4 @@ const ethereumTokenTransfer = async(address, privateKey,toAddress,contractAddr,i
 
 }
 
-ethereumTokenTransfer(address,privateKey,toAddress,contractAddr,inputToken,gasFee)
+export default ethereumTokenTransfer
