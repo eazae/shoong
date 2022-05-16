@@ -1,7 +1,5 @@
-import Button from '@components/common/Button';
-import TextButton from '@components/common/TextButton/TextButton';
+import WalletHeader from '@containers/WalletHeader';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import CompTest from '@screens/CompTest';
 import Send from '@screens/Send';
 import Settings from '@screens/Settings/Settings';
 import Wallet from '@screens/Wallet';
@@ -9,7 +7,7 @@ import Typography from '@theme/Typography';
 import { isAndroid } from '@utils/native';
 import { BlurView } from 'expo-blur';
 import { Cardholder, CurrencyEth, GasPump, Users, UserCircleGear } from 'phosphor-react-native';
-import { StyleSheet, Text, TouchableOpacity, useColorScheme } from 'react-native';
+import { StyleSheet, useColorScheme } from 'react-native';
 import styled from 'styled-components/native';
 import { useTheme } from 'styled-components/native';
 
@@ -20,7 +18,7 @@ const Tabs = () => {
   const theme = useTheme();
   return (
     <Navigator
-      initialRouteName="내 지갑"
+      initialRouteName="지갑"
       screenOptions={{
         tabBarStyle: {
           backgroundColor: isAndroid() ? theme.cardColor : 'transparent',
@@ -43,7 +41,15 @@ const Tabs = () => {
         name="지갑"
         component={Wallet}
         options={{
-          headerShown: false,
+          header: WalletHeader,
+          headerBackground: () => (
+            <BlurView
+              tint={isDark ? 'dark' : 'light'}
+              intensity={30}
+              style={StyleSheet.absoluteFill}
+            />
+          ),
+          headerTransparent: true,
           tabBarIcon: ({ color, size }) => {
             return <Cardholder color={color} size={size} />;
           },
@@ -51,9 +57,7 @@ const Tabs = () => {
       />
       <Screen
         name="송금"
-        component={() => (
-          <Send address="" />
-        )}
+        component={() => <Send address="" />}
         options={{
           headerShown: true,
           tabBarIcon: ({ color, size }) => {
