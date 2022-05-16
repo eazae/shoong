@@ -15,3 +15,18 @@ export const Title = styled.View`
   margin: 5px 0px;
   align-self: flex-end;
 `;
+
+export const Privacy = styled.View`
+  justify-content: center;
+  align-items: center;
+  padding: 25px;
+  overflow: hidden;
+  height: 255px;
+  border-radius: 12px;
+  background-color: ${({ theme }) => theme.mainBgColor};
+  border: 1px solid ${({ theme }) => theme.borderColor};
+`;
+
+export const PrivacySep = styled.View`
+  height: 10px;
+`;
