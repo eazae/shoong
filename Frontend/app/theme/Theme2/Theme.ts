@@ -7,6 +7,7 @@ export const LightTheme: DefaultTheme = {
   secondaryColor: LightColors.SECONDARY100,
   /* Text */
   textColor: TextColors.MONO100,
+  textSubColor: TextColors.MONO80,
   textDisabledColor: TextColors.MONO60,
   textHighlightColor: TextColors.HIGHLIGHT,
 
@@ -44,6 +45,7 @@ export const DarkTheme: DefaultTheme = {
   secondaryColor: DarkColors.SECONDARY100,
   /* Text */
   textColor: TextColors.MONO0,
+  textSubColor: TextColors.MONO40,
   textDisabledColor: TextColors.MONO60,
   textHighlightColor: TextColors.HIGHLIGHT,
 

@@ -1,13 +1,13 @@
+import Avatar from '@components/common/Avatar';
 import Button from '@components/common/Button';
-import Modal from '@components/common/Modal/Modal';
+import Divider from '@components/common/Divider/Divider';
 import Input from '@components/common/TextInput/TextInput';
-import SearchResultModal from '@containers/Friends/SearchResultModal.tsx/SearchResultModal';
+import SearchResultView from '@containers/Friends/SearchResultView/SearchResultView';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { getUserWithPhone } from '@services/api/friends/friendsAPI';
+import Typography from '@theme/Typography';
 import { useState } from 'react';
-import { useQuery } from 'react-query';
 import styled from 'styled-components/native';
-import { FriendType } from 'types/apiTypes';
+import { FriendType, UserInfoBaseType } from 'types/apiTypes';
 
 const Container = styled.View`
   margin-top: 30px;
@@ -19,6 +19,9 @@ const Container = styled.View`
 const PhoneFriend: React.FC<NativeStackScreenProps<any, 'Friends'>> = ({ navigation }) => {
   const [phoneNumber, setPhoneNumber] = useState('');
   const [modalVisible, setModalVisible] = useState(false);
+  const [searchResult, setSearchResult] = useState<FriendType>();
+  const [isRequested, setIsRequested] = useState(false);
+  // const [isMatchFound, setIsMatchFound] = useState(false);
 
   const isValid = (phoneNumber: string) => {
     return /^01([0|1|6|7|8|9])-?([0-9]{4})-?([0-9]{4})$/.test(phoneNumber);
@@ -29,11 +32,20 @@ const PhoneFriend: React.FC<NativeStackScreenProps<any, 'Friends'>> = ({ navigat
   // );
 
   const handleSearch = async () => {
-    // const result = await getUserWithPhone(phoneNumber);
+    setIsRequested(true);
+    // const response = await getUserWithPhone(phoneNumber);
     // TODO
-    // if (result)
-    setModalVisible(!modalVisible);
-    // else console.log('일치하는 사용자 없음');
+    // if (result){ setIsMatchFound(true);
+    // setSearchResult(response.data);}
+    // else
+    // setIsMatchFound(false);
+
+    // 임시
+    setSearchResult({
+      user_profile_image: 'https://picsum.photos/200',
+      user_nickname: '예시계정',
+      user_phone_number: '010-9999-9999',
+    });
   };
 
   return (
@@ -41,10 +53,16 @@ const PhoneFriend: React.FC<NativeStackScreenProps<any, 'Friends'>> = ({ navigat
       <Container>
         <Input keyboardType="phone-pad" placeholder="전화번호" setValue={setPhoneNumber} />
         <Button title="친구 찾기" disabled={!isValid(phoneNumber)} onPress={handleSearch} />
-        <SearchResultModal
+        <Divider />
+        {isRequested ? (
+          <>
+            <SearchResultView searchResult={searchResult} />
+          </>
+        ) : null}
+        {/* <SearchResultModal
           modalVisible={modalVisible}
           onModalClosed={() => setModalVisible(!modalVisible)}
-        />
+        /> */}
       </Container>
     </>
   );

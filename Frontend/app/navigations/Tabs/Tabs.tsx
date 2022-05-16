@@ -40,7 +40,7 @@ const Tabs = () => {
         ),
       }}
     >
-      {/* <Screen
+      <Screen
         name="지갑"
         component={Wallet}
         options={{
@@ -49,8 +49,8 @@ const Tabs = () => {
             return <Cardholder color={color} size={size} />;
           },
         }}
-      /> 
-       <Screen
+      />
+      <Screen
         name="예약송금"
         component={() => (
           <TmpView>
@@ -74,7 +74,7 @@ const Tabs = () => {
             return <CurrencyEth color={color} size={size} />;
           },
         }}
-      /> */}
+      />
       <Screen
         name="Friends"
         component={Friends}

@@ -1,7 +1,8 @@
 import Avatar from '@components/common/Avatar';
-import { TouchableHighlight } from 'react-native';
+import { useState } from 'react';
 import styled from 'styled-components/native';
 import { FriendType } from 'types/apiTypes';
+import FriendDetailModal from '../FriendDetailModal/FriendDetailModal';
 
 const Container = styled.TouchableOpacity`
   width: 100%;
@@ -27,16 +28,28 @@ const Phone = styled.Text`
   color: ${(props) => props.theme.textDisabledColor};
 `;
 
-type FriendsItemProps = FriendType;
+// type FriendsItemProps = FriendType;
+interface FriendsItemProps {
+  data: FriendType;
+  onRefreshList: any;
+}
 
-const FriendsItem = (data: FriendsItemProps) => {
+const FriendsItem = ({ data, onRefreshList }: FriendsItemProps) => {
+  const [modalVisible, setModalVisible] = useState(false);
+
   return (
-    <Container>
-      <Avatar isLoading={false} uri={data.user_image} />
+    <Container onPress={() => setModalVisible(!modalVisible)}>
+      <Avatar isLoading={false} uri={data.user_profile_image} />
       <Column>
         <Nickname>{data.user_nickname}</Nickname>
         <Phone>{data.user_phone_number}</Phone>
       </Column>
+      <FriendDetailModal
+        modalVisible={modalVisible}
+        onModalClosed={() => setModalVisible(!modalVisible)}
+        data={data}
+        onRefreshList={onRefreshList}
+      />
     </Container>
   );
 };
