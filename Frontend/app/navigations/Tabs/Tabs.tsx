@@ -57,7 +57,7 @@ const Tabs = () => {
         }}
       />
       <Screen
-        name="송금"
+        name="예약송금"
         component={() => <Send address="" />}
         options={{
           headerShown: true,
