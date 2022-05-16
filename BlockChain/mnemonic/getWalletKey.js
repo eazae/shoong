@@ -1,17 +1,16 @@
-// import pkg from 'ethereumjs-wallet';
-const pkg = require('ethereumjs-wallet');
-// import bip39 from 'bip39';
-const bip39 = require('bip39');
+import pkg from 'ethereumjs-wallet';
+// const pkg = require('ethereumjs-wallet');
+import bip39 from 'bip39';
+// const bip39 = require('bip39');
 
-
+//test
 const {hdkey} = pkg;
-// const mnemonicKey = null
 const mnemonicKey = 'alter silver general theme fashion business width topple warfare canoe pledge satoshi improve balcony clump action donate people'
 
 let walletNumber = 0
 
 // 니모닉키를 이용해서 지갑을 생성합니다.
-const getWalletKey = async() =>{
+const getWalletKey = async(walletNumber=0) =>{
     const seed = await bip39.mnemonicToSeed(mnemonicKey)
     const rootKey = hdkey.fromMasterSeed(seed);
     const hardenedKey = rootKey.derivePath("m/44'/60'/0'/0");
@@ -29,6 +28,8 @@ const getWalletKey = async() =>{
 
     console.log(`지갑주소 : ${address}`)
     console.log(`!!개인키!! : ${privateKey}`)
+
+    return [address, privateKey]
 }
 
-getWalletKey()
+export default getWalletKey
