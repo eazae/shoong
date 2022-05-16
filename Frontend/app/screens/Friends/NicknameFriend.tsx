@@ -1,9 +1,10 @@
 import Button from '@components/common/Button';
 import Input from '@components/common/TextInput/TextInput';
-import SearchResultModal from '@containers/Friends/SearchResultModal.tsx/SearchResultModal';
+import SearchResultView from '@containers/Friends/SearchResultView/SearchResultView';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { useState } from 'react';
 import styled from 'styled-components/native';
+import { FriendType } from 'types/apiTypes';
 
 const Container = styled.View`
   margin-top: 30px;
@@ -12,22 +13,28 @@ const Container = styled.View`
 
 const NicknameFriend: React.FC<NativeStackScreenProps<any, 'Friends'>> = ({ navigation }) => {
   const [nickname, setNickname] = useState('');
-  const [modalVisible, setModalVisible] = useState(false);
-
-  const isValid = (nickname: string) => {
-    return /^01([0|1|6|7|8|9])-?([0-9]{4})-?([0-9]{4})$/.test(nickname);
-  };
+  const [searchResult, setSearchResult] = useState<FriendType>();
+  const [isRequested, setIsRequested] = useState(false);
 
   // const { isLoading, data, isRefetching } = useQuery<Array<FriendType>>('searchFriendByPhone', () =>
   //   getUserWithPhone(nickname)
   // );
 
   const handleSearch = async () => {
-    // const result = await getUserWithPhone(nickname);
+    setIsRequested(true);
+    // const response = await getUserWithPhone(phoneNumber);
     // TODO
-    // if (result)
-    setModalVisible(!modalVisible);
-    // else console.log('일치하는 사용자 없음');
+    // if (result){ setIsMatchFound(true);
+    // setSearchResult(response.data);}
+    // else
+    // setIsMatchFound(false);
+
+    // 임시
+    setSearchResult({
+      user_profile_image: 'https://picsum.photos/200',
+      user_nickname: '찾은 사용자',
+      user_phone_number: '010-0090-3988',
+    });
   };
 
   return (
@@ -35,10 +42,11 @@ const NicknameFriend: React.FC<NativeStackScreenProps<any, 'Friends'>> = ({ navi
       <Container>
         <Input keyboardType="default" placeholder="닉네임" setValue={setNickname} />
         <Button title="친구 찾기" disabled={nickname.length === 0} onPress={handleSearch} />
-        <SearchResultModal
-          modalVisible={modalVisible}
-          onModalClosed={() => setModalVisible(!modalVisible)}
-        />
+        {isRequested ? (
+          <>
+            <SearchResultView searchResult={searchResult} />
+          </>
+        ) : null}
       </Container>
     </>
   );

@@ -19,6 +19,7 @@ declare module 'styled-components/native' {
     secondaryColor: string;
 
     textColor: string;
+    textSubColor: string;
     textDisabledColor: string;
     textHighlightColor: string;
 

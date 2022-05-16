@@ -1,3 +1,4 @@
+import { ButtonProps } from 'react-native';
 import styled from 'styled-components/native';
 
 const TextButtonContainer = styled.TouchableOpacity`
@@ -9,11 +10,12 @@ const Content = styled.Text`
 `;
 interface TextButtonProps {
   title: string;
+  onPress: any;
 }
 
-const TextButton = ({ title }: TextButtonProps) => {
+const TextButton = ({ title, onPress }: ButtonProps) => {
   return (
-    <TextButtonContainer>
+    <TextButtonContainer onPress={onPress}>
       <Content>{title}</Content>
     </TextButtonContainer>
   );
