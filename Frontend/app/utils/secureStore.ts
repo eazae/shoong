@@ -27,6 +27,7 @@ export const getSecureStoreValue = async (key: string) => {
   } else {
     Alert.alert('No values stored under that key.');
   }
+  return result;
 };
 
 // export default { setSecureStoreValue, getSecureStoreValue };
