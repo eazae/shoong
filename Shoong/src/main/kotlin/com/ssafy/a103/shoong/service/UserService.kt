@@ -106,7 +106,15 @@ class UserService(val userRepository: UserRepository, val userRepositorySupport:
         return userRepository.save(user)
         //친구가 없을 때 알림이 없음
     }
-
+    fun loadFriend(user:User): MutableList<User?> {
+        val users = mutableListOf<User?>()
+        for(friend in user.friends){
+            var tmp_user = friend.friend_id?.let { this.getById(it).get() }
+            users += tmp_user
+        }
+        println(users)
+        return users
+    }
     fun deleteFriend(user:User, deleteFriendRequestBody: DeleteFriendRequestBody):User{
         val tmp_user = this.getByNickName(deleteFriendRequestBody.user_nickname).get() //삭제할 친구
         for(friend in user.friends){

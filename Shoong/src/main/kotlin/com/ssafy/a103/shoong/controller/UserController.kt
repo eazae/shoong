@@ -242,6 +242,20 @@ private class UserController(val userService: UserService) {
         return ResponseEntity.ok(Message("Ok"))
     }
 
+    @PostMapping("api/user/loadfriend")
+    @ApiResponses(value=[
+        ApiResponse(responseCode = "200", description = "OK !!"),
+        ApiResponse(responseCode = "400", description = "BAD REQUEST !!"),
+        ApiResponse(responseCode = "404", description = "NOT FOUND !!"),
+        ApiResponse(responseCode = "500", description = "INTERNAL SERVER ERROR !!")
+    ])
+    fun loadfriend(@CookieValue("jwt")jwt:String?): MutableList<User?> {
+        val body = Jwts.parser().setSigningKey("secret").parseClaimsJws(jwt).body
+        val user = this.userService.getById(body.issuer.toString()).get()
+
+        return this.userService.loadFriend(user);
+    }
+
     @PostMapping("api/user/deletefriend")
     @ApiResponses(value=[
         ApiResponse(responseCode = "200", description = "OK !!"),
