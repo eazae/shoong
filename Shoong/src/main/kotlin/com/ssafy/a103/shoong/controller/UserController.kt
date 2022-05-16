@@ -1,5 +1,6 @@
 package com.ssafy.a103.shoong.controller
 
+import com.ssafy.a103.shoong.model.Card
 import com.ssafy.a103.shoong.model.User
 import com.ssafy.a103.shoong.requestBody.*
 import com.ssafy.a103.shoong.service.UserService
@@ -238,7 +239,7 @@ private class UserController(val userService: UserService) {
         val body = Jwts.parser().setSigningKey("secret").parseClaimsJws(jwt).body
         val user = this.userService.getById(body.issuer.toString()).get()
 
-        this.userService.makeFriend(user, makeFriendRequestBody);
+        this.userService.makeFriend(user, makeFriendRequestBody)
         return ResponseEntity.ok(Message("Ok"))
     }
 
@@ -249,11 +250,14 @@ private class UserController(val userService: UserService) {
         ApiResponse(responseCode = "404", description = "NOT FOUND !!"),
         ApiResponse(responseCode = "500", description = "INTERNAL SERVER ERROR !!")
     ])
-    fun loadfriend(@CookieValue("jwt")jwt:String?): MutableList<User?> {
+    fun loadfriend(@CookieValue("jwt")jwt:String?): ResponseEntity<Any> {
+        if(!this.userService.checkJWT(jwt)){
+            return ResponseEntity.status(401).body(Message("unauthenticated"))
+        }
         val body = Jwts.parser().setSigningKey("secret").parseClaimsJws(jwt).body
         val user = this.userService.getById(body.issuer.toString()).get()
 
-        return this.userService.loadFriend(user);
+        return ResponseEntity.ok().body(this.userService.loadFriend(user))
     }
 
     @PostMapping("api/user/deletefriend")
@@ -273,5 +277,72 @@ private class UserController(val userService: UserService) {
         this.userService.deleteFriend(user, deleteFriendRequestBody)
         return ResponseEntity.ok(Message("Ok"))
     }
-}
 
+    @PostMapping("api/user/makeCard")
+    @ApiResponses(value=[
+        ApiResponse(responseCode = "200", description = "OK !!"),
+        ApiResponse(responseCode = "400", description = "BAD REQUEST !!"),
+        ApiResponse(responseCode = "404", description = "NOT FOUND !!"),
+        ApiResponse(responseCode = "500", description = "INTERNAL SERVER ERROR !!")
+    ])
+    fun makeCard(@CookieValue("jwt")jwt:String?,@RequestBody makeCardRequestBody: MakeCardRequestBody): ResponseEntity<Any>{
+        if(!this.userService.checkJWT(jwt)){
+            return ResponseEntity.status(401).body(Message("unauthenticated"))
+        }
+        val body = Jwts.parser().setSigningKey("secret").parseClaimsJws(jwt).body
+        val user = this.userService.getById(body.issuer.toString()).get()
+
+        this.userService.makeCard(user, makeCardRequestBody)
+        return ResponseEntity.ok(Message("ok"))
+    }
+    @PostMapping("api/user/deleteCard")
+    @ApiResponses(value=[
+        ApiResponse(responseCode = "200", description = "OK !!"),
+        ApiResponse(responseCode = "400", description = "BAD REQUEST !!"),
+        ApiResponse(responseCode = "404", description = "NOT FOUND !!"),
+        ApiResponse(responseCode = "500", description = "INTERNAL SERVER ERROR !!")
+    ])
+    fun deleteCard(@CookieValue("jwt")jwt:String?,@RequestBody makeCardRequestBody: MakeCardRequestBody): ResponseEntity<Any>{
+        if(!this.userService.checkJWT(jwt)){
+            return ResponseEntity.status(401).body(Message("unauthenticated"))
+        }
+        val body = Jwts.parser().setSigningKey("secret").parseClaimsJws(jwt).body
+        val user = this.userService.getById(body.issuer.toString()).get()
+
+        this.userService.deleteCard(user, makeCardRequestBody)
+        return ResponseEntity.ok(Message("ok"))
+    }
+    @PostMapping("api/user/loadCard")
+    @ApiResponses(value=[
+        ApiResponse(responseCode = "200", description = "OK !!"),
+        ApiResponse(responseCode = "400", description = "BAD REQUEST !!"),
+        ApiResponse(responseCode = "404", description = "NOT FOUND !!"),
+        ApiResponse(responseCode = "500", description = "INTERNAL SERVER ERROR !!")
+    ])
+    fun loadCard(@CookieValue("jwt")jwt:String?): ResponseEntity<Any>{
+        if(!this.userService.checkJWT(jwt)){
+            return ResponseEntity.status(401).body(Message("unauthenticated"))
+        }
+        val body = Jwts.parser().setSigningKey("secret").parseClaimsJws(jwt).body
+        val user = this.userService.getById(body.issuer.toString()).get()
+
+        return ResponseEntity.ok().body(this.userService.loadCard(user))
+    }
+
+    @PutMapping("api/user/updateCard")
+    @ApiResponses(value=[
+        ApiResponse(responseCode = "200", description = "OK !!"),
+        ApiResponse(responseCode = "400", description = "BAD REQUEST !!"),
+        ApiResponse(responseCode = "404", description = "NOT FOUND !!"),
+        ApiResponse(responseCode = "500", description = "INTERNAL SERVER ERROR !!")
+    ])
+    fun updateCard(@CookieValue("jwt")jwt:String?,updateCardRequestBody: UpdateCardRequestBody):ResponseEntity<Any>{
+        if(!this.userService.checkJWT(jwt)){
+            return ResponseEntity.status(401).body(Message("unauthenticated"))
+        }
+        val body = Jwts.parser().setSigningKey("secret").parseClaimsJws(jwt).body
+        val user = this.userService.getById(body.issuer.toString()).get()
+
+        return ResponseEntity.ok().body(this.userService.updateCard(user,updateCardRequestBody))
+    }
+}
