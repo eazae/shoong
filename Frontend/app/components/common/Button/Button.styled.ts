@@ -1,5 +1,6 @@
 import Color from '@theme/Color';
 import Shadows from '@theme/Shadows';
+import { Dimensions } from 'react-native';
 import styled from 'styled-components/native';
 import { ButtonProps } from './Button.props';
 

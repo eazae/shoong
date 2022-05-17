@@ -7,7 +7,7 @@ const Label = styled.Text`
   margin: 12px 16px;
 `;
 const TextInputComp = styled.TextInput`
-  height: 40px;
+  height: 50px;
   margin: 0px 16px 10px 16px;
   border-width: 0.2px;
   border-radius: 5px;
@@ -24,6 +24,7 @@ interface InputProps {
   label?: string;
   presetValue?: string;
   isPassword?: boolean;
+  setValue: any;
 }
 
 const Input: React.FC<InputProps> = ({
@@ -33,15 +34,16 @@ const Input: React.FC<InputProps> = ({
   label,
   presetValue,
   isPassword,
+  setValue,
 }) => {
-  const [value, setValue] = useState(presetValue ?? '');
+  // const [value, setValue] = useState(presetValue ?? '');
 
   return (
     <>
       {label ? <Label>{label}</Label> : null}
       <TextInputComp
-        onChangeText={(curr) => setValue(curr)}
-        value={value}
+        onChangeText={setValue}
+        value={presetValue}
         placeholder={placeholder}
         keyboardType={keyboardType}
         editable={!disabled}

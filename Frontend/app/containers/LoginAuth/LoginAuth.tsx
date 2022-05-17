@@ -10,8 +10,10 @@ import { useForm } from 'react-hook-form';
 import { AuthLayOut } from './LoginAuth.styled';
 // recoil
 import { useSetRecoilState } from 'recoil';
-import { isLoggedState } from '@atoms/atoms';
+import { isLoggedInState } from '@atoms/atoms';
 import { login } from '@services/api/user/userAPI';
+import { setJWTValue } from '@utils/secureStore';
+import { Alert } from 'react-native';
 
 const NOT_REGISTERED = '회원이 아니세요? 가입하러 가기';
 
@@ -22,10 +24,10 @@ const LoginAuth = () => {
     formState: { errors },
   } = useForm<ILogin>();
 
-  // @신지우
-  // const setIsLogged = useSetRecoilState(isLoggedState);
+  // @신지우, updated by @yoonBaek
+  const setIsLoggedIn = useSetRecoilState(isLoggedInState);
   /* 로그인 시 */
-  // const result = await login('아이디', '비밀번호');
+  // const result = login('아이디', '비밀번호').then();
   // if (result.successCode) {
   //   setIsLogged((curr) => !curr);
   // }
@@ -37,7 +39,19 @@ const LoginAuth = () => {
     <AuthLayOut>
       <EmailInput control={control} errors={errors} />
       <PassWordInput control={control} errors={errors} />
-      <Button onPress={handleSubmit((data) => console.log(data))} title="Continue" />
+      <Button
+        onPress={handleSubmit((data) => {
+          login(data)
+            .then((res) => {
+              setJWTValue(res.data);
+              setIsLoggedIn(() => true);
+            })
+            .catch(() =>
+              Alert.alert('로그인이 되지 않아요', '아이디와 비밀번호를 다시 한 번 확인해주세요')
+            );
+        })}
+        title="Continue"
+      />
       <Button
         onPress={goToJoin}
         variant="transparent"

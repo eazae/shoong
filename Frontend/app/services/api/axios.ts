@@ -5,7 +5,7 @@ import { getJWTValue, getSecureStoreValue, setSecureStoreValue } from '@utils/se
 import { API_BASE_URL } from '@env';
 
 const instance = axios.create({
-  baseURL: API_BASE_URL + '/api/',
+  baseURL: API_BASE_URL + '/api',
   timeout: 30000,
   headers: {
     'Content-type': 'application/json',
@@ -35,15 +35,15 @@ instance.interceptors.response.use(
   },
   function (error) {
     if (error.response) {
-      console.log(error.response);
+      // console.log(error.response);
       switch (error.response.status) {
         /* 'JWT expired' exeption */
         case 400:
-          console.log('400 ERROR, not authorized.');
+          // console.log('400 ERROR, not authorized.');
           break;
         case 401:
-          console.log('401error!');
-          Alert.alert('문제가 발생했습니다. 잠시 후 시도해주세요.');
+          // console.log('401error!');
+          // Alert.alert('문제가 발생했습니다. 잠시 후 시도해주세요.');
           break;
         case 404:
           console.log('404error!');

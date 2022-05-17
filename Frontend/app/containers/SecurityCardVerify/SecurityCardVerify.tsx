@@ -2,6 +2,8 @@ import Button from '@components/common/Button';
 import MnemonicBadge from '@components/item/MnemonicBadge';
 import MnemonicCard from '@components/layout/MnemonicCard';
 import { LayOut, Title } from '@containers/SecurityCard/SecurityCard.styled';
+import { getCardByMnemonic, storeCardKeys } from '@containers/SecurityCard/SecurityCardHooks';
+import { useNavigation } from '@react-navigation/native';
 import Color from '@theme/Color';
 import Typography from '@theme/Typography';
 import { ShieldCheck } from 'phosphor-react-native';
@@ -16,6 +18,8 @@ interface SCVProps {
 const SecurityCardVerify = ({ mnemonicWords, shuffledMnemonics }: SCVProps) => {
   const [ansWords, setAnsWords] = useState<string[]>([]);
   const isNotReady = ansWords[11] === undefined;
+
+  const { navigate } = useNavigation();
 
   return (
     <LayOut>
@@ -33,6 +37,7 @@ const SecurityCardVerify = ({ mnemonicWords, shuffledMnemonics }: SCVProps) => {
               const word = shuffledMnemonics[idx];
               return (
                 <BadgeBtn
+                  key={'badgeIDX' + idx}
                   disabled={isClicked}
                   onPress={() => {
                     setIsClicked(true);
@@ -41,7 +46,7 @@ const SecurityCardVerify = ({ mnemonicWords, shuffledMnemonics }: SCVProps) => {
                 >
                   <MnemonicBadge
                     variant={word === undefined ? 'dashed' : 'solid'}
-                    key={'mnemonic' + (col * 4 + row)}
+                    key={'mnemonic' + idx}
                   >
                     {word}
                   </MnemonicBadge>
@@ -54,7 +59,7 @@ const SecurityCardVerify = ({ mnemonicWords, shuffledMnemonics }: SCVProps) => {
       <Sep />
       <Button
         disabled={isNotReady}
-        onPress={() => {
+        onPress={async () => {
           let criterion = true;
           for (let i = 0; i < 12; i++) {
             criterion = ansWords[i] === mnemonicWords[i];
@@ -63,7 +68,11 @@ const SecurityCardVerify = ({ mnemonicWords, shuffledMnemonics }: SCVProps) => {
               return;
             }
           }
-          alert('good!');
+          getCardByMnemonic(0, ansWords).then((card) =>
+            storeCardKeys(card).then(() => {
+              navigate('Join', { screen: 'JoinSuccess' });
+            })
+          );
         }}
         icon={<ShieldCheck color={Color.textColor.light} />}
         title="지갑 생성 마무리하기"
