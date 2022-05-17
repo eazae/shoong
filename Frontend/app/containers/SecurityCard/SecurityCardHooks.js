@@ -7,8 +7,7 @@ import { getSecureStoreValue, setSecureStoreValue } from '@utils/secureStore';
 import { serialize } from '@utils/serialize';
 import instance from '@services/api/axios';
 
-// CONSTANTS
-const DEFAULT_CARDNAME = '카드 ';
+export const getDefaultCardName = (address) => address;
 
 export const generateMnemonic = async () => {
   try {
@@ -63,6 +62,6 @@ export const storeCardKeys = async (card) => {
 };
 
 // API 나오면 추가할 예정 - YoonBaek
-const postCardApi = async () => {
-  return await instance.post();
+export const carPOSTapi = async (data) => {
+  return await instance.post('/user/makeCard', data);
 };

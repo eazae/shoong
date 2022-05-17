@@ -1,16 +1,26 @@
+import { isLoggedInState } from '@atoms/atoms';
 import { JoinRequestProps } from '@screens/Join/Join.props';
 import { ILogin } from '@screens/Login/Login.props';
+import { setJWTValue } from '@utils/secureStore';
+import { Alert } from 'react-native';
+import { useSetRecoilState } from 'recoil';
 import instance from '../axios';
 
 // 공통되는 경로는 다음과 같이 별도로 정의해둠
 const COMMON = '/user';
 
 export const login = async ({ email: user_email, passWord: user_password }: ILogin) => {
-  const response = await instance.post(COMMON + '/login', {
-    user_email,
-    user_password,
-  });
-  return response;
+  const response = await instance
+    .post(COMMON + '/login', {
+      user_email,
+      user_password,
+    })
+    .then((res) => {
+      setJWTValue(res.data);
+    })
+    .catch(() =>
+      Alert.alert('로그인이 되지 않아요', '아이디와 비밀번호를 다시 한 번 확인해주세요')
+    );
 };
 
 export const join = async (body: JoinRequestProps) => {
