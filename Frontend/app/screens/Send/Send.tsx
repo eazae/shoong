@@ -10,6 +10,7 @@ import { theme } from '@storybook/react-native/dist/preview/components/Shared/th
 import Typography from '@theme/Typography';
 import { useTheme } from 'styled-components';
 import { useNavigation } from '@react-navigation/native';
+import Input from '@components/common/Input';
 
 
 interface SendProps {
@@ -38,10 +39,16 @@ const Send: React.FC<SendProps> = ({ address }) => {
         width: FOLDED,
         height: FOLDED
     });
-    const [from, setFrom] = useState("");
     const [visible, setVisible] = useState(false);
     const [nick, setNick] = useState("");
-    const [phone, setPhone] = useState(address);
+    const [phone, setPhone] = useState("");
+
+    const [from, setFrom] = useState("");
+    const [to, setTo] = useState("");
+
+    //토큰
+    //수량
+
     const expnadSwitch = (val: ExpandProp) => {
         const list = [card, target, token, amount];
         const setList = [setCard, setTarget, setToken, setAmount];
@@ -62,46 +69,56 @@ const Send: React.FC<SendProps> = ({ address }) => {
     if (from) {
         expnadSwitch(target);
     }
-    // useEffect(() => {
-    //     () => { setFrom(address) };
-    // }, [address])
+    useEffect(() => {
+        () => { setFrom(address) };
+    }, [address])
     const goConfirm = () => {
         //트랜잭션 id 들고 페이지 넘기기 
         navigate('Send', { screen: 'SendConfirm' });
     };
     const { navigate } = useNavigation();
     return (
-        <ScrollView nestedScrollEnabled={true} onTouchStart={() => { setVisible(false) }}>
+        <ScrollView nestedScrollEnabled={true}  >
             <Button title='송금 카드 선택' onPress={() => { expnadSwitch(card) }} />
             <ExpandableView width={card.width} height={card.height}>
                 <Text>11</Text>
+                {/* 카드 선택  */}
+                {/* from */}
             </ExpandableView>
             <Button title='송금 대상 선택' onPress={() => { expnadSwitch(target) }} />
             <ExpandableView width={target.width} height={target.height}>
-                <EasySendAndReceive address={from} />
+                <EasySendAndReceive address={to} />
             </ExpandableView>
             <Button title='토큰 종류 선택' onPress={() => { expnadSwitch(token) }} />
             <ExpandableView width={token.width} height={token.height}>
-                <SelectToken />
+                {/* <SelectToken /> */}
+                {/* token */}
             </ExpandableView>
             <Button title='송금 수량 입력' onPress={() => { expnadSwitch(amount) }} />
             <ExpandableView width={amount.width} height={amount.height}>
-
+                {/* 송금 수량 입력 */}
+                {/* amount */}
+                <Input label="송금 수량" placeholder="수량 입력" onChange={(e) => { console.log(e) }} />
             </ExpandableView>
             <Button title='송 금' onPress={() => { setVisible(true); }} />
-            {visible === true && (
-                <View style={styles.send} >
-                    <Typography size='body1'>송금내용을 확인할게요!</Typography>
-                    <Typography size='body3'>{nick !== "" && nick}</Typography>
-                    <Typography size='body3'>{phone !== "" && phone}</Typography>
-                    <Typography size='body3'>{nick === "" && phone === "" && from.substring(0, 7) + "..."}</Typography>
-                    <Typography size='body3'>님에게</Typography>
-                    <Typography size='body3'>OO토큰</Typography>
-                    <Typography size='body3'>OO개 보낼게요!</Typography>
-                    <Button title='네 맞아요!' onPress={() => {
-                        goConfirm()
-                    }}></Button>
-                </View>)}
+            {
+                visible === true && (
+                    <View style={styles.send} >
+                        <Typography size='body1'>송금내용을 확인할게요!</Typography>
+                        <Typography size='body3'>{nick !== "" && nick}</Typography>
+                        <Typography size='body3'>{phone !== "" && phone}</Typography>
+                        <Typography size='body3'>{nick === "" && phone === "" && to.substring(0, 7) + "..."}</Typography>
+                        <Typography size='body3'>님에게</Typography>
+                        {/* <Typography size='body3'>{token} 토큰</Typography>
+                    <Typography size='body3'>{amount}개 보낼게요!</Typography> */}
+                        <Button title='네 맞아요!' onPress={async () => {
+                            let transaction = "";
+                            // api call
+                            // transaction = await(); 
+                            goConfirm();
+                        }}></Button>
+                    </View>)
+            }
         </ScrollView >
     );
 };
@@ -115,7 +132,7 @@ const FOLDED = '0px';
 const styles = StyleSheet.create({
     send: {
         position: 'absolute', backgroundColor: theme.backgroundColor, width: '80%',
-        alignItems: 'center', top: '25%', left: '10%', height: 400,
+        alignItems: 'center', top: '25%', left: '10%', height: 400, zIndex: 999
     },
 
 })
