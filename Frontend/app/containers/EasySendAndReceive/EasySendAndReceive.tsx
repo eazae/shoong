@@ -1,13 +1,12 @@
 import Dropdown from "@components/common/Dropdown";
 import Input from "@components/common/Input";
-import QRGen from "@components/QR/QRGen/QRGen";
-import { ScanScreen } from "@components/QR/QRScan/QRScan";
+import ScanScreen from "@components/QR/QRScan/QRScan";
 import React, { useEffect, useState } from "react"
 import { Text, View } from "react-native";
 
 
 interface EasySendAndReceiveProps {
-    address: string | undefined;
+    address: string;
 }
 
 const itemList = [
@@ -28,31 +27,31 @@ const EasySendAndReceive: React.FC<EasySendAndReceiveProps> = ({ address }) => {
     useEffect(() => {
         console.log(label);
     }, [label])
+    const [addr, setAddr] = useState(address);
+    const getAddr = (addr: string | undefined) => {
+        if (addr !== undefined) setAddr(addr);
+    }
+    useEffect(() => {
+        console.log(addr);
+    }, [addr])
     return (
-        <View>
+        <View >
             <Dropdown items={itemList} onChange={getLabel} />
-            {label === 'QR' && (<ScanScreen />)}
+            {label === 'QR' && (<ScanScreen onScan={getAddr} />)}
             {label === '친구' && (
                 <View>
                     <Text>친구 선택 창</Text>
                 </View>)}
             {label === '지갑주소' && (
                 <View>
-                    <Input label="지갑주소" placeholder="지갑주소" onChange={() => { console.log(); }} />
+                    <Input label="지갑주소" placeholder="지갑주소" onChange={(e) => { getAddr(e) }} />
                 </View>)}
             {label === '닉네임' && (<View>
-                <Input label="닉네임" placeholder="닉네임" onChange={() => { console.log(); }} />
+                <Input label="닉네임" placeholder="닉네임" onChange={(e) => { console.log(e); }} />
             </View>)}
             {label === '전화번호' && (<View>
-                <Input label="전화번호" placeholder="전화번호" onChange={() => { console.log(); }} type='phone-pad' />
+                <Input label="전화번호" placeholder="전화번호" onChange={(e) => { console.log(e); }} type='phone-pad' />
             </View>)}
-            {/* 
-                
-                받아온 value를 어디다가 저장 하고, Send 에서 송금 버튼 누를 때 axios 요청 들어가야 되는데
-                emit으로 올릴지? 고민
-                
-            
-            */}
         </View>
     );
 }

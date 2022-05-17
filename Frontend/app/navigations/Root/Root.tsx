@@ -8,6 +8,7 @@ import { useEffect } from 'react';
 import { useRecoilState } from 'recoil';
 import { isJWTValid } from '@services/api/user/userAPI';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
+import SendNav from '@navigations/SendNav';
 
 const Nav = createNativeStackNavigator();
 
@@ -29,11 +30,15 @@ const Root = () => {
     <SafeAreaProvider>
       <Nav.Navigator screenOptions={{ presentation: 'modal', headerShown: false }}>
         {isLoggedIn ? (
-          <Nav.Screen name="Tabs" component={Tabs} />
+          <>
+            <Nav.Screen name="Tabs" component={Tabs} />
+            <Nav.Screen name="Send" component={SendNav} />
+          </>
         ) : (
           <>
             <Nav.Screen name="LogIn" component={Login} />
             <Nav.Screen name="Join" component={JoinNav} />
+
           </>
         )}
       </Nav.Navigator>
