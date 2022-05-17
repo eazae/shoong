@@ -1,7 +1,7 @@
 export interface IAvatar extends IAvatarImage {
   hasAlarm?: boolean;
-  isLoading: boolean;
-  uri: string;
+  isLoading?: boolean;
+  uri?: string;
 }
 
 export interface IAvatarImage {

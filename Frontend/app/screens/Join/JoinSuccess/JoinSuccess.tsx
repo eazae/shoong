@@ -1,11 +1,16 @@
+import { isLoggedInState } from '@atoms/atoms';
 import Button from '@components/common/Button';
 import { useNavigation } from '@react-navigation/native';
+
 import Typography from '@theme/Typography';
+import { useSetRecoilState } from 'recoil';
 import styled from 'styled-components/native';
 
 const JoinSuccess = () => {
   const { navigate } = useNavigation();
+  const setIsLoggedIn = useSetRecoilState(isLoggedInState);
   const goToWallet = () => {
+    setIsLoggedIn(() => true);
     navigate('Tabs');
   };
 

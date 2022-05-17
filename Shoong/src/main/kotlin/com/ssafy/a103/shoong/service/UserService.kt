@@ -1,19 +1,17 @@
 package com.ssafy.a103.shoong.service
 
+import com.ssafy.a103.shoong.model.Card
 import com.ssafy.a103.shoong.model.Friend
 import com.ssafy.a103.shoong.model.User
 import com.ssafy.a103.shoong.repository.UserRepository
 import com.ssafy.a103.shoong.repository.UserRepositorySupport
-import com.ssafy.a103.shoong.requestBody.MakeFriendRequestBody
-import com.ssafy.a103.shoong.requestBody.UserJoinRequestBody
-import com.ssafy.a103.shoong.requestBody.UserUpdatePasswordRequestBody
-import com.ssafy.a103.shoong.requestBody.UserUpdateRequestBody
+import com.ssafy.a103.shoong.requestBody.*
 import org.springframework.stereotype.Service
 import org.springframework.web.bind.annotation.CookieValue
 import java.util.*
-import javax.jws.soap.SOAPBinding.Use
 import javax.servlet.http.Cookie
 import javax.servlet.http.HttpServletResponse
+import javax.xml.ws.Response
 
 @Service
 class UserService(val userRepository: UserRepository, val userRepositorySupport: UserRepositorySupport) {
@@ -82,34 +80,96 @@ class UserService(val userRepository: UserRepository, val userRepositorySupport:
     }
     fun makeFriend(user:User, makeFriendRequestBody: MakeFriendRequestBody):User{
         val friend = Friend()
-        friend.Follower = user.id
         if(makeFriendRequestBody.user_nickname != "") {
             val user2 = this.getByNickName(makeFriendRequestBody.user_nickname)
             if(user2 != Optional.empty<User>()) {
-                friend.Followee = user2.get().id
-                user.followers+=friend
+                friend.friend_id = user2.get().id
+                user.friends+=friend
                 return userRepository.save(user)
             }
         }
         if(makeFriendRequestBody.user_email != "") {
             val user2 = this.getByEmail(makeFriendRequestBody.user_email)
             if(user2 != Optional.empty<User>()) {
-                friend.Followee = user2.get().id
-                user.followers+=friend
+                friend.friend_id = user2.get().id
+                user.friends+=friend
                 return userRepository.save(user)
             }
         }
         if(makeFriendRequestBody.user_phone_number != "") {
             val user2 = this.getByPhone(makeFriendRequestBody.user_phone_number)
             if(user2 != Optional.empty<User>()) {
-                friend.Followee = user2.get().id
-                user.followers+=friend
+                friend.friend_id = user2.get().id
+                user.friends+=friend
                 return userRepository.save(user)
             }
         }
         return userRepository.save(user)
-        //중복검사체크 , follower+ follwee 정리 deletefriend api 구현
+        //친구가 없을 때 알림이 없음
     }
+    fun loadFriend(user:User): List<User> {
+        val tmp_users : MutableList<User> = mutableListOf<User>().toMutableList()
+        for(friend in user.friends){
+            val tmp_user = friend.friend_id?.let { getById(it) }?.get()
+            if (tmp_user != null) {
+                tmp_users += tmp_user
+            }
+        }
+        return tmp_users
+    }
+    fun deleteFriend(user:User, deleteFriendRequestBody: DeleteFriendRequestBody):User{
+        val tmp_user = getByNickName(deleteFriendRequestBody.user_nickname).get()//삭제할 친구
+        for(friend in user.friends){
+            if(friend.friend_id.equals(tmp_user.id)){
+                user.friends-=friend
+                break
+            }
+        }
+        return userRepository.save(user)
+    }
+
+    fun checkMakeCardRequestBody(makeCardRequestBody: MakeCardRequestBody):Boolean{
+        if(makeCardRequestBody.card_name =="" || makeCardRequestBody.card_address ==""){
+            return false
+        }
+        return true
+    }
+
+    fun makeCard(user:User, makeCardRequestBody: MakeCardRequestBody):User{
+        if(!checkMakeCardRequestBody(makeCardRequestBody)){
+            return userRepository.save(user)
+        }
+        val card = Card()
+        card.card_address = makeCardRequestBody.card_address
+        card.card_name = makeCardRequestBody.card_name
+        card.card_profile_image = makeCardRequestBody.card_profile_image
+        user.cards += card
+        return userRepository.save(user)
+    }
+    fun deleteCard(user:User, makeCardRequestBody: MakeCardRequestBody):User{
+        for(card in user.cards){
+            if(card.card_address == makeCardRequestBody.card_address && card.card_name == makeCardRequestBody.card_name){
+                user.cards -= card
+                break;
+            }
+        }
+        return userRepository.save(user)
+    }
+    fun updateCard(user:User, updateCardRequestBody: UpdateCardRequestBody):User{
+        for(card in user.cards){
+            if(card.id==updateCardRequestBody.card_id){
+                card.card_name = updateCardRequestBody.card_name
+                card.card_profile_image = updateCardRequestBody.card_profile_image
+                break;
+            }
+        }
+        return userRepository.save(user)
+    }
+
+    fun loadCard(user:User): List<Card> {
+        return user.cards
+    }
+
     fun checkJWT(@CookieValue("jwt")jwt:String?):Boolean{
         if(jwt==null){
             return false
