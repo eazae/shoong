@@ -20,7 +20,7 @@ const SettingsHome: React.FC<NativeStackScreenProps<any, '설정'>> = ({ navigat
         style: 'default',
         onPress: () => {
           clearJWTValue();
-          setIsLogged((curr) => !curr);
+          setIsLogged(false);
         },
       },
     ]);

@@ -9,7 +9,8 @@ export const LightTheme: DefaultTheme = {
   textColor: TextColors.MONO100,
   textSubColor: TextColors.MONO80,
   textDisabledColor: TextColors.MONO60,
-  textHighlightColor: TextColors.HIGHLIGHT,
+  textHighlightColor: LightColors.PRIMARY100,
+  textLinkColor: TextColors.HIGHLIGHT,
 
   /* Background */
   mainBgColor: LightColors.BACKGROUND_DEFAULT,
@@ -47,7 +48,8 @@ export const DarkTheme: DefaultTheme = {
   textColor: TextColors.MONO0,
   textSubColor: TextColors.MONO40,
   textDisabledColor: TextColors.MONO60,
-  textHighlightColor: TextColors.HIGHLIGHT,
+  textHighlightColor: DarkColors.PRIMARY20,
+  textLinkColor: TextColors.HIGHLIGHT,
 
   /* Background */
   mainBgColor: DarkColors.BACKGROUND_DEFAULT,
