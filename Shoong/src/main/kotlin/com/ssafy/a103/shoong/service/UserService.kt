@@ -118,7 +118,7 @@ class UserService(val userRepository: UserRepository, val userRepositorySupport:
         return tmp_users
     }
     fun deleteFriend(user:User, deleteFriendRequestBody: DeleteFriendRequestBody):User{
-        val tmp_user = this.getByNickName(deleteFriendRequestBody.user_nickname).get() //삭제할 친구
+        val tmp_user = getByNickName(deleteFriendRequestBody.user_nickname).get()//삭제할 친구
         for(friend in user.friends){
             if(friend.friend_id.equals(tmp_user.id)){
                 user.friends-=friend

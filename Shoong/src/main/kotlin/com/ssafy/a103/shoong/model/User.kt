@@ -21,7 +21,7 @@ class User {
     @Id
     var id: String? = ObjectId.get().toString()
 
-    @Field("user_phone_number")
+    @Field("user_phone")
     var user_phone_number: String = ""
 
     @Field("user_email")
@@ -74,13 +74,13 @@ class Card {
     var id: String? = ObjectId.get().toString()
 
 
-    @Field("wallet_name")
+    @Field("card_name")
     var card_name: String = "" //card_memo
 
-    @Field("wallet_address")
+    @Field("card_address")
     var card_address: String = ""
 
-    @Field("wallet_profile_image")
+    @Field("card_profile_image")
     var card_profile_image: String = ""
 
     @Field("createdAt")
