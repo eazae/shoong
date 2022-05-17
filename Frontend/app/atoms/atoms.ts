@@ -7,7 +7,13 @@ import { atom } from 'recoil';
 // });
 
 /* 로그인 상태 */
-export const isLoggedState = atom({
-  key: 'isLoggedState',
+export const isLoggedInState = atom({
+  key: 'isLoggedInState',
+  default: false,
+});
+
+/* 앱 테마 변경 */
+export const changeAppTheme = atom({
+  key: 'changeAppTheme',
   default: false,
 });
