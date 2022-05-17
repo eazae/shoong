@@ -8,3 +8,8 @@ export const getScreenHeight = () => {
 
   return SCREEN_HEIGHT;
 };
+
+export const getScreenWidth = () => {
+  const { width: SCREEN_WIDTH } = Dimensions.get('screen');
+  return SCREEN_WIDTH;
+};
