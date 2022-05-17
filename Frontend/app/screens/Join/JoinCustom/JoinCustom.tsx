@@ -125,8 +125,7 @@ const JoinCustom: React.FC<NativeStackNavigationProp<any, 'JoinCustom'>> = () =>
           <Button
             onPress={handleSubmit((data) =>
               submit(data)
-                .then((res) => {
-                  console.log(res.data);
+                .then(() => {
                   navigate('Join', { screen: 'JoinCreateOrLoad' });
                 })
                 .catch((err) => alert(err))

@@ -1,14 +1,23 @@
 import Button from '@components/common/Button';
+import { CardApiProps } from '@components/item/Card/Card.props';
 import MnemonicBadge from '@components/item/MnemonicBadge';
 import MnemonicCard from '@components/layout/MnemonicCard';
 import { LayOut, Title } from '@containers/SecurityCard/SecurityCard.styled';
-import { getCardByMnemonic, storeCardKeys } from '@containers/SecurityCard/SecurityCardHooks';
+import {
+  carPOSTapi,
+  getCardByMnemonic,
+  getDefaultCardName,
+  storeCardKeys,
+} from '@containers/SecurityCard/SecurityCardHooks';
 import { useNavigation } from '@react-navigation/native';
 import Color from '@theme/Color';
 import Typography from '@theme/Typography';
 import { ShieldCheck } from 'phosphor-react-native';
 import React, { useState } from 'react';
 import styled from 'styled-components/native';
+import { useFormContext } from 'react-hook-form';
+import { login } from '@services/api/user/userAPI';
+import { IJoin } from '@screens/Join/Join.props';
 
 interface SCVProps {
   mnemonicWords: readonly string[];
@@ -18,6 +27,7 @@ interface SCVProps {
 const SecurityCardVerify = ({ mnemonicWords, shuffledMnemonics }: SCVProps) => {
   const [ansWords, setAnsWords] = useState<string[]>([]);
   const isNotReady = ansWords[11] === undefined;
+  const { getValues } = useFormContext<IJoin>();
 
   const { navigate } = useNavigation();
 
@@ -68,11 +78,28 @@ const SecurityCardVerify = ({ mnemonicWords, shuffledMnemonics }: SCVProps) => {
               return;
             }
           }
-          getCardByMnemonic(0, ansWords).then((card) =>
-            storeCardKeys(card).then(() => {
-              navigate('Join', { screen: 'JoinSuccess' });
-            })
-          );
+          getCardByMnemonic(0, ansWords).then((card) => {
+            const { cardAddress: address } = card!;
+            const data: CardApiProps = {
+              address,
+              name: getDefaultCardName(address),
+              profileImage: '',
+            };
+            const {
+              address: card_address,
+              name: card_name,
+              profileImage: card_profile_image,
+            } = data;
+            const email = getValues('email');
+            const passWord = getValues('passWord');
+            login({ email, passWord }).then(() => {
+              carPOSTapi({ card_address, card_name, card_profile_image }).then(() =>
+                storeCardKeys(card).then(() => {
+                  navigate('Join', { screen: 'JoinSuccess' });
+                })
+              );
+            });
+          });
         }}
         icon={<ShieldCheck color={Color.textColor.light} />}
         title="지갑 생성 마무리하기"

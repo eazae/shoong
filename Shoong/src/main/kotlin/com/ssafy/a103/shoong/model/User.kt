@@ -15,7 +15,7 @@ import javax.persistence.Entity
 @Document(collection = "user")
 class User : BaseModel()  {
 
-    @Field("user_phone_number")
+    @Field("user_phone")
     var user_phone_number: String = ""
 
     @Field("user_email")
@@ -41,11 +41,8 @@ class User : BaseModel()  {
     @Field("cards")
     var cards: List<Card> = mutableListOf()
 
-    @Field("Followers")
-    var followers: List<Friend> = mutableListOf()
-
-    @Field("Followees")
-    var followees: List<Friend> = mutableListOf()
+    @Field("friends")
+    var friends: List<Friend> = mutableListOf()
 
     // Type이 일정하지 않은 가변 Key-Value 오브젝트는 Map으로 선언
 //    @Field("dynamicObject")
@@ -59,10 +56,13 @@ class User : BaseModel()  {
 class Card : BaseModel()  {
 
     @Field("card_name")
-    var card_name: String = ""
+    var card_name: String = "" //card_memo
 
     @Field("card_address")
     var card_address: String = ""
+
+    @Field("card_profile_image")
+    var card_profile_image: String = ""
 }
 
 @Getter
@@ -71,9 +71,6 @@ class Card : BaseModel()  {
 @QueryEntity
 class Friend : BaseModel() {
 
-    @Field("friend_follower_user")
-    var Follower: String? = null
-
-    @Field("frined_followee_user")
-    var Followee: String? = null
+    @Field("friend_id")
+    var friend_id: String? = null
 }
