@@ -16,7 +16,7 @@ const Container = styled.View`
 const SearchResult = styled.View`
   width: 90%;
   margin: 20px;
-  background-color: ${(props) => props.theme.cardColor};
+  background-color: ${(props) => props.theme.subBgColor};
   border-radius: 10;
   padding: 35px;
   justify-content: center;

@@ -1,6 +1,7 @@
 import Avatar from '@components/common/Avatar';
 import Divider from '@components/common/Divider/Divider';
-import styled from 'styled-components/native';
+import { UserCircle } from 'phosphor-react-native';
+import styled, { useTheme } from 'styled-components/native';
 import { UserInfoType } from 'types/apiTypes';
 
 const Container = styled.View`
@@ -36,9 +37,15 @@ interface UserInfoViewProps {
 }
 
 const UserInfoView = ({ info }: UserInfoViewProps) => {
+  const theme = useTheme();
+
   return (
     <Container>
-      <Avatar uri={info.user_profile_image} size="large" isLoading={false} />
+      {info.user_profile_image === 'deafult image url' ? (
+        <UserCircle size={130} color={theme.subColor} weight="fill" />
+      ) : (
+        <Avatar uri={info.user_profile_image} isLoading={false} size="tab" />
+      )}
       <Divider />
       <Divider />
       <Row>
@@ -60,7 +67,7 @@ const UserInfoView = ({ info }: UserInfoViewProps) => {
       </Row>
       <Row>
         <Label>가입일</Label>
-        <Content>{new Date(info.createdAt).toLocaleDateString()}</Content>
+        <Content>{`${info.createdAt[0]}.${info.createdAt[1]}.${info.createdAt[2]}`}</Content>
       </Row>
     </Container>
   );

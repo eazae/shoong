@@ -16,7 +16,6 @@ const { height: SCREEN_HEIGHT } = Dimensions.get('window');
 const CompTest: React.FC<any> = () => {
   const [modalVisible, setModalVisible] = useState(false);
   const onModalClosed = () => {
-    console.log('닫힘');
     Alert.alert('Modal has been closed.');
     setModalVisible(!modalVisible);
   };

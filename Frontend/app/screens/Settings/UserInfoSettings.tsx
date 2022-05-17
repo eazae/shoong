@@ -50,11 +50,11 @@ const info: UserInfoType = {
 };
 
 const UserInfoSettings: React.FC<NativeStackScreenProps<any>> = ({ navigation, route }) => {
-  // const [info, setInfo] = useState<UserInfoType>();
-  // const [info, setInfo] = useState<UserInfoType>();
+  const [info, setInfo] = useState<UserInfoType>();
   const [isEdit, setIsEdit] = useState(route.params?.isEdit);
+
   const forms = useForm<IJoin>();
-  console.log(isEdit);
+  // console.log(isEdit);
 
   // const [newNickname, setNewNickname] = useState('')
   // const [newPassword, setNewPassword] = useState('')
@@ -66,9 +66,14 @@ const UserInfoSettings: React.FC<NativeStackScreenProps<any>> = ({ navigation, r
   //   setInfo(response.data);
   // };
 
-  // useEffect(() => {
-  //   getAccountInfo();
-  // }, []);
+  const getAccountInfo = async () => {
+    const result = await getUserInfo();
+    if (result.status === 200) setInfo(result.data);
+  };
+
+  useEffect(() => {
+    getAccountInfo();
+  }, []);
 
   return (
     <View>
@@ -77,9 +82,9 @@ const UserInfoSettings: React.FC<NativeStackScreenProps<any>> = ({ navigation, r
         <FormProvider {...forms}>
           <UserInfoForm />
         </FormProvider>
-      ) : (
+      ) : info ? (
         <UserInfoView info={info} />
-      )}
+      ) : null}
     </View>
   );
 };

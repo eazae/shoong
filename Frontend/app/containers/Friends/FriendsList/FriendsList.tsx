@@ -9,12 +9,24 @@ import FriendsItem from '../FriendsItem/FriendsItem';
 
 const Container = styled.View``;
 
-const Title = styled.Text`
+const Title = styled.View`
   width: 100%;
+  display: flex;
+  flex-direction: row;
+`;
+
+const ListTitle = styled.Text`
+  /* width: 100%; */
   color: ${(props) => props.theme.textColor};
   font-size: 24px;
   font-weight: 600;
   padding: 30px 0px 0px 20px;
+`;
+
+const FriendCount = styled(ListTitle)`
+  color: ${(props) => props.theme.textHighlightColor};
+  font-size: 24px;
+  padding-left: 10px;
 `;
 
 const FlatListScroll = styled.FlatList`
@@ -44,16 +56,16 @@ const data: Array<FriendType> = [
   },
 ];
 const FriendsList = () => {
-  const isLoading = false;
+  // const isLoading = false;
   // (https://stackoverflow.com/a/68111112)
   // const { isLoading, data, isRefetching } = useQuery<Array<FriendType>>(
   //   ['friendsList', userId],
   //   () => getFriendList(userId)
   // );
 
-  // const { isLoading, data, isRefetching } = useQuery<Array<FriendType>>(['friendsList'], () =>
-  //   getFriendList()
-  // );
+  const { isLoading, data, isRefetching } = useQuery<Array<FriendType>>(['friendsList'], () =>
+    getFriendList()
+  );
 
   const refreshList = () => {
     Alert.alert('API 연동 후 작업필요');
@@ -63,14 +75,19 @@ const FriendsList = () => {
     <Loader />
   ) : (
     <Container>
-      <Title>친구 목록</Title>
       {data ? (
-        <FlatListScroll
-          data={data}
-          keyExtractor={(item: FriendType) => item.user_nickname}
-          ItemSeparatorComponent={Divider}
-          renderItem={({ item }) => <FriendsItem data={item} onRefreshList={refreshList} />}
-        />
+        <>
+          <Title>
+            <ListTitle>친구 목록</ListTitle>
+            <FriendCount>{data.length}</FriendCount>
+          </Title>
+          <FlatListScroll
+            data={data}
+            keyExtractor={(item: FriendType) => item.user_nickname}
+            ItemSeparatorComponent={Divider}
+            renderItem={({ item }) => <FriendsItem data={item} onRefreshList={refreshList} />}
+          />
+        </>
       ) : null}
     </Container>
   );

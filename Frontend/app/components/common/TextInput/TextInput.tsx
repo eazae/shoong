@@ -8,7 +8,8 @@ const Label = styled.Text`
 `;
 const TextInputComp = styled.TextInput`
   height: 50px;
-  margin: 0px 16px 10px 16px;
+  /* margin: 0px 16px 10px 16px; */
+  margin-bottom: 10px;
   border-width: 0.2px;
   border-radius: 5px;
   border-color: ${(props) => props.theme.borderColor};
