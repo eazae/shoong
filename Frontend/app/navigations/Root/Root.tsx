@@ -5,26 +5,29 @@ import Login from '@screens/Login';
 import { getJWTValue } from '@utils/secureStore';
 import { isLoggedInState } from '@atoms/atoms';
 import { useEffect } from 'react';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import { isJWTValid } from '@services/api/user/userAPI';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import SendNav from '@navigations/SendNav';
+import { Alert } from 'react-native';
 
 const Nav = createNativeStackNavigator();
 
 const Root = () => {
   // test
   const [isLoggedIn, setIsLoggedIn] = useRecoilState(isLoggedInState);
+
   useEffect(() => {
     getJWTValue().then((jwt) => {
-      isJWTValid(jwt || '').then((res) => {
-        if (res.status === 200) {
-          setIsLoggedIn(() => true);
-        }
-      });
+      if (jwt)
+        isJWTValid(jwt).then((res) => {
+          if (res.status === 200) {
+            setIsLoggedIn(() => true);
+          }
+        });
       // .catch((err) => console.log('25', err));
     });
-  }, []);
+  }, [isLoggedIn]);
 
   return (
     <SafeAreaProvider>

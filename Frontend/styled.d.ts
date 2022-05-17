@@ -22,6 +22,7 @@ declare module 'styled-components/native' {
     textSubColor: string;
     textDisabledColor: string;
     textHighlightColor: string;
+    textLinkColor: string;
 
     mainBgColor: string;
     subBgColor: string;

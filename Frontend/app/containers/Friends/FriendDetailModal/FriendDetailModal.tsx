@@ -1,4 +1,3 @@
-// import Modal from '@components/common/Modal/Modal';
 import Avatar from '@components/common/Avatar';
 import Button from '@components/common/Button';
 import Divider from '@components/common/Divider/Divider';
@@ -13,12 +12,13 @@ const Wrapper = styled.TouchableOpacity`
   flex: 1;
   justify-content: center;
   align-items: center;
+  background-color: rgba(0, 0, 0, 0.3);
 `;
 
 const Container = styled.View`
   width: 70%;
   margin: 20px;
-  background-color: ${(props) => props.theme.cardColor};
+  background-color: ${(props) => props.theme.subBgColor};
   border-radius: 10;
   padding: 35px;
   align-items: center;
@@ -33,8 +33,8 @@ const Container = styled.View`
 `;
 
 const ButtonGroup = styled.View`
-  /* display: flex; */
-  /* justify-content: space-between; */
+  width: 50%;
+  justify-content: center;
   flex-direction: row;
 `;
 
@@ -99,8 +99,10 @@ const FriendDetailModal = ({
                 </>
               ) : null}
               <Divider />
+
               <ButtonGroup>
                 <Button title="송금하기" onPress={goToSendScreen} variant="primary" />
+                <Divider orientation="horizontal" size="small" />
                 <Button title="친구삭제" onPress={deleteFriend} variant="error" />
                 {/* <Button title="닫기" /> */}
               </ButtonGroup>
