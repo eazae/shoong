@@ -1,11 +1,22 @@
+import { isLoggedInState } from '@atoms/atoms';
 import Button from '@components/common/Button';
 import { useNavigation } from '@react-navigation/native';
+import { ILogin } from '@screens/Login/Login.props';
+import { login } from '@services/api/user/userAPI';
 import Typography from '@theme/Typography';
+import { useFormContext } from 'react-hook-form';
+import { useSetRecoilState } from 'recoil';
 import styled from 'styled-components/native';
+import { IJoin } from '../Join.props';
 
 const JoinSuccess = () => {
+  const { getValues } = useFormContext<IJoin>();
   const { navigate } = useNavigation();
+  const setIsLoggedIn = useSetRecoilState(isLoggedInState);
   const goToWallet = () => {
+    const email = getValues('email');
+    const passWord = getValues('passWord');
+    login({ email, passWord }).then(() => setIsLoggedIn(true));
     navigate('Tabs');
   };
 
