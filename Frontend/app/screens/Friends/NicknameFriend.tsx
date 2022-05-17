@@ -2,13 +2,14 @@ import Button from '@components/common/Button';
 import Input from '@components/common/TextInput/TextInput';
 import SearchResultView from '@containers/Friends/SearchResultView/SearchResultView';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { getUserWithNickname } from '@services/api/friends/friendsAPI';
 import { useState } from 'react';
 import styled from 'styled-components/native';
 import { FriendType } from 'types/apiTypes';
 
 const Container = styled.View`
   margin-top: 30px;
-  /* padding: 20px 10px; */
+  padding: 0px 20px;
 `;
 
 const NicknameFriend: React.FC<NativeStackScreenProps<any, 'Friends'>> = ({ navigation }) => {
@@ -22,19 +23,15 @@ const NicknameFriend: React.FC<NativeStackScreenProps<any, 'Friends'>> = ({ navi
 
   const handleSearch = async () => {
     setIsRequested(true);
-    // const response = await getUserWithPhone(phoneNumber);
-    // TODO
-    // if (result){ setIsMatchFound(true);
-    // setSearchResult(response.data);}
-    // else
-    // setIsMatchFound(false);
+    const response = await getUserWithNickname(nickname);
+    if (response.status === 200) setSearchResult(response.data);
 
     // 임시
-    setSearchResult({
-      user_profile_image: 'https://picsum.photos/200',
-      user_nickname: '찾은 사용자',
-      user_phone_number: '010-0090-3988',
-    });
+    // setSearchResult({
+    //   user_profile_image: 'https://picsum.photos/200',
+    //   user_nickname: '찾은 사용자',
+    //   user_phone_number: '010-0090-3988',
+    // });
   };
 
   return (

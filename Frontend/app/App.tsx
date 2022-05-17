@@ -22,16 +22,16 @@ export default function App() {
     if (enabled) {
       console.log('Authorization status:', authStatus);
     } else {
-      Alert.alert('알림 허용', '알림이 허용되지 않았습니다. 설정화면으로 이동하시겠습니까?', [
-        { text: '다음에', style: 'cancel' },
-        {
-          text: '설정',
-          style: 'default',
-          onPress: () => {
-            Linking.openURL('app-settings://notification/Shoong');
-          },
-        },
-      ]);
+      // Alert.alert('알림 허용', '알림이 허용되지 않았습니다. 설정화면으로 이동하시겠습니까?', [
+      //   { text: '다음에', style: 'cancel' },
+      //   {
+      //     text: '설정',
+      //     style: 'default',
+      //     onPress: () => {
+      //       Linking.openURL('app-settings://notification/Shoong');
+      //     },
+      //   },
+      // ]);
     }
   };
 

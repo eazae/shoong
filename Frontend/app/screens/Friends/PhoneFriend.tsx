@@ -4,6 +4,7 @@ import Divider from '@components/common/Divider/Divider';
 import Input from '@components/common/TextInput/TextInput';
 import SearchResultView from '@containers/Friends/SearchResultView/SearchResultView';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { getUserWithPhone } from '@services/api/friends/friendsAPI';
 import Typography from '@theme/Typography';
 import { useState } from 'react';
 import styled from 'styled-components/native';
@@ -11,7 +12,7 @@ import { FriendType, UserInfoBaseType } from 'types/apiTypes';
 
 const Container = styled.View`
   margin-top: 30px;
-  /* padding: 20px 10px; */
+  padding: 0px 20px;
 `;
 
 // const regPhone = /^01([0|1|6|7|8|9])-?([0-9]{4})-?([0-9]{4})$/;
@@ -33,19 +34,15 @@ const PhoneFriend: React.FC<NativeStackScreenProps<any, 'Friends'>> = ({ navigat
 
   const handleSearch = async () => {
     setIsRequested(true);
-    // const response = await getUserWithPhone(phoneNumber);
-    // TODO
-    // if (result){ setIsMatchFound(true);
-    // setSearchResult(response.data);}
-    // else
-    // setIsMatchFound(false);
+    const response = await getUserWithPhone(phoneNumber);
+    if (response.status === 200) setSearchResult(response.data);
 
     // 임시
-    setSearchResult({
-      user_profile_image: 'https://picsum.photos/200',
-      user_nickname: '예시계정',
-      user_phone_number: '010-9999-9999',
-    });
+    // setSearchResult({
+    //   user_profile_image: 'https://picsum.photos/200',
+    //   user_nickname: '예시계정',
+    //   user_phone_number: '010-9999-9999',
+    // });
   };
 
   return (
