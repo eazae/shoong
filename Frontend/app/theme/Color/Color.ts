@@ -15,23 +15,14 @@ const borderColor: borderColorType = {
   light: Palette.mono100,
 };
 
-const buttonColor: buttonColorType = {
-  primary: Palette.primary,
-  secondary: Palette.primaryOpacity,
-  error: Palette.danger,
-  disabled: Palette.mono300,
-  transparent: 'transparent',
-};
+// const buttonColor: buttonColorType = {
+//   primary: Palette.primary,
+//   secondary: Palette.primaryOpacity,
+//   error: Palette.danger,
+//   disabled: Palette.mono300,
+//   transparent: 'transparent',
+// };
 
-const color: colorType = {
-  textColor,
-  borderColor,
-  buttonColor,
-};
-
-/**
- * @author eazae
- */
 export const colors = {
   /* Primary Colors */
   PRIMARY_DISABLED: '#D0DBFF',
@@ -81,9 +72,6 @@ export const colors = {
   INFO: '#2685CA',
 };
 
-/**
- * @author eazae
- */
 export const LightColors = {
   /* Primary Colors */
   PRIMARY_DISABLED: '#D0DBFF',
@@ -127,9 +115,6 @@ export const LightColors = {
   INFO: '#2685CA',
 };
 
-/**
- * @author eazae
- */
 export const DarkColors = {
   /* Primary Colors */
   PRIMARY_DISABLED: '#D0DBFF',
@@ -182,6 +167,20 @@ export const TextColors = {
   MONO0: '#ffffff',
 
   HIGHLIGHT: '#3C63EC',
+};
+
+const buttonColor: buttonColorType = {
+  primary: LightColors.PRIMARY100,
+  secondary: LightColors.SECONDARY120,
+  error: LightColors.ERROR,
+  disabled: LightColors.MONO100,
+  transparent: 'transparent',
+};
+
+const color: colorType = {
+  textColor,
+  borderColor,
+  buttonColor,
 };
 
 export default color;
