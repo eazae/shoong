@@ -15,7 +15,6 @@ const Friends = () => {
           name="FriendHome"
           component={FriendsHome}
           options={{
-            // headerRight: () => <TextButton title="수정하기" />,
             title: '친구 목록',
           }}
         />
