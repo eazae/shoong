@@ -15,7 +15,7 @@ import javax.persistence.Entity
 @Document(collection = "user")
 class User : BaseModel()  {
 
-    @Field("user_phone_number")
+    @Field("user_phone")
     var user_phone_number: String = ""
 
     @Field("user_email")

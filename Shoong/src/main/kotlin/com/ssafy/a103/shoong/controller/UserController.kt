@@ -113,6 +113,36 @@ private class UserController(val userService: UserService) {
         }
         return ResponseEntity.ok(Message("success"))
     }
+    @PostMapping("api/user/getByEmail")
+    @ApiResponses(value=[
+        ApiResponse(responseCode = "200", description = "OK !!"),
+        ApiResponse(responseCode = "400", description = "BAD REQUEST !!"),
+        ApiResponse(responseCode = "404", description = "NOT FOUND !!"),
+        ApiResponse(responseCode = "500", description = "INTERNAL SERVER ERROR !!")
+    ])
+    fun getByEmail(@CookieValue("jwt")jwt:String?, @RequestBody getByEmailRequestBody: GetByEmailRequestBody):ResponseEntity<Any>{
+        return ResponseEntity.ok().body(this.userService.getByEmail(getByEmailRequestBody.user_email).get())
+    }
+    @PostMapping("api/user/getByNickName")
+    @ApiResponses(value=[
+        ApiResponse(responseCode = "200", description = "OK !!"),
+        ApiResponse(responseCode = "400", description = "BAD REQUEST !!"),
+        ApiResponse(responseCode = "404", description = "NOT FOUND !!"),
+        ApiResponse(responseCode = "500", description = "INTERNAL SERVER ERROR !!")
+    ])
+    fun getByNickName(@CookieValue("jwt")jwt:String?, @RequestBody getByNickNameRequestBody: GetByNickNameRequestBody):ResponseEntity<Any>{
+        return ResponseEntity.ok().body(this.userService.getByNickName(getByNickNameRequestBody.user_nickname).get())
+    }
+    @PostMapping("api/user/getByPhone")
+    @ApiResponses(value=[
+        ApiResponse(responseCode = "200", description = "OK !!"),
+        ApiResponse(responseCode = "400", description = "BAD REQUEST !!"),
+        ApiResponse(responseCode = "404", description = "NOT FOUND !!"),
+        ApiResponse(responseCode = "500", description = "INTERNAL SERVER ERROR !!")
+    ])
+    fun getByPhone(@CookieValue("jwt")jwt:String?, @RequestBody getByPhoneRequestBody: GetByPhoneRequestBody):ResponseEntity<Any>{
+        return ResponseEntity.ok().body(this.userService.getByPhone(getByPhoneRequestBody.user_phone).get())
+    }
     @PutMapping("api/user/update")
     fun update(@CookieValue("jwt")jwt:String?,@RequestBody userUpdateRequestBody: UserUpdateRequestBody): ResponseEntity<Any>{
         if(!this.userService.checkJWT(jwt)){
