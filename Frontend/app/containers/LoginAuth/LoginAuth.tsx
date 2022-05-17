@@ -41,14 +41,7 @@ const LoginAuth = () => {
       <PassWordInput control={control} errors={errors} />
       <Button
         onPress={handleSubmit((data) => {
-          login(data)
-            .then((res) => {
-              setJWTValue(res.data);
-              setIsLoggedIn(() => true);
-            })
-            .catch(() =>
-              Alert.alert('로그인이 되지 않아요', '아이디와 비밀번호를 다시 한 번 확인해주세요')
-            );
+          login(data).then(() => setIsLoggedIn(() => true));
         })}
         title="Continue"
       />

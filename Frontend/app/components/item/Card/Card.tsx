@@ -22,7 +22,7 @@ export interface WalletCardProps extends CardApiProps {
   existingTokens: CoinVariation[];
 }
 
-const Card = ({ balance, address, name, id, existingTokens }: WalletCardProps) => {
+const Card = ({ balance, address, name, existingTokens }: WalletCardProps) => {
   const [focus, setFocus] = useState(false);
   const { navigate } = useNavigation();
   const goToDetail = () => {
@@ -61,7 +61,7 @@ const Card = ({ balance, address, name, id, existingTokens }: WalletCardProps) =
             CARD ID
           </Balance>
           <Name size="body3" weight="regular">
-            {truncateLongWord(id, 9)}
+            {truncateLongWord(address, 9)}
           </Name>
         </Bottom>
       </Container>
