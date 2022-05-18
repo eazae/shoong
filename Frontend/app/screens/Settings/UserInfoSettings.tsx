@@ -77,13 +77,13 @@ const UserInfoSettings: React.FC<NativeStackScreenProps<any>> = ({ navigation, r
 
   return (
     <View>
-      {/* <UserCircle size={56} color="#ffffff" weight="fill" style={{ width: '100%' }} /> */}
-      {route.params?.isEdit ? (
+      {/* {route.params?.isEdit ? ( */}
+      {isEdit ? (
         <FormProvider {...forms}>
-          <UserInfoForm />
+          {info ? <UserInfoForm info={info} setIsEdit={setIsEdit} /> : null}
         </FormProvider>
       ) : info ? (
-        <UserInfoView info={info} />
+        <UserInfoView info={info} setIsEdit={setIsEdit} />
       ) : null}
     </View>
   );

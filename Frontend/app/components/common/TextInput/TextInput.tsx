@@ -4,7 +4,7 @@ import styled from 'styled-components/native';
 
 const Label = styled.Text`
   color: ${(props) => props.theme.textColor};
-  margin: 12px 16px;
+  margin: 12px 0px;
 `;
 const TextInputComp = styled.TextInput`
   height: 50px;
