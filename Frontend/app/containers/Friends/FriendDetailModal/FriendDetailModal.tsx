@@ -57,8 +57,8 @@ const FriendDetailModal = ({
 
   const goToSendScreen = () => {
     //@ts-ignore
-    navigation.navigate('..?', {});
-    // onModalClosed();
+    navigation.navigate('송금', {});
+    onModalClosed();
   };
 
   const deleteFriend = async () => {
