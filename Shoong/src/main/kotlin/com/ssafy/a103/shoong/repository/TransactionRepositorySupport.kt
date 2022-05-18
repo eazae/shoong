@@ -28,4 +28,14 @@ class TransactionRepositorySupport (
             )
             .toList()
     }
+
+    fun getByCard(card_id: String): List<Transaction> {
+        return transactionRepository
+            .findAll(
+                transaction.deletedAt.isNull
+                    .and(transaction.transaction_sender_card_id.eq(card_id)
+                        .or(transaction.transaction_sender_card_id.eq(card_id)))
+            )
+            .toList()
+    }
 }

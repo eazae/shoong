@@ -36,6 +36,24 @@ private class TransactionController(val transactionService: TransactionService, 
         return ResponseEntity.ok().body(transactionService.getAllByUserId(user))
     }
 
+    @Operation(summary = "get transaction by Card", description = "get transaction by Card")
+    @ApiResponses(value=[
+        ApiResponse(responseCode = "200", description = "OK !!"),
+        ApiResponse(responseCode = "400", description = "BAD REQUEST !!"),
+        ApiResponse(responseCode = "404", description = "NOT FOUND !!"),
+        ApiResponse(responseCode = "500", description = "INTERNAL SERVER ERROR !!")
+    ])
+    @GetMapping("/api/transaction/getByCard")
+    fun getByCard(@CookieValue("jwt")jwt:String?, @RequestParam card_id: String): ResponseEntity<List<Transaction>> {
+        println("/api/transaction/getByCard")
+        if(!this.userService.checkJWT(jwt)){
+            return ResponseEntity.status(401).body(null)
+        }
+//        val body = Jwts.parser().setSigningKey("secret").parseClaimsJws(jwt).body
+//        val user = this.userService.getById(body.issuer.toString()).get()
+        return ResponseEntity.ok().body(transactionService.getByCard(card_id))
+    }
+
     @Operation(summary = "get transaction by Coin", description = "get transaction by Coin")
     @ApiResponses(value=[
         ApiResponse(responseCode = "200", description = "OK !!"),

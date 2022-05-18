@@ -24,8 +24,14 @@ class Transaction: BaseModel() {
     @Field("transaction_sender_user_id")
     var transaction_sender_user_id: String = ""
 
+    @Field("transaction_sender_card_id")
+    var transaction_sender_card_id: String = ""
+
     @Field("transaction_receiver_user_id")
     var transaction_receiver_user_id: String = ""
+
+    @Field("transaction_receiver_card_id")
+    var transaction_receiver_card_id: String = ""
 
     @Field("transaction_value")
     var transaction_value: Double = 0.0
