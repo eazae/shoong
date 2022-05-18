@@ -12,6 +12,7 @@ import { useTheme } from 'styled-components';
 import { useLinkProps, useNavigation } from '@react-navigation/native';
 import Input from '@components/common/Input';
 import styled from 'styled-components/native';
+import { Close, SendModal, Won } from './Send.styled';
 
 
 interface SendProps {
@@ -26,7 +27,6 @@ interface IType {
     value: string;
 }
 
-const defaultAddress = "";
 const Send: React.FC<SendProps> = ({ address }) => {
     const [card, setCard] = useState({
         width: WIDTH,
@@ -99,7 +99,6 @@ const Send: React.FC<SendProps> = ({ address }) => {
     };
     const getTo = (to: string) => {
         setTo(to);
-        console.log(to);
     }
     const { navigate } = useNavigation();
     return (
@@ -156,35 +155,3 @@ const WIDTH = '100%';
 const HEIGHT = '300px';
 const FOLDED = '0px';
 
-const styles = StyleSheet.create({
-    send: {
-        position: 'absolute', backgroundColor: theme.backgroundColor, width: '80%',
-        alignItems: 'center', top: '25%', left: '10%', height: 400, zIndex: 999
-    },
-
-})
-
-const Won = styled.Text`
-  color: ${({ theme }) => theme.textColor};
-`;
-
-const SendModal = styled.View`
-  position  : absolute;
-  background-color: ${({ theme }) => theme.mainBgColor};
-border: 1px solid black;
-width: 80%;
-align-items: center;
-top: 25%;
-left: 10%;
-height: 60%;
-z-index: 999;
-overflow: hidden;
-`;
-
-const Close = styled.Image`
-width: 25px;
-height: 25px;
-top: 5%;
-right: 5%;
-position: absolute;
-`;
