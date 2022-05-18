@@ -1,67 +1,71 @@
-import Coin from '@components/common/Coin';
+import ICChip from '@components/common/ICChip';
+import CoinBadges from '@components/layout/CoinBadges';
+import { defaultCardBg } from '@containers/CardLarge/CardLarge';
 import { useNavigation } from '@react-navigation/native';
-import Color from '@theme/Color';
+import { contractAddr, getEthBalance, getTokenBalance } from '@services/web3/getBalance';
 import Palette from '@theme/Palette';
 import Shadows from '@theme/Shadows';
-import Theme from '@theme/Theme';
 import Typography from '@theme/Typography';
 // API 나오면 하드 코딩 된 부분 수정 예정
 
-import coinImgUri, { CoinVariation } from '@utils/CoinVariations';
 import { truncateLongWord } from '@utils/text';
-import { QrCode } from 'phosphor-react-native';
 import { useState } from 'react';
-import { Pressable, ScrollView, useColorScheme } from 'react-native';
+import { Pressable, useColorScheme } from 'react-native';
+import { useQuery } from 'react-query';
 import styled from 'styled-components/native';
 import { CardApiProps } from './Card.props';
 
-const coinList: CoinVariation[] = ['ether', 'tether', 'solana'];
-
-export interface WalletCardProps extends CardApiProps {
-  balance: number;
-  existingTokens: CoinVariation[];
-}
-
-const Card = ({ balance, address, name, existingTokens }: WalletCardProps) => {
+const Card = ({ card_address, card_name, id, card_profile_image, createdAt }: CardApiProps) => {
+  const { data: ethBalance } = useQuery(['balance'], () => getEthBalance(card_address));
+  const { data: tetherBalance } = useQuery(['balance'], () =>
+    getTokenBalance(card_address, contractAddr['tether'])
+  );
+  const { data: manaBalance } = useQuery(['balance'], () =>
+    getTokenBalance(card_address, contractAddr['mana'])
+  );
+  const isDark = useColorScheme() === 'dark';
   const [focus, setFocus] = useState(false);
   const { navigate } = useNavigation();
   const goToDetail = () => {
-    // navigate();
+    navigate('Details', {
+      screen: 'CardDetail',
+      params: {
+        card_address,
+        title: card_name,
+        card_profile_image: profile_image,
+        createdAt,
+      },
+    });
   };
-
+  const profile_image = card_profile_image || defaultCardBg;
+  const balances = { ethBalance, tetherBalance, manaBalance };
   return (
     <Pressable
       onPress={goToDetail}
       onPressIn={() => setFocus(true)}
       onPressOut={() => setFocus(false)}
     >
-      <Container focus={focus}>
-        <Header>
-          <ScrollView horizontal>
-            {existingTokens.map((coin) => (
-              <Sep>
-                <Coin uri={coinImgUri[coin]} />
-              </Sep>
-            ))}
-          </ScrollView>
-          <ICChip>
-            <QrCode color={useColorScheme() === 'dark' ? Color.borderColor.dark : 'white'} />
-          </ICChip>
-        </Header>
-        <Body>
-          <Balance size="h2" weight="bold">
-            $ {balance}
-          </Balance>
-          <Name size="body3" weight="regular">
-            {name}
-          </Name>
-        </Body>
+      <Container blurRadius={5} source={{ uri: profile_image }}>
+        <Filter focus={focus} isDark={isDark}>
+          <Header>
+            <CoinBadges {...balances} />
+            <ICChip />
+          </Header>
+          <Body>
+            <Balance size="h2" weight="bold">
+              {ethBalance} 원
+            </Balance>
+            <Name size="body3" weight="regular">
+              {truncateLongWord(card_name, 10)}
+            </Name>
+          </Body>
+        </Filter>
         <Bottom>
           <Balance size="body3" weight="bold">
             CARD ID
           </Balance>
           <Name size="body3" weight="regular">
-            {truncateLongWord(address, 9)}
+            {truncateLongWord(id, 10)}
           </Name>
         </Bottom>
       </Container>
@@ -69,18 +73,22 @@ const Card = ({ balance, address, name, existingTokens }: WalletCardProps) => {
   );
 };
 
-const Sep = styled.View`
-  margin-right: -10px;
-`;
-
-const Container = styled.View<{ focus: boolean }>`
-  padding: 20px 10px 10px;
+export const Container = styled.ImageBackground`
+  padding: 0px 0px 0px;
   width: 160px;
   height: 253px;
   border-radius: 10px;
-  background-color: ${({ theme, focus }) => (focus ? Palette.primary : theme.cardColor)};
   justify-content: space-between;
   box-shadow: ${Shadows.common};
+  overflow: hidden;
+`;
+
+const Filter = styled.View<{ focus: boolean; isDark: boolean }>`
+  background-color: ${({ isDark, focus }) =>
+    focus ? Palette.primaryOpacity : isDark ? 'rgba(0,0,0,0.4)' : 'rgba(255,255,255,0.4)'};
+  height: 200px;
+  padding: 20px 10px;
+  justify-content: space-between;
 `;
 
 const Body = styled.View``;
@@ -88,18 +96,10 @@ const Header = styled.View`
   flex-direction: row;
   justify-content: space-between;
 `;
-const Bottom = styled.View``;
+const Bottom = styled.View`
+  padding: 10px;
+`;
 const Balance = styled(Typography)``;
 const Name = styled(Typography)``;
-
-const ICChip = styled.View`
-  justify-content: center;
-  align-items: center;
-  border: 1px solid ${({ theme }) => theme.mainBgColor};
-  background-color: gold;
-  width: 33px;
-  height: 44px;
-  border-radius: 6px;
-`;
 
 export default Card;

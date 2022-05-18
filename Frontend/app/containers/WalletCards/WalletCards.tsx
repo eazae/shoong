@@ -1,33 +1,65 @@
 import Card from '@components/item/Card';
-import { WalletCardProps } from '@components/item/Card/Card';
+import { CardApiProps } from '@components/item/Card/Card.props';
 import HFlatList from '@components/layout/HFlatList';
-
-const cardData: WalletCardProps[] = [
-  {
-    id: '세상에하나뿐인내코인지갑',
-    name: '아들 등록금',
-    address: '',
-    balance: 30000,
-    existingTokens: ['ether', 'mana'],
-  },
-  {
-    id: '양재동카페전기도둑커피값',
-    name: '생활금',
-    address: '',
-    balance: 70000,
-    existingTokens: ['ether', 'tether'],
-  },
-  {
-    id: '미운나이15살백승순',
-    name: '딸 결혼자금',
-    address: '',
-    balance: 0,
-    existingTokens: ['solana'],
-  },
-];
+import { createCard } from '@containers/SecurityCard/SecurityCardHooks';
+import { getCards } from '@services/api/card/cardAPI';
+import Palette from '@theme/Palette';
+import Shadows from '@theme/Shadows';
+import Typography from '@theme/Typography';
+import { Plus } from 'phosphor-react-native';
+import { useState } from 'react';
+import { Pressable } from 'react-native';
+import { QueryObserverResult, RefetchOptions, RefetchQueryFilters, useQuery } from 'react-query';
+import { useTheme } from 'styled-components';
+import styled from 'styled-components/native';
 
 const WalletCards = () => {
-  return <HFlatList data={cardData} margin={5} renderItem={({ item }) => <Card {...item} />} />;
+  const { data, refetch } = useQuery<CardApiProps[]>(['cards'], getCards);
+  return (
+    <HFlatList
+      ListFooterComponent={() => <AddCard refetch={refetch} />}
+      data={data!}
+      margin={5}
+      renderItem={({ item }) => <Card {...item} />}
+    />
+  );
 };
+
+interface AddCardProps {
+  refetch: <TPageData>(
+    options?: RefetchOptions & RefetchQueryFilters<TPageData>
+  ) => Promise<QueryObserverResult<any, any>>;
+}
+
+const AddCard = ({ refetch }: AddCardProps) => {
+  const [focus, setFocus] = useState(false);
+
+  return (
+    <Pressable
+      onPress={async () => createCard().then(() => refetch())}
+      onPressIn={() => setFocus(true)}
+      onPressOut={() => setFocus(false)}
+    >
+      <Container focus={focus}>
+        <Plus color={useTheme().textColor} size={54} />
+        <Typography size="body3">카드 추가하기</Typography>
+      </Container>
+    </Pressable>
+  );
+};
+
+const Container = styled.View<{ focus: boolean }>`
+  opacity: 0.8;
+  margin-left: ${12}px;
+  background-color: ${({ theme, focus }) => (focus ? Palette.primary : theme.cardColor)};
+  padding: 20px;
+  width: 160px;
+  height: 253px;
+  border-radius: 10px;
+  justify-content: space-around;
+  align-items: center;
+  box-shadow: ${Shadows.common};
+  overflow: hidden;
+`;
 
 export default WalletCards;
