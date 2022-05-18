@@ -177,12 +177,12 @@ private class UserController(val userService: UserService) {
         response.addCookie(cookie)
         return ResponseEntity.ok(jwt)
     }
-    @PostMapping("/api/user/logout")
+    @PostMapping("/api/logout")
     fun logout(response:HttpServletResponse) : ResponseEntity<Any>{
-        println("/api/user/logout")
+        println("/api/logout")
         return ResponseEntity.ok().body(this.userService.logout(response))
     }
-    @DeleteMapping("/api/user/signout")
+    @DeleteMapping("/api/signout")
     @ApiResponses(value=[
         ApiResponse(responseCode = "200", description = "OK !!"),
         ApiResponse(responseCode = "400", description = "BAD REQUEST !!"),
@@ -204,7 +204,7 @@ private class UserController(val userService: UserService) {
             if(!this.userService.checkJWT(jwt)){
                 return ResponseEntity.status(401).body(Message("unauthenticated"))
             }
-            var body = Jwts.parser().setSigningKey("secret").parseClaimsJws(jwt).body
+            val body = Jwts.parser().setSigningKey("secret").parseClaimsJws(jwt).body
 
             return ResponseEntity.ok(this.userService.getById(body.issuer.toString()))
         }catch (e:Exception){
