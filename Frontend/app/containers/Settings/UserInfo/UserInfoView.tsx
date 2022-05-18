@@ -1,5 +1,6 @@
 import Avatar from '@components/common/Avatar';
 import Divider from '@components/common/Divider/Divider';
+import TextButton from '@components/common/TextButton/TextButton';
 import { UserCircle } from 'phosphor-react-native';
 import styled, { useTheme } from 'styled-components/native';
 import { UserInfoType } from 'types/apiTypes';
@@ -32,11 +33,18 @@ const Content = styled.Text`
   text-align: right;
 `;
 
+const EditButton = styled(TextButton)`
+  text-align: end;
+  justify-content: end;
+  align-items: flex-end;
+  display: flex;
+`;
 interface UserInfoViewProps {
   info: UserInfoType;
+  setIsEdit: any;
 }
 
-const UserInfoView = ({ info }: UserInfoViewProps) => {
+const UserInfoView = ({ info, setIsEdit }: UserInfoViewProps) => {
   const theme = useTheme();
 
   return (
@@ -69,6 +77,8 @@ const UserInfoView = ({ info }: UserInfoViewProps) => {
         <Label>가입일</Label>
         <Content>{`${info.createdAt[0]}.${info.createdAt[1]}.${info.createdAt[2]}`}</Content>
       </Row>
+      <Divider />
+      <EditButton title="정보 수정하기" onPress={() => setIsEdit(true)} />
     </Container>
   );
 };
