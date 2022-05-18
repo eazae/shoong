@@ -1,29 +1,51 @@
-import React, { useState } from 'react';
-import { Alert, Modal as RNModal, StyleSheet, Text, Pressable, View } from 'react-native';
+import Shadows from '@theme/Shadows';
+import Typography from '@theme/Typography';
+import React from 'react';
+import { Modal as RNModal, useColorScheme } from 'react-native';
+import styled from 'styled-components/native';
+import Button from '../Button';
+import { ButtonProps } from '../Button/Button.props';
 
 interface ModalProps {
+  modalTitle?: string;
+  content?: string;
+  buttonTitle?: string;
   modalVisible: boolean;
   onModalClosed: Function;
+  buttonIcon: ButtonProps['icon'];
 }
 
-const Modal: React.FC<ModalProps> = ({ modalVisible, onModalClosed }) => {
+const Modal: React.FC<ModalProps> = ({
+  modalTitle,
+  content,
+  buttonIcon,
+  buttonTitle,
+  modalVisible,
+  onModalClosed,
+}) => {
   // const [modalVisible, setModalVisible] = useState(false);
+  const isDark = useColorScheme() === 'dark';
   return (
     // <View style={styles.centeredView}>
     <RNModal
-      animationType="slide"
+      animationType="fade"
       transparent={true}
       visible={modalVisible}
       onRequestClose={() => onModalClosed()}
     >
-      <View style={styles.centeredView}>
-        <View style={styles.modalView}>
-          <Text style={styles.modalText}>Hello World!</Text>
-          <Pressable style={[styles.button, styles.buttonClose]} onPress={() => onModalClosed()}>
-            <Text style={styles.textStyle}>Hide Modal</Text>
-          </Pressable>
-        </View>
-      </View>
+      <LayOut>
+        <Container isDark={isDark}>
+          <Title>
+            <Typography weight="bold" size="body1">
+              {modalTitle}
+            </Typography>
+          </Title>
+          <Content>
+            <Typography size="body3">{content}</Typography>
+          </Content>
+          <Button icon={buttonIcon} title={buttonTitle} onPress={() => onModalClosed()} />
+        </Container>
+      </LayOut>
     </RNModal>
     // <Pressable style={[styles.button, styles.buttonOpen]} onPress={() => setModalVisible(true)}>
     //   <Text style={styles.textStyle}>Show Modal</Text>
@@ -31,49 +53,32 @@ const Modal: React.FC<ModalProps> = ({ modalVisible, onModalClosed }) => {
     // </View>
   );
 };
+const LayOut = styled.View`
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+  margin-top: 22;
+  background-color: 'rgba(0,0,0,0.35)';
+`;
 
-const styles = StyleSheet.create({
-  centeredView: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginTop: 22,
-  },
-  modalView: {
-    margin: 20,
-    backgroundColor: 'white',
-    borderRadius: 20,
-    padding: 35,
-    alignItems: 'center',
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 4,
-    elevation: 5,
-  },
-  button: {
-    borderRadius: 20,
-    padding: 10,
-    elevation: 2,
-  },
-  buttonOpen: {
-    backgroundColor: '#F194FF',
-  },
-  buttonClose: {
-    backgroundColor: '#2196F3',
-  },
-  textStyle: {
-    color: 'white',
-    fontWeight: 'bold',
-    textAlign: 'center',
-  },
-  modalText: {
-    marginBottom: 15,
-    textAlign: 'center',
-  },
-});
+const Container = styled.View<{ isDark: boolean }>`
+  /* border: 1px solid ${({ theme }) => theme.borderColor}; */
+  border-radius: 10px;
+  padding: 15px 18px;
+  width: 240px;
+  background-color: ${({ isDark }) => (isDark ? 'rgba(0,0,0,0.9)' : 'rgba(255,255,255,0.9)')};
+  box-shadow: ${Shadows.common};
+  align-items: center;
+`;
+
+const Title = styled.View`
+  margin-bottom: 15px;
+  align-items: center;
+`;
+
+const Content = styled.View`
+  margin-bottom: 15px;
+  text-align: center;
+`;
 
 export default Modal;
