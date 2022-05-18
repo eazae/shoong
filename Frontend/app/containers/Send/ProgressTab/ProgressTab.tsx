@@ -1,8 +1,12 @@
 import styled from 'styled-components/native';
 
-const Container = styled.TouchableOpacity<{ isFocus: boolean }>`
-  background-color: ${({ isFocus, theme }) =>
-    isFocus ? theme.enabledColor : theme.textDisabledColor};
+const Container = styled.TouchableOpacity<{ state: StateType }>`
+  background-color: ${({ state, theme }) =>
+    state === 'focus'
+      ? theme.enabledColor
+      : state === 'selected'
+      ? 'black'
+      : theme.textDisabledColor};
   display: flex;
   flex-direction: row;
   padding: 10px;
@@ -29,27 +33,30 @@ const Number = styled.Text`
   font-size: 16px;
 `;
 
-const Title = styled.Text<{ isFocus: boolean }>`
+const Title = styled.Text<{ state: StateType }>`
   color: white;
   margin-left: 10px;
   font-weight: 500;
-  font-size: ${(props) => (props.isFocus ? '18px' : '16px')};
+  font-size: ${(props) => (props.state === 'focus' ? '18px' : '16px')};
 `;
+
+type StateType = 'empty' | 'focus' | 'selected';
 
 interface ProgressTabProps {
   index: number;
   title: string;
   onPress: any;
-  isFocus: boolean;
+  // isFocus: boolean;
+  state: StateType;
 }
 
-const ProgressTab = ({ index, title, onPress, isFocus = false }: ProgressTabProps) => {
+const ProgressTab = ({ index, title, onPress, state = 'empty' }: ProgressTabProps) => {
   return (
-    <Container onPress={onPress} isFocus={isFocus}>
+    <Container onPress={onPress} state={state}>
       <NumberWrapper>
         <Number>{index}</Number>
       </NumberWrapper>
-      <Title isFocus={isFocus}>{title}</Title>
+      <Title state={state}>{title}</Title>
     </Container>
   );
 };
