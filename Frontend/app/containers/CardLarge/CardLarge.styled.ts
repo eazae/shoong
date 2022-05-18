@@ -1,3 +1,4 @@
+import Palette from '@theme/Palette';
 import styled from 'styled-components/native';
 
 export const LayOut = styled.View``;
@@ -42,4 +43,11 @@ export const BtnLayOut = styled.View`
 export const ButtonsLayOut = styled.View`
   flex-direction: row;
   justify-content: space-between;
+`;
+
+export const Address = styled.Pressable<{ isDark: boolean; isPressed: boolean }>`
+  background-color: ${({ isDark, isPressed }) =>
+    isPressed ? Palette.primaryOpacity : isDark ? 'rgba(0,0,0,0.4)' : 'rgba(255,255,255,0.4)'};
+  padding: 3px 6px;
+  border-radius: 15px;
 `;

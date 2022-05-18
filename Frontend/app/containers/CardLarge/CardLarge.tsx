@@ -1,12 +1,17 @@
 import Button from '@components/common/Button';
 import ICChip from '@components/common/ICChip';
+import Modal from '@components/common/Modal/Modal';
 import CoinBadges from '@components/layout/CoinBadges';
 import { contractAddr, getEthBalance, getTokenBalance } from '@services/web3/getBalance';
+import Color from '@theme/Color';
 import Typography from '@theme/Typography';
 import { truncateLongWord } from '@utils/text';
-import { useColorScheme } from 'react-native';
+import { Clipboard } from 'phosphor-react-native';
+import { useState } from 'react';
+import { useColorScheme, Clipboard as Copy } from 'react-native';
 import { useQuery } from 'react-query';
 import {
+  Address,
   Body,
   Bottom,
   BtnLayOut,
@@ -35,11 +40,21 @@ const CardLarge = ({ card_address, card_profile_image, createdAt }: CardLargePro
   const { data: manaBalance } = useQuery(['balance'], () =>
     getTokenBalance(card_address, contractAddr['mana'])
   );
+  const [addrPressed, setAddrPressed] = useState(false);
+  const [modalOn, setModalOn] = useState(false);
   const isDark = useColorScheme() === 'dark';
   const balances = { ethBalance, tetherBalance, manaBalance };
   const validDate = `${createdAt[0]}-${createdAt[1].toString().padStart(2, '0')}-${createdAt[2]
     .toString()
     .padStart(2, '0')}`;
+
+  const onAddrPress = () => {
+    setModalOn(true);
+  };
+  const onModalClose = () => {
+    Copy.setString(card_address);
+    setModalOn(false);
+  };
 
   return (
     <LayOut>
@@ -53,7 +68,23 @@ const CardLarge = ({ card_address, card_profile_image, createdAt }: CardLargePro
             <Typography size="h1" weight="bold">
               {cardBalance} 원
             </Typography>
-            <Typography size="body2">{truncateLongWord(card_address, 18)}</Typography>
+            <Address
+              onPress={onAddrPress}
+              onPressIn={() => setAddrPressed(true)}
+              onPressOut={() => setAddrPressed(false)}
+              isPressed={addrPressed}
+              isDark={isDark}
+            >
+              <Typography size="body2">{truncateLongWord(card_address, 18)}</Typography>
+            </Address>
+            <Modal
+              modalTitle="카드 주소"
+              buttonTitle="복사하고 닫기"
+              buttonIcon={<Clipboard color={Color.textColor.light} />}
+              content={card_address}
+              modalVisible={modalOn}
+              onModalClosed={onModalClose}
+            ></Modal>
           </Body>
         </Filter>
         <Bottom>
