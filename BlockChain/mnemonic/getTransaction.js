@@ -21,7 +21,7 @@ const CONTRACTADDRESS = '0x70cBa46d2e933030E2f274AE58c951C800548AeF'
 const getTrx = async(ADDRESS) => {
     const URL = `https://api.etherscan.io/api?module=account&action=txlist&address=${ADDRESS}&startblock=0&endblock=99999999&page=1&offset=10&sort=asc&apikey=${API}`
 
-    const res = await axios(GOER_URL)
+    const res = await axios(URL)
     const {result} = res.data
     return result
 }
