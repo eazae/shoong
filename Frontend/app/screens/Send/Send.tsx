@@ -17,6 +17,7 @@ import Input from '@components/common/TextInput/TextInput';
 
 interface SendProps {
   address: string;
+  to: string;
 }
 interface ExpandProp {
   width: string;
@@ -71,7 +72,6 @@ const Send: React.FC<SendProps> = ({ address }) => {
   // @신지우
   // 현재 선택된 단계
   const [focus, setFocus] = useState(1);
-  const [selectedToken, setSelectedToken] = useState('');
 
   const expnadSwitch = (val: ExpandProp) => {
     const list = [card, target, tokenFlag, amountFlag];

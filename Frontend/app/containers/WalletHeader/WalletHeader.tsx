@@ -3,6 +3,9 @@ import { BlurView } from 'expo-blur';
 import { StyleSheet, useColorScheme } from 'react-native';
 import Avatar from '@components/common/Avatar';
 import Typography from '@theme/Typography';
+import { useEffect, useState } from 'react';
+import { getTotalKRWBalance } from '@services/api/token/tokenAPI';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
 
 export const WALLET_HEADER_HEIGHT = 125;
 
@@ -20,7 +23,18 @@ const WalletHeaderData: WalletHeaderProps = {
 
 const WalletHeader = () => {
   const isDark = useColorScheme() === 'dark';
-  const { profileUri, userName, totalBalance } = WalletHeaderData;
+  const { profileUri, userName } = WalletHeaderData;
+
+  const [totalBalance, setTotalBalance] = useState<number>(0);
+
+  const getUserTotalKRWBalance = async () => {
+    console.log(accountInfo);
+    return await getTotalKRWBalance(accountInfo);
+  };
+
+  useEffect(() => {
+    getUserTotalKRWBalance();
+  }, []);
   return (
     <LayOut>
       <BlurView tint={isDark ? 'dark' : 'light'} intensity={30} style={StyleSheet.absoluteFill}>
