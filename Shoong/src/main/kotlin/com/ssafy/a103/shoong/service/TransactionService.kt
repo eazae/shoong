@@ -17,6 +17,8 @@ class TransactionService(val transactionRepository: TransactionRepository, val t
 
     fun getByCoin(coin_id: String, user: User): List<Transaction> = transactionRepositorySupport.getByCoin(coin_id, user)
 
+    fun getByCard(card_id: String): List<Transaction> = transactionRepositorySupport.getByCard(card_id)
+
     fun cancel(transactionCancelRequestBody: TransactionCancelRequestBody): Boolean {
         val transaction = transactionRepository.findById(transactionCancelRequestBody.transaction_id)
         return if(transaction != Optional.empty<Transaction>() && transaction.get().deletedAt == null){
@@ -32,7 +34,9 @@ class TransactionService(val transactionRepository: TransactionRepository, val t
         transaction.transaction_gasprice = transactionSaveRequestBody.transaction_gasprice
         transaction.transaction_gas = transactionSaveRequestBody.transaction_gas
         transaction.transaction_sender_user_id = transactionSaveRequestBody.transaction_sender_user_id
+        transaction.transaction_sender_card_id = transactionSaveRequestBody.transaction_sender_card_id
         transaction.transaction_receiver_user_id = transactionSaveRequestBody.transaction_receiver_user_id
+        transaction.transaction_receiver_card_id = transactionSaveRequestBody.transaction_receiver_card_id
         transaction.transaction_value = transactionSaveRequestBody.transaction_value
         transaction.transaction_memo = transactionSaveRequestBody.transaction_memo
         transaction.transaction_coin_id = transactionSaveRequestBody.transaction_coin_id
