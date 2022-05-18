@@ -9,7 +9,7 @@ const web3 = new Web3('https://goerli.infura.io/v3/43b62be4d86946688b1fb5b4bf4df
 const address= '0xc1b13D6A6ade2d587f134c015109D9fA43f01445'
 const privateKey ='0xf75de4b52af767d0fd647f3514f072a5c5a4b7893e9f5a3d50de8af3e725b001'
 const toAddress = '0x3ba20130f28232ad75f6a2d4be7ea3164a34c8ce'
-const inputEth = 1500000
+const inputEth = 500000
 const gasFee = 10
 
 ///
@@ -23,8 +23,8 @@ const ethereumTransfer = async(address, privateKey, toAddress,inputEth,gasFee) =
     // ether 송금
     const txObject = {
         nonce:  web3.utils.toHex(accountNonce),
-        gasLimit: maxGasPrice,
-        gasPrice: web3.utils.toHex(web3.utils.toWei(`${gasFee}`, 'gwei')),
+        gasLimit: 100000,
+        gasPrice: web3.utils.toWei(`${gasFee}`, 'gwei'),
         to: toAddress,
         value : inputEth
     }
@@ -36,5 +36,5 @@ const ethereumTransfer = async(address, privateKey, toAddress,inputEth,gasFee) =
 
 
     };
-
+ethereumTransfer(address,privateKey,toAddress,inputEth,gasFee)
 export default ethereumTransfer
