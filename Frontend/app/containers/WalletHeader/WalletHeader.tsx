@@ -3,6 +3,8 @@ import { BlurView } from 'expo-blur';
 import { StyleSheet, useColorScheme } from 'react-native';
 import Avatar from '@components/common/Avatar';
 import Typography from '@theme/Typography';
+import { useEffect, useState } from 'react';
+import { getUserInfo } from '@services/api/user/userAPI';
 
 export const WALLET_HEADER_HEIGHT = 125;
 
@@ -13,28 +15,50 @@ interface WalletHeaderProps {
 }
 
 const WalletHeaderData: WalletHeaderProps = {
-  userName: '김싸피',
   totalBalance: 100000,
   profileUri: 'https://blog.kakaocdn.net/dn/YmhBn/btrheysMts6/GhjC6XXXhWC30n7Fmcqok1/img.jpg',
 };
 
 const WalletHeader = () => {
+  const [userInfo, setUserInfo] = useState({ user_nickname: '', user_profile_image: '' });
   const isDark = useColorScheme() === 'dark';
-  const { profileUri, userName, totalBalance } = WalletHeaderData;
+  const { profileUri, totalBalance } = WalletHeaderData;
+  const getUser = async () => {
+    const result = await getUserInfo();
+    if (result.status === 200)
+      setUserInfo({
+        user_nickname: result.data.user_nickname,
+        // TODO "deafult image url" 오타 수정 요청
+        user_profile_image:
+          result.data.user_profile_image === 'deafult image url'
+            ? ''
+            : result.data.user_profile_image,
+      });
+  };
+
+  useEffect(() => {
+    getUser();
+  }, []);
+
   return (
     <LayOut>
       <BlurView tint={isDark ? 'dark' : 'light'} intensity={30} style={StyleSheet.absoluteFill}>
         <ContentLayOut>
           <TextLayOut>
             <Typography size="body2" weight="bold">
-              {userName}
+              {userInfo.user_nickname}
               <Typography size="body3">님 안녕하세요</Typography>
             </Typography>
             <Typography size="body1" weight="bold">
               $ <Typography size="body1">{totalBalance}</Typography>
             </Typography>
           </TextLayOut>
-          <Avatar size="small" isLoading={false} uri={profileUri} hasAlarm={true} />
+          <Avatar
+            size="small"
+            isLoading={false}
+            uri={userInfo.user_profile_image || profileUri}
+            hasAlarm={true}
+          />
         </ContentLayOut>
       </BlurView>
     </LayOut>
