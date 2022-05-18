@@ -1,6 +1,5 @@
 package com.ssafy.a103.shoong.controller
 
-import com.ssafy.a103.shoong.model.Card
 import com.ssafy.a103.shoong.model.User
 import com.ssafy.a103.shoong.requestBody.*
 import com.ssafy.a103.shoong.service.UserService
@@ -132,7 +131,7 @@ private class UserController(val userService: UserService) {
         val user = this.userService.getById(body.issuer.toString()).get()
         return ResponseEntity.ok().body(this.userService.updatepassword(user,userUpdatePasswordRequestBody))
     }
-    @PostMapping("/api/user/login")
+    @PostMapping("/api/login")
     fun login(@RequestBody userLoginRequestBody: UserLoginRequestBody, response:HttpServletResponse) : ResponseEntity<Any>{
         val user = this.userService.getByEmail(userLoginRequestBody.user_email)
         if(user==Optional.empty<User>()){
