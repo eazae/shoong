@@ -59,7 +59,7 @@ const ethereumTokenTransfer = async(address, privateKey,toAddress,contractAddr,i
     console.log(maxGasPrice,'최대가스가격')
 
     const txObject = {
-        gasLimit:maxGasPrice,
+        gasLimit: 100000,
         gasPrice: web3.utils.toWei(`${gasFee}`,'gwei'),
         to: contractAddr,
         data: data,
