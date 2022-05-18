@@ -1,15 +1,14 @@
-export const parseDate = (date: Date) => {
+export const parseDate = (date: number[]) => {
   const now = new Date();
   const curYear = now.getUTCFullYear();
   const curMonth = now.getUTCMonth() + 1;
   const curDay = now.getUTCDate();
-
-  const year = date.getUTCFullYear();
-  const month = date.getUTCMonth() + 1;
-  const day = date.getUTCDate();
-  const hour = date.getUTCHours();
-  const minute = date.getUTCMinutes();
-  const second = date.getUTCSeconds();
+  const year = date[0];
+  const month = date[1];
+  const day = date[2];
+  const hour = date[3].toString().padStart(2, '0');
+  const minute = date[4].toString().padStart(2, '0');
+  const second = date[5].toString().padStart(2, '0');
 
   return curYear === year && curMonth === month
     ? curDay - day === 0

@@ -1,7 +1,7 @@
 import styled from 'styled-components/native';
 
 interface CoinProps {
-  size: 'large' | 'default';
+  size?: 'large' | 'default';
   uri: string;
 }
 

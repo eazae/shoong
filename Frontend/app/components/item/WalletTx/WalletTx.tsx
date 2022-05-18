@@ -6,19 +6,17 @@ import styled from 'styled-components/native';
 import { Balance, Info, LayOut, TxContent } from './WalletTx.styled';
 
 const WalletTx = ({ transaction_memo, createdAt, transaction_value }: WalletTxProps) => {
-  const date = new Date(createdAt!);
-
   return (
     <LayOut>
       <Info>
-        <Avatar />
+        <Avatar uri="" />
         <TxContent>
           <Typography size="body1" weight="regular">
             {transaction_memo}
           </Typography>
           <VSep />
           <Typography size="caption1" weight="light">
-            {parseDate(date)}
+            {parseDate(createdAt!)}
           </Typography>
         </TxContent>
       </Info>
