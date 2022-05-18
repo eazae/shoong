@@ -7,6 +7,8 @@ import { Text, View } from "react-native";
 
 interface EasySendAndReceiveProps {
     address: string;
+    setAddress?: (...event: any[]) => void;
+    setType?: (...event: any[]) => void;
 }
 
 const itemList = [
@@ -18,22 +20,23 @@ const itemList = [
 ];
 
 
-const EasySendAndReceive: React.FC<EasySendAndReceiveProps> = ({ address }) => {
+const EasySendAndReceive: React.FC<EasySendAndReceiveProps> = ({ address = "", setAddress, setType }) => {
     const [label, setLabel] = useState(String);
     const [value, setValue] = useState(String);
     const getLabel = (label: string) => {
         setLabel(label);
+        setType(label);
     };
     useEffect(() => {
         console.log(label);
     }, [label])
-    const [addr, setAddr] = useState(address);
+    const [addr, setAddr] = useState("");
     const getAddr = (addr: string | undefined) => {
-        if (addr !== undefined) setAddr(addr);
+        if (addr !== undefined) setAddress(addr);
     }
     useEffect(() => {
-        console.log(addr);
-    }, [addr])
+        if (address !== "") setAddr(address);
+    }, [])
     return (
         <View >
             <Dropdown items={itemList} onChange={getLabel} />
@@ -44,13 +47,13 @@ const EasySendAndReceive: React.FC<EasySendAndReceiveProps> = ({ address }) => {
                 </View>)}
             {label === '지갑주소' && (
                 <View>
-                    <Input label="지갑주소" placeholder="지갑주소" onChange={(e) => { getAddr(e) }} />
+                    <Input label="지갑주소" placeholder="지갑주소" onChange={(e) => setAddress(e)} />
                 </View>)}
             {label === '닉네임' && (<View>
-                <Input label="닉네임" placeholder="닉네임" onChange={(e) => { console.log(e); }} />
+                <Input label="닉네임" placeholder="닉네임" onChange={(e) => { setType({ type: "닉네임", value: e }) }} />
             </View>)}
             {label === '전화번호' && (<View>
-                <Input label="전화번호" placeholder="전화번호" onChange={(e) => { console.log(e); }} type='phone-pad' />
+                <Input label="전화번호" placeholder="전화번호" onChange={(e) => { setType({ type: "전화번호", value: e }) }} type='phone-pad' />
             </View>)}
         </View>
     );
