@@ -6,8 +6,12 @@ import { hdkey } from 'ethereumjs-wallet';
 import { getSecureStoreValue, setSecureStoreValue } from '@utils/secureStore';
 import { serialize } from '@utils/serialize';
 import instance from '@services/api/axios';
+import { getCards } from '@services/api/card/cardAPI';
+import * as SecureStore from 'expo-secure-store';
+import { defaultCardBg } from '@containers/CardLarge/CardLarge';
 
-export const getDefaultCardName = (address) => address;
+// export const getDefaultCardName = (address) => address;
+const MNEMONIC_KEY = 'Mnemonic';
 
 export const generateMnemonic = async () => {
   try {
@@ -22,6 +26,7 @@ const validateMnemonic = (mnemonicWords) => {
   return [bip39.validateMnemonic(txt), txt];
 };
 
+// CASE masterkey doesn't exists
 export const getCardByMnemonic = async (key, mnemonicWords) => {
   const [isValidKey, mnemonicKey] = validateMnemonic(mnemonicWords);
 
@@ -35,12 +40,32 @@ export const getCardByMnemonic = async (key, mnemonicWords) => {
 
   const card = childKey.getWallet();
   // 지갑 주소
-  const cardAddress = card.getAddressString();
+  const card_address = card.getAddressString();
 
   // // 개인키 니모닉키와 함께 **유출 금지**
-  const cardPvKey = card.getPrivateKeyString();
+  const card_pv_key = card.getPrivateKeyString();
 
-  return { cardAddress, cardPvKey };
+  return { card_address, card_pv_key };
+};
+
+// CASE masterKey Exists
+export const createCard = async () => {
+  const length = (await getCards()).length;
+  let mnemonic = await getSecureStoreValue(MNEMONIC_KEY);
+  const masterKey = await mnemonicToMasterKey(mnemonic);
+
+  const card = masterKey.deriveChild(length).getWallet();
+  const card_address = card.getAddressString();
+  const card_pv_key = card.getPrivateKeyString();
+
+  const data = {
+    card_address,
+    card_name: `내 카드 ${length + 1}`,
+    card_profile_image: defaultCardBg,
+  };
+  carPOSTapi(data)
+    .then(() => storeCardKeys({ card_address, card_pv_key }))
+    .catch((err) => alert(err));
 };
 
 const mnemonicToMasterKey = async (mnemonicKey) => {
@@ -48,6 +73,9 @@ const mnemonicToMasterKey = async (mnemonicKey) => {
   const rootKey = hdkey.fromMasterSeed(seed);
   const masterKey = rootKey.derivePath("m/44'/60'/0'/0");
 
+  await SecureStore.deleteItemAsync(MNEMONIC_KEY).then(
+    async () => await setSecureStoreValue(MNEMONIC_KEY, mnemonicKey)
+  );
   return masterKey;
 };
 
@@ -61,7 +89,6 @@ export const storeCardKeys = async (card) => {
     .catch((err) => console.log(err));
 };
 
-// API 나오면 추가할 예정 - YoonBaek
 export const carPOSTapi = async (data) => {
   return await instance.post('/user/makeCard', data);
 };
