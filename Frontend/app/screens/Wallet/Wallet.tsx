@@ -4,17 +4,20 @@ import { WALLET_HEADER_HEIGHT } from '@containers/WalletHeader/WalletHeader';
 import WalletCards from '@containers/WalletCards';
 import GasWeather from '@containers/GasWeathers';
 import WalletListTitle from '@components/item/WalletListTitle';
-import { txData } from '@containers/WalletTxsEmpty/WalletTxsEmpty.props';
+import { txData, WalletTxProps } from '@containers/WalletTxsEmpty/WalletTxsEmpty.props';
 import WalletTx from '@components/item/WalletTx';
-import { FlatList } from 'react-native';
+import { FlatList, TouchableOpacity } from 'react-native';
 import WalletTxsEmpty from '@containers/WalletTxsEmpty';
 import { getScreenHeight } from '@utils/native';
+import { useQuery } from 'react-query';
+import { getAllTransactions } from '@services/api/transactions/transactionsAPI';
 
 const Wallet = () => {
+  const { data } = useQuery<WalletTxProps[]>(['transactions'], getAllTransactions);
   return (
     <WalletLayOut>
       <FlatList
-        data={txData}
+        data={data}
         ListHeaderComponent={
           <>
             <HeaderArea />
@@ -28,7 +31,11 @@ const Wallet = () => {
         ListEmptyComponent={WalletTxsEmpty}
         ItemSeparatorComponent={Sep}
         showsVerticalScrollIndicator={false}
-        renderItem={({ item: tx }) => <WalletTx {...tx} />}
+        renderItem={({ item: tx }) => (
+          <TouchableOpacity onPress={getAllTransactions}>
+            <WalletTx {...tx} />
+          </TouchableOpacity>
+        )}
       />
     </WalletLayOut>
   );

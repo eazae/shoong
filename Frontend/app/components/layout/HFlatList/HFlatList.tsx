@@ -8,12 +8,14 @@ interface SepProps {
 interface HFlatListProps extends SepProps {
   data: readonly any[];
   renderItem: ListRenderItem<any>;
+  ListFooterComponent?: React.ComponentType<any>;
 }
 
-const HFlatList = ({ margin, data, renderItem }: HFlatListProps) => {
+const HFlatList = ({ ListFooterComponent, margin, data, renderItem }: HFlatListProps) => {
   return (
     <LayOut>
       <FlatList
+        ListFooterComponent={ListFooterComponent}
         horizontal
         data={data}
         renderItem={renderItem}

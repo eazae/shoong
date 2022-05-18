@@ -1,9 +1,11 @@
 export interface ICard extends CardApiProps {}
 
 export interface CardApiProps {
-  address: string;
-  name: string;
-  profileImage: string; // uri
+  id?: string;
+  card_address: string;
+  card_name: string;
+  card_profile_image: string; // uri
+  createdAt?: number[];
 }
 
 export interface CardStorageProps {

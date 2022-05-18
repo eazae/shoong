@@ -6,7 +6,6 @@ import { LayOut, Title } from '@containers/SecurityCard/SecurityCard.styled';
 import {
   carPOSTapi,
   getCardByMnemonic,
-  getDefaultCardName,
   storeCardKeys,
 } from '@containers/SecurityCard/SecurityCardHooks';
 import { useNavigation } from '@react-navigation/native';
@@ -18,6 +17,8 @@ import styled from 'styled-components/native';
 import { useFormContext } from 'react-hook-form';
 import { login } from '@services/api/user/userAPI';
 import { IJoin } from '@screens/Join/Join.props';
+import { defaultCardBg } from '@containers/CardLarge/CardLarge';
+import * as SecureStore from 'expo-secure-store';
 
 interface SCVProps {
   mnemonicWords: readonly string[];
@@ -81,23 +82,21 @@ const SecurityCardVerify = ({ mnemonicWords, shuffledMnemonics }: SCVProps) => {
           getCardByMnemonic(0, ansWords).then((card) => {
             const { cardAddress: address } = card!;
             const data: CardApiProps = {
-              address,
-              name: getDefaultCardName(address),
-              profileImage: '',
+              card_address: address,
+              card_name: `내 카드 ${0 + 1}`,
+              card_profile_image: defaultCardBg,
             };
-            const {
-              address: card_address,
-              name: card_name,
-              profileImage: card_profile_image,
-            } = data;
+
             const email = getValues('email');
             const passWord = getValues('passWord');
             login({ email, passWord }).then(() => {
-              carPOSTapi({ card_address, card_name, card_profile_image }).then(() =>
+              carPOSTapi(data).then(() => {
+                SecureStore.deleteItemAsync('Cards');
                 storeCardKeys(card).then(() => {
+                  alert('keys are stored!');
                   navigate('Join', { screen: 'JoinSuccess' });
-                })
-              );
+                });
+              });
             });
           });
         }}
