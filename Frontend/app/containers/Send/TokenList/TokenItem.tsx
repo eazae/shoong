@@ -8,6 +8,7 @@ const Container = styled.TouchableOpacity<{ isSelected: boolean }>`
     props.isSelected ? props.theme.disabledColor : props.theme.subBgColor};
   align-items: center;
   padding: 20px;
+  margin: 5px;
   border-radius: 10px;
   border-color: ${(props) => props.theme.enabledColor};
   border-width: ${(props) => (props.isSelected ? '2px' : '0px')};

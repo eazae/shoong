@@ -1,7 +1,17 @@
 import coinImgUri from '@utils/CoinVariations';
+import { getScreenWidth } from '@utils/native';
 import { useState } from 'react';
-import { FlatList } from 'react-native';
+import { Dimensions, FlatList } from 'react-native';
+import styled from 'styled-components/native';
 import TokenItem from './TokenItem';
+
+const Container = styled.View`
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+`;
 
 interface TokenListProp {
   selectedToken: string;
@@ -10,19 +20,14 @@ interface TokenListProp {
 
 const TokenList = ({ selectedToken, setSelectedToken }: TokenListProp) => {
   const [containerWidth, setContainerWidth] = useState(0);
+  // const screenWidth = getScreenWidth();
 
-  const margins = 10;
+  const margins = 20;
   const numColumns = 2;
 
   return (
-    <FlatList
-      data={Object.entries(coinImgUri)}
-      columnWrapperStyle={{
-        justifyContent: 'space-between',
-        marginBottom: 10,
-      }}
-      onLayout={(e) => setContainerWidth(e.nativeEvent.layout.width)}
-      renderItem={({ item }) => (
+    <Container onLayout={(e) => setContainerWidth(e.nativeEvent.layout.width)}>
+      {Object.entries(coinImgUri).map((item) => (
         <TokenItem
           label={item[0]}
           uri={item[1]}
@@ -30,10 +35,28 @@ const TokenList = ({ selectedToken, setSelectedToken }: TokenListProp) => {
           setSelectedToken={setSelectedToken}
           width={(containerWidth - margins) / numColumns}
         />
-      )}
-      keyExtractor={(item, index) => item[0]}
-      numColumns={numColumns}
-    />
+      ))}
+      {/* <FlatList
+        data={Object.entries(coinImgUri)}
+        columnWrapperStyle={{
+          justifyContent: 'space-between',
+          marginBottom: 10,
+        }}
+        // onLayout={(e) => setContainerWidth(e.nativeEvent.layout.width)}
+        renderItem={({ item }) => (
+          <TokenItem
+            label={item[0]}
+            uri={item[1]}
+            isSelected={selectedToken === item[0]}
+            setSelectedToken={setSelectedToken}
+            // width={(containerWidth - margins) / numColumns}
+          />
+        )}
+        keyExtractor={(item) => item[0]}
+        numColumns={numColumns}
+        disableVirtualization={true}
+      /> */}
+    </Container>
   );
 };
 

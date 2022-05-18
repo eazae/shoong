@@ -8,11 +8,12 @@ import { theme } from '@storybook/react-native/dist/preview/components/Shared/th
 import Typography from '@theme/Typography';
 import { useTheme } from 'styled-components';
 import { useLinkProps, useNavigation } from '@react-navigation/native';
-import Input from '@components/common/Input';
+// import Input from '@components/common/Input';
 import ProgressTab from '@containers/Send/ProgressTab/ProgressTab';
 import Divider from '@components/common/Divider/Divider';
 import styled from 'styled-components/native';
 import TokenList from '@containers/Send/TokenList/TokenList';
+import Input from '@components/common/TextInput/TextInput';
 
 interface SendProps {
   address: string;
@@ -31,6 +32,7 @@ const Container = styled.View`
 `;
 
 const defaultAddress = '';
+
 const Send: React.FC<SendProps> = ({ address }) => {
   const [card, setCard] = useState({
     width: WIDTH,
@@ -91,6 +93,7 @@ const Send: React.FC<SendProps> = ({ address }) => {
   const goConfirm = () => {
     //트랜잭션 id 들고 페이지 넘기기
     //트랜잭션 요청 후 트랜잭션 id 가지고 다음 페이지로 이동
+    //@ts-ignore
     navigate('Send', { screen: 'SendConfirm' });
   };
   const getType = (props: IType) => {
@@ -115,13 +118,13 @@ const Send: React.FC<SendProps> = ({ address }) => {
         {/* <Button title='송금 카드 선택' onPress={() => { expnadSwitch(card) }} /> */}
         <Divider size="small" />
         <ProgressTab
-          title="송금 카드 선택"
+          title={`송금 카드 선택${fromAddress ? `: ${fromAddress}` : ''}`}
           index={1}
           onPress={() => {
             expnadSwitch(card);
             setFocus(1);
           }}
-          isFocus={focus === 1}
+          state={focus === 1 ? 'focus' : fromAddress ? 'selected' : 'empty'}
         />
         {focus === 1 ? (
           <ExpandableView width={card.width} height={card.height}>
@@ -133,13 +136,13 @@ const Send: React.FC<SendProps> = ({ address }) => {
         <Divider size="small" />
         {/* <Button title='송금 대상 선택' onPress={() => { expnadSwitch(target) }} /> */}
         <ProgressTab
-          title="송금 대상 선택"
+          title={`송금 대상 선택${to ? `: ${to}` : ''}`}
           index={2}
           onPress={() => {
             expnadSwitch(target);
             setFocus(2);
           }}
-          isFocus={focus === 2}
+          state={focus === 2 ? 'focus' : to ? 'selected' : 'empty'}
         />
         {focus === 2 ? (
           <ExpandableView width={target.width} height={target.height}>
@@ -149,43 +152,46 @@ const Send: React.FC<SendProps> = ({ address }) => {
         <Divider size="small" />
         {/* <Button title='토큰 종류 선택' onPress={() => { expnadSwitch(tokenFlag) }} /> */}
         <ProgressTab
-          title="토큰 종류 선택"
+          title={`토큰 종류 선택${token ? `: ${token}` : ''}`}
           index={3}
           onPress={() => {
             expnadSwitch(tokenFlag);
             setFocus(3);
           }}
-          isFocus={focus === 3}
+          state={focus === 3 ? 'focus' : token ? 'selected' : 'empty'}
         />
         {focus === 3 ? (
-          <ExpandableView width={token.width} height={token.height}>
-            {/* <SelectToken /> */}
-            {/* token */}
-            <TokenList selectedToken={selectedToken} setSelectedToken={setSelectedToken} />
+          <ExpandableView width={tokenFlag.width} height={tokenFlag.height}>
+            <TokenList selectedToken={token} setSelectedToken={setToken} />
           </ExpandableView>
         ) : null}
         <Divider size="small" />
         {/* <Button title='송금 수량 입력' onPress={() => { expnadSwitch(amountFlag) }} /> */}
         <ProgressTab
-          title="송금 수량 입력"
+          title={`송금 수량 입력${amount ? `: ${amount}` : ''}`}
           index={4}
           onPress={() => {
             expnadSwitch(amountFlag);
             setFocus(4);
           }}
-          isFocus={focus === 4}
+          state={focus === 4 ? 'focus' : amount ? 'selected' : 'empty'}
         />
         {focus === 4 ? (
           <ExpandableView width={amountFlag.width} height={amountFlag.height}>
             {/* 송금 수량 입력 */}
             {/* amount */}
-            <Input
+            {/* <Input
               label="송금 수량"
               placeholder="수량 입력"
-              type="numeric"
               onChange={(e) => {
                 console.log(e);
               }}
+            /> */}
+            <Input
+              placeholder="수량 입력"
+              keyboardType="numeric"
+              presetValue={amount}
+              setValue={setAmount}
             />
             <Won>{price}원</Won>
           </ExpandableView>
@@ -196,6 +202,7 @@ const Send: React.FC<SendProps> = ({ address }) => {
           onPress={() => {
             setVisible(true);
           }}
+          disabled={fromAddress !== null && to !== null && token !== null && amount !== null}
         />
         {visible === true && (
           <SendModal>
