@@ -4,6 +4,7 @@ import { ILogin } from '@screens/Login/Login.props';
 import { setJWTValue } from '@utils/secureStore';
 import { Alert } from 'react-native';
 import { useSetRecoilState } from 'recoil';
+import { UserInfoBaseType } from 'types/apiTypes';
 import instance from '../axios';
 
 // 공통되는 경로는 다음과 같이 별도로 정의해둠
@@ -11,7 +12,7 @@ const COMMON = '/user';
 
 export const login = async ({ email: user_email, passWord: user_password }: ILogin) => {
   const response = await instance
-    .post(COMMON + '/login', {
+    .post('/login', {
       user_email,
       user_password,
     })
@@ -45,4 +46,11 @@ export const getUserInfo = async () => {
 /* 사용자 정보 수정 */
 export const updateUserInfo = async (userInfo: UserInfoBaseType) => {
   const response = await instance.put(COMMON + '/update', userInfo);
+  return response;
+};
+
+/* 사용자 비밀번호 수정 */
+export const updateUserPassword = async (user_password: string) => {
+  const response = await instance.put(COMMON + '/updatepassword', { user_password });
+  return response;
 };

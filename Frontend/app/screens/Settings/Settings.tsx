@@ -49,12 +49,13 @@ const Settings = () => {
             name="사용자 정보"
             component={UserInfoSettings}
             initialParams={{ isEdit: false }}
-            options={{
-              headerRight: () => (
-                // <TextButton title="수정하기" onPress={() => setParams({ isEdit: true })} />
-                <TextButton title="수정하기" onPress={() => setIsUserInfoEdit(true)} />
-              ),
-            }}
+            options={
+              {
+                // headerRight: () => (
+                // <TextButton title="수정하기" onPress={() => setIsUserInfoEdit(true)} />
+                // ),
+              }
+            }
           />
           <Screen name="알림" component={NotificationSettings} />
           {/* <Screen name="대표 카드 설정" component={SettingsHome} /> */}

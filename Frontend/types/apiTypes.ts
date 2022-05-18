@@ -8,13 +8,13 @@ export interface UserInfoType extends UserInfoBaseType {
   updatedAt: string;
   user_email: string;
   // user_nickname: string;
-  // user_password: string;
   // user_phone_number: string;
+  user_password: string;
 }
 
 export interface UserInfoBaseType {
   user_nickname: string;
-  user_password: string;
+  // user_password: string;
   user_phone_number: string;
   user_profile_image: string;
 }
