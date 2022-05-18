@@ -1,9 +1,7 @@
-import { isLoggedInState } from '@atoms/atoms';
 import { JoinRequestProps } from '@screens/Join/Join.props';
 import { ILogin } from '@screens/Login/Login.props';
 import { setJWTValue } from '@utils/secureStore';
 import { Alert } from 'react-native';
-import { useSetRecoilState } from 'recoil';
 import { UserInfoBaseType } from 'types/apiTypes';
 import instance from '../axios';
 
@@ -22,6 +20,7 @@ export const login = async ({ email: user_email, passWord: user_password }: ILog
     .catch(() =>
       Alert.alert('로그인이 되지 않아요', '아이디와 비밀번호를 다시 한 번 확인해주세요')
     );
+  return response;
 };
 
 export const join = async (body: JoinRequestProps) => {

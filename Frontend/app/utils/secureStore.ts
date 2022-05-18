@@ -1,5 +1,4 @@
 import * as SecureStore from 'expo-secure-store';
-import { Alert } from 'react-native';
 
 /* JWT 저장 */
 export const setJWTValue = async (jwt: string) => {
@@ -21,13 +20,9 @@ export const setSecureStoreValue = async (key: string, value: string) => {
 };
 
 export const getSecureStoreValue = async (key: string) => {
-  let result = await SecureStore.getItemAsync(key);
-  if (result) {
-    Alert.alert("🔐 Here's your value 🔐 \n" + result);
-  } else {
-    Alert.alert('No values stored under that key.');
-  }
-  return result;
+  const result = await SecureStore.getItemAsync(key);
+
+  return result!;
 };
 
 // export default { setSecureStoreValue, getSecureStoreValue };
