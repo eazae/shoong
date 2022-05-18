@@ -6,7 +6,6 @@ import { contractAddr, getEthBalance, getTokenBalance } from '@services/web3/get
 import Palette from '@theme/Palette';
 import Shadows from '@theme/Shadows';
 import Typography from '@theme/Typography';
-// API 나오면 하드 코딩 된 부분 수정 예정
 
 import { truncateLongWord } from '@utils/text';
 import { useState } from 'react';
@@ -45,7 +44,7 @@ const Card = ({ card_address, card_name, id, card_profile_image, createdAt }: Ca
       onPressIn={() => setFocus(true)}
       onPressOut={() => setFocus(false)}
     >
-      <Container blurRadius={5} source={{ uri: profile_image }}>
+      <Container blurRadius={6} source={{ uri: profile_image }}>
         <Filter focus={focus} isDark={isDark}>
           <Header>
             <CoinBadges {...balances} />
