@@ -24,6 +24,12 @@ import AmountInput from '@containers/Send/AmountInput/AmountInput';
 import { CoinType } from '@services/api/token/tokenTypes';
 import TargetModal from '@containers/Send/TargetModal/TargetModal';
 import SelectTargetView from '@containers/Send/SelectTargetView/SelectTargetView';
+import HFlatList from '@components/layout/HFlatList';
+import Card from '@components/item/Card';
+import { getUserInfo } from '@services/api/user/userAPI';
+import SenderCardItem from '@containers/Send/SenderCardItem/SenderCardItem';
+import { getCoinPrice } from '@services/api/token/tokenAPI';
+import { CardType } from 'types/apiTypes';
 
 interface SendProps {
   presetAddress?: string;
@@ -85,6 +91,10 @@ const Send: React.FC<SendProps> = ({ route }) => {
   // 현재 선택된 단계
   const [focus, setFocus] = useState(1);
   const [targetAddress, setTargetAddress] = useState(presetAddress ?? '');
+  const [senderCardList, setSenderCardList] = useState();
+  const [sendCard, setSendCard] = useState<CardType>();
+  const [sendAddress, setSendAddress] = useState();
+  const [tokenPrices, setTokenPrices] = useState();
 
   const expandSwitch = (val: ExpandProp) => {
     const list = [card, target, tokenFlag, amountFlag];
@@ -125,24 +135,72 @@ const Send: React.FC<SendProps> = ({ route }) => {
     console.log(to);
   };
   const { navigate } = useNavigation();
+
+  // @신지우
+  const getUserCards = async () => {
+    const { status, data } = await getUserInfo();
+    if (status === 200) {
+      setSenderCardList(data.cards);
+    }
+  };
+
+  // TODO 이 파일 코드 정리.. 급하게 복사해온 것들
+  const getCoinPrices = async () => {
+    const mana = await getCoinPrice('decentraland');
+    const eth = await getCoinPrice('ethereum');
+    const usdt = await getCoinPrice('tether');
+    setTokenPrices({
+      decentraland: mana,
+      ethereum: eth,
+      tether: usdt,
+    });
+  };
+
+  const selectSendCard = (card: CardType) => {
+    setSendCard(card);
+    setSendAddress(card.card_address);
+  };
+
+  useEffect(() => {
+    if (focus === 1) getUserCards();
+  }, [focus]);
+
+  useEffect(() => {
+    getCoinPrices();
+  }, []);
+
   return (
     <Container>
       <ScrollView nestedScrollEnabled={true}>
         <Divider size="small" />
         <ProgressTab
-          title={`송금 카드 선택${fromAddress ? `: ${fromAddress}` : ''}`}
+          title={`송금 카드 선택${sendCard ? `: ${sendCard.card_name}` : ''}`}
           index={1}
           onPress={() => {
             expandSwitch(card);
             setFocus(1);
           }}
-          state={focus === 1 ? 'focus' : fromAddress ? 'selected' : 'empty'}
+          state={focus === 1 ? 'focus' : sendAddress ? 'selected' : 'empty'}
         />
         {focus === 1 ? (
           <ExpandableView width={card.width} height={card.height}>
-            <Text>11</Text>
-            {/* 카드 선택  */}
-            {/* from */}
+            {senderCardList ? (
+              <HFlatList
+                // ListFooterComponent={() => <AddCard refetch={refetch} />}
+                // data={senderCardList?.map((card) => ({ ...card, prices }))}
+                data={senderCardList}
+                margin={5}
+                renderItem={({ item }) => {
+                  return (
+                    <SenderCardItem
+                      card={item}
+                      prices={tokenPrices}
+                      selectSendCard={selectSendCard}
+                    />
+                  );
+                }}
+              />
+            ) : null}
           </ExpandableView>
         ) : null}
         <Divider size="small" />
