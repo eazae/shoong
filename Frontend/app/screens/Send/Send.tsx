@@ -6,17 +6,20 @@ import Button from '@components/common/Button';
 import { SendConfirm } from './SendConfirm';
 import { theme } from '@storybook/react-native/dist/preview/components/Shared/theme';
 import Typography from '@theme/Typography';
-import { useTheme } from 'styled-components';
 import { useLinkProps, useNavigation } from '@react-navigation/native';
 // import Input from '@components/common/Input';
 import ProgressTab from '@containers/Send/ProgressTab/ProgressTab';
 import Divider from '@components/common/Divider/Divider';
 import styled from 'styled-components/native';
 import TokenList from '@containers/Send/TokenList/TokenList';
-import Input from '@components/common/TextInput/TextInput';
+import AmountInput from '@containers/Send/AmountInput/AmountInput';
+import { CoinType } from '@services/api/token/tokenTypes';
+import TargetModal from '@containers/Send/TargetModal/TargetModal';
+import SelectTargetView from '@containers/Send/SelectTargetView/SelectTargetView';
 
 interface SendProps {
   address: string;
+  to: string;
 }
 interface ExpandProp {
   width: string;
@@ -71,7 +74,6 @@ const Send: React.FC<SendProps> = ({ address }) => {
   // @신지우
   // 현재 선택된 단계
   const [focus, setFocus] = useState(1);
-  const [selectedToken, setSelectedToken] = useState('');
 
   const expnadSwitch = (val: ExpandProp) => {
     const list = [card, target, tokenFlag, amountFlag];
@@ -134,7 +136,6 @@ const Send: React.FC<SendProps> = ({ address }) => {
           </ExpandableView>
         ) : null}
         <Divider size="small" />
-        {/* <Button title='송금 대상 선택' onPress={() => { expnadSwitch(target) }} /> */}
         <ProgressTab
           title={`송금 대상 선택${to ? `: ${to}` : ''}`}
           index={2}
@@ -146,11 +147,11 @@ const Send: React.FC<SendProps> = ({ address }) => {
         />
         {focus === 2 ? (
           <ExpandableView width={target.width} height={target.height}>
-            <EasySendAndReceive address={to} setAddress={getTo} setType={getType} />
+            <SelectTargetView />
+            {/* <EasySendAndReceive address={to} setAddress={getTo} setType={getType} /> */}
           </ExpandableView>
         ) : null}
         <Divider size="small" />
-        {/* <Button title='토큰 종류 선택' onPress={() => { expnadSwitch(tokenFlag) }} /> */}
         <ProgressTab
           title={`토큰 종류 선택${token ? `: ${token}` : ''}`}
           index={3}
@@ -166,7 +167,6 @@ const Send: React.FC<SendProps> = ({ address }) => {
           </ExpandableView>
         ) : null}
         <Divider size="small" />
-        {/* <Button title='송금 수량 입력' onPress={() => { expnadSwitch(amountFlag) }} /> */}
         <ProgressTab
           title={`송금 수량 입력${amount ? `: ${amount}` : ''}`}
           index={4}
@@ -179,21 +179,8 @@ const Send: React.FC<SendProps> = ({ address }) => {
         {focus === 4 ? (
           <ExpandableView width={amountFlag.width} height={amountFlag.height}>
             {/* 송금 수량 입력 */}
-            {/* amount */}
-            {/* <Input
-              label="송금 수량"
-              placeholder="수량 입력"
-              onChange={(e) => {
-                console.log(e);
-              }}
-            /> */}
-            <Input
-              placeholder="수량 입력"
-              keyboardType="numeric"
-              presetValue={amount}
-              setValue={setAmount}
-            />
-            <Won>{price}원</Won>
+            <Divider />
+            <AmountInput amount={amount} setAmount={setAmount} token={token} />
           </ExpandableView>
         ) : null}
         <Divider size="small" />

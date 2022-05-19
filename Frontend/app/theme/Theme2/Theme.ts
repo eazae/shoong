@@ -4,6 +4,8 @@ import { DefaultTheme } from 'styled-components/native';
 
 export const LightTheme: DefaultTheme = {
   primaryColor: LightColors.PRIMARY100,
+  primaryLightColor: LightColors.PRIMARY60,
+
   secondaryColor: LightColors.SECONDARY100,
   /* Text */
   textColor: TextColors.MONO100,
@@ -43,6 +45,7 @@ export const LightTheme: DefaultTheme = {
 
 export const DarkTheme: DefaultTheme = {
   primaryColor: DarkColors.PRIMARY100,
+  primaryLightColor: DarkColors.PRIMARY60,
   secondaryColor: DarkColors.SECONDARY100,
   /* Text */
   textColor: TextColors.MONO0,
