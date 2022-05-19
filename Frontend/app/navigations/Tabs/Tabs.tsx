@@ -51,6 +51,7 @@ const Tabs = () => {
             style={StyleSheet.absoluteFill}
           />
         ),
+        // unmountOnBlur: true,
       }}
     >
       <Screen
@@ -91,6 +92,7 @@ const Tabs = () => {
           tabBarIcon: ({ color, size }) => {
             return <CurrencyEth color={color} size={size} />;
           },
+          unmountOnBlur: true,
         }}
       />
       <Screen
@@ -102,6 +104,7 @@ const Tabs = () => {
           tabBarIcon: ({ color, size }) => {
             return <Users color={color} size={size} />;
           },
+          unmountOnBlur: true,
         }}
       />
       <Screen

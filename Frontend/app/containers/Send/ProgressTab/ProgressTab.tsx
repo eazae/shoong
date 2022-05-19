@@ -6,8 +6,8 @@ const Container = styled.TouchableOpacity<{ state: StateType }>`
     state === 'focus'
       ? theme.enabledColor
       : state === 'selected'
-      ? 'black'
-      : theme.textDisabledColor};
+      ? theme.enabledColor
+      : theme.greyBgColor};
   display: flex;
   flex-direction: row;
   padding: 10px;

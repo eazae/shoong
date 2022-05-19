@@ -100,11 +100,11 @@ const TargetButton = ({
         <BouncyCheckbox
           size={25}
           fillColor={theme.enabledColor}
-          unfillColor="white"
+          // unfillColor="white"
           // text="Custom Checkbox"
           // iconStyle={{ borderColor: 'red' }}
           // textStyle={{ fontFamily: 'JosefinSans-Regular' }}
-          // onPress={() => setIsChecked(!isChecked)}
+          onPress={() => setSelected(title)}
           isChecked={isChecked}
         />
       </RadioButtonView>
