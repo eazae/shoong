@@ -1,3 +1,4 @@
+import { Check } from 'phosphor-react-native';
 import styled from 'styled-components/native';
 
 const Container = styled.TouchableOpacity<{ state: StateType }>`
@@ -54,7 +55,7 @@ const ProgressTab = ({ index, title, onPress, state = 'empty' }: ProgressTabProp
   return (
     <Container onPress={onPress} state={state}>
       <NumberWrapper>
-        <Number>{index}</Number>
+        {state === 'selected' ? <Check weight="bold" /> : <Number>{index}</Number>}
       </NumberWrapper>
       <Title state={state}>{title}</Title>
     </Container>
