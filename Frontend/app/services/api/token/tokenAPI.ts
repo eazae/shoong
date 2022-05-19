@@ -35,3 +35,18 @@ export const getTotalKRWBalance = async (wallet: Array<CardType>) => {
 
   return balance;
 };
+
+export const getCardKRWBalance = async (address: string) => {
+  let balance: number = 0;
+
+  // Ethereum
+  balance += await getEthBalance(address);
+  // Solana
+  balance += await getSolanaBalance(address);
+  // Tether
+  balance += await getTokenBalance(address, contractAddr.tether);
+  // Decentralized
+  balance += await getTokenBalance(address, contractAddr.mana);
+
+  return balance;
+};

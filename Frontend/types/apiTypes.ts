@@ -20,12 +20,14 @@ export interface UserInfoBaseType {
 }
 
 export interface CardType {
+  id: string;
   card_address: string;
   card_name: string;
   createdAt: string;
   deletedAt: string;
-  id: string;
   updatedAt: string;
+
+  card_profile_image: string;
 }
 
 export interface FriendType {
