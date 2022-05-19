@@ -133,9 +133,9 @@ const SelectTargetView = ({ targetAddress, setTargetAddress }: SelectTargetViewP
       ) : type === '친구' ? (
         <DropDownPicker
           items={friendList}
-          value={target}
+          // value={target}
           placeholder="친구"
-          setValue={setTarget}
+          // setValue={setTarget}
           open={openFriendPicker}
           setOpen={setOpenFriendPicker}
           // theme={theme.theme.toUpperCase()}
