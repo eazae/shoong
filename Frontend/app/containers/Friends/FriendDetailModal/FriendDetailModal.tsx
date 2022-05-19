@@ -4,8 +4,9 @@ import Divider from '@components/common/Divider/Divider';
 import { useNavigation } from '@react-navigation/native';
 import { requestAddFriend, requestDeleteFriend } from '@services/api/friends/friendsAPI';
 import Typography from '@theme/Typography';
+import { UserCircle } from 'phosphor-react-native';
 import { Alert, Modal, TouchableWithoutFeedback } from 'react-native';
-import styled from 'styled-components/native';
+import styled, { useTheme } from 'styled-components/native';
 import { FriendType } from 'types/apiTypes';
 
 const Wrapper = styled.TouchableOpacity`
@@ -54,10 +55,11 @@ const FriendDetailModal = ({
   // const [modalVisible, setModalVisible] = useState(false);
 
   const navigation = useNavigation();
+  const theme = useTheme();
 
   const goToSendScreen = () => {
     //@ts-ignore
-    navigation.navigate('송금', {});
+    navigation.navigate('송금', { to: '102398' });
     onModalClosed();
   };
 
@@ -90,7 +92,11 @@ const FriendDetailModal = ({
             <Container>
               {data ? (
                 <>
-                  <Avatar isLoading={false} uri={data.user_profile_image} size="large" />
+                  {data.user_profile_image === 'deafult image url' ? (
+                    <UserCircle size={130} color={theme.subColor} weight="light" />
+                  ) : (
+                    <Avatar uri={data.user_profile_image} isLoading={false} size="tab" />
+                  )}
                   <Divider />
                   <Typography size="body2" weight="bold">
                     {data.user_nickname}
