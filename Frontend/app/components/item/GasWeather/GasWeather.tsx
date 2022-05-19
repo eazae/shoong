@@ -32,7 +32,7 @@ const GasWeather = ({ coinPrice, coinName }: GasWeatherProps) => {
         <Coin size="large" uri={coinImgUri[coinName]} />
         <Price>
           <Typography size="body3" weight="regular">
-            {coinPrice ? coinPrice.krw.toLocaleString() : '불러오는 중'}
+            {coinPrice ? coinPrice.toLocaleString() : '불러오는 중'}
           </Typography>
           {
             // @ts-ignore

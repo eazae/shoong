@@ -79,9 +79,9 @@ const Card = ({ card_address, card_name, id, card_profile_image, createdAt, pric
     // alert(prices);
     const balance =
       prices !== undefined
-        ? manaBalance * prices?.decentraland?.krw + // @ts-ignore
-          ethBalance * prices?.ethereum?.krw + // @ts-ignore
-          tetherBalance * prices?.tether.krw
+        ? manaBalance * prices?.decentraland + // @ts-ignore
+          ethBalance * prices?.ethereum + // @ts-ignore
+          tetherBalance * prices?.tether
         : 0;
     setTotalBalance(balance);
     if (totalBalance > 0) {
