@@ -133,7 +133,10 @@ const CardLarge = ({
       </CardLayOut>
       <ButtonsLayOut>
         <BtnLayOut>
-          <Button title="송금하기" />
+          <Button
+            title="송금하기"
+            onPress={() => navigate('송금', { presetAddress: card_address })}
+          />
         </BtnLayOut>
         <BtnLayOut>
           <Button title="요청하기" />

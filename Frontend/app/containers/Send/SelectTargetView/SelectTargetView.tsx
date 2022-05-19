@@ -54,8 +54,13 @@ export type MethodType = '지갑주소' | '친구' | '닉네임' | 'QR코드' | 
 interface SelectTargetViewProps {
   targetAddress: string;
   setTargetAddress: any;
+  presetAddress: string;
 }
-const SelectTargetView = ({ targetAddress, setTargetAddress }: SelectTargetViewProps) => {
+const SelectTargetView = ({
+  targetAddress,
+  setTargetAddress,
+  presetAddress,
+}: SelectTargetViewProps) => {
   const theme = useTheme();
   const [type, setType] = useState<MethodType>();
   const [targetModalVisible, setTargetModalVisible] = useState(false);

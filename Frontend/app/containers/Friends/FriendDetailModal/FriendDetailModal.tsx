@@ -59,7 +59,7 @@ const FriendDetailModal = ({
 
   const goToSendScreen = () => {
     //@ts-ignore
-    navigation.navigate('송금', { to: '102398' });
+    navigation.navigate('송금', { presetAddress: '102398' });
     onModalClosed();
   };
 
