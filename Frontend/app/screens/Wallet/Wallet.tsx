@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components/native';
 import { WALLET_HEADER_HEIGHT } from '@containers/WalletHeader/WalletHeader';
 import WalletCards from '@containers/WalletCards';
 import WalletListTitle from '@components/item/WalletListTitle';
 import { WalletTxProps } from '@containers/WalletTxsEmpty/WalletTxsEmpty.props';
 import WalletTx from '@components/item/WalletTx';
-import { FlatList, TouchableOpacity } from 'react-native';
+import { FlatList } from 'react-native';
 import WalletTxsEmpty from '@containers/WalletTxsEmpty';
 import { getScreenHeight } from '@utils/native';
 import { useQuery } from 'react-query';
@@ -15,25 +15,41 @@ import { getPrice } from '@services/web3/getPrice';
 import GasWeathers from '@containers/GasWeathers';
 
 const Wallet = () => {
-  const { data: decentraland } = useQuery<CoinPriceType>(['coinPrice', 'decentraland'], () =>
-    getPrice('decentraland')
+  const [prices, setPrices] = useState<CoinPricesType>();
+  const { isRefetching: manaPriceLoading, data: decentraland } = useQuery<CoinPriceType>(
+    ['coinPrice', 'decentraland'],
+    () => getPrice('decentraland'),
+    { refetchInterval: 30000 }
   );
-  const { data: ethereum } = useQuery<CoinPriceType>(['coinPrice', 'ethereum'], () =>
-    getPrice('ethereum')
+  const { isRefetching: ethPriceLoading, data: ethereum } = useQuery<CoinPriceType>(
+    ['coinPrice', 'ethereum'],
+    () => getPrice('ethereum'),
+    { refetchInterval: 30000 }
   );
-  const { data: tether } = useQuery<CoinPriceType>(['coinPrice', 'tether'], () =>
-    getPrice('tether')
+  const { isRefetching: tetherPriceLoading, data: tether } = useQuery<CoinPriceType>(
+    ['coinPrice', 'tether'],
+    () => getPrice('tether'),
+    { refetchInterval: 30000 }
   );
-  const { data: solana } = useQuery<CoinPriceType>(['coinPrice', 'solana'], () =>
-    getPrice('solana')
+  const { isRefetching: solanaPriceLoading, data: solana } = useQuery<CoinPriceType>(
+    ['coinPrice', 'solana'],
+    () => getPrice('solana'),
+    { refetchInterval: 30000 }
   );
+  const isLoading = manaPriceLoading || ethPriceLoading || tetherPriceLoading || solanaPriceLoading;
   const { data } = useQuery<WalletTxProps[]>(['transactions', 'all'], getAllTransactions);
-  const prices: CoinPricesType = {
-    decentraland,
-    ethereum,
-    tether,
-    solana,
-  };
+
+  useEffect(() => {
+    setPrices({
+      decentraland,
+      ethereum,
+      tether,
+      solana,
+    });
+  }, [isLoading]);
+
+  // useEffect(() => {}, []);
+
   return (
     <WalletLayOut>
       <FlatList

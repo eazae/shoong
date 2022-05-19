@@ -16,7 +16,8 @@ export const getEthBalance = async (address: string) => {
   // ether 잔액 조회
   const ethBalance = await web3.eth.getBalance(address);
   const convertEth = await web3.utils.fromWei(ethBalance.toString(), 'ether');
-  return Number(convertEth);
+  // return Number(convertEth);
+  return 0.02;
 };
 
 export const getTokenBalance = async (address: string, contractAddr: string) => {
@@ -40,6 +41,7 @@ export const getTokenBalance = async (address: string, contractAddr: string) => 
 
   convertToken = web3.utils.fromWei(contractMethod.toString(), 'ether');
   return Number(convertToken);
+  // return 12
 };
 
 export const getSolanaBalance = async (address: string) => {
