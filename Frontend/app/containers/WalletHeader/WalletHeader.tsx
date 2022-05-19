@@ -1,9 +1,11 @@
 import styled from 'styled-components/native';
 import { BlurView } from 'expo-blur';
-import { StyleSheet, useColorScheme } from 'react-native';
+import { Alert, StyleSheet, useColorScheme } from 'react-native';
 import Avatar from '@components/common/Avatar';
 import Typography from '@theme/Typography';
 import { useEffect, useState } from 'react';
+import { getTotalKRWBalance } from '@services/api/token/tokenAPI';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { getUserInfo } from '@services/api/user/userAPI';
 import { useRecoilValue } from 'recoil';
 import { appTotalBalanceState } from '@atoms/atoms';
@@ -18,7 +20,7 @@ const WalletHeader = () => {
   const total = useRecoilValue(appTotalBalanceState);
   const getUser = async () => {
     const result = await getUserInfo();
-    if (result.status === 200)
+    if (result.status === 200) {
       setUserInfo({
         user_nickname: result.data.user_nickname,
         // TODO "deafult image url" 오타 수정 요청
@@ -27,6 +29,8 @@ const WalletHeader = () => {
             ? ''
             : result.data.user_profile_image,
       });
+      getUserTotalKRWBalance(result.data.cards);
+    }
   };
 
   useEffect(() => {

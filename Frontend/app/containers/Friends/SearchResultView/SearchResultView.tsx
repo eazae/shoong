@@ -3,9 +3,11 @@ import Button from '@components/common/Button';
 import Divider from '@components/common/Divider/Divider';
 import { requestAddFriend } from '@services/api/friends/friendsAPI';
 import Typography from '@theme/Typography';
+import { UserCircle } from 'phosphor-react-native';
 import { useState } from 'react';
-import styled from 'styled-components/native';
-import { FriendType } from 'types/apiTypes';
+import { Alert } from 'react-native';
+import styled, { useTheme } from 'styled-components/native';
+import { UserSearchResultType } from 'types/apiTypes';
 
 const Container = styled.View`
   justify-content: center;
@@ -41,16 +43,17 @@ const SearchFailTitle = styled.Text`
 `;
 
 interface SearchResultViewProps {
-  searchResult: FriendType | undefined;
+  searchResult: UserSearchResultType | undefined;
 }
 
 const SearchResultView = ({ searchResult }: SearchResultViewProps) => {
+  const theme = useTheme();
   const [isAdded, setIsAdded] = useState(false);
 
   const addFriend = async () => {
-    // const response = await requestAddFriend(searchResult);
-    // if (response.status === 200)
-    setIsAdded(true);
+    Alert.alert(JSON.stringify(searchResult));
+    const response = await requestAddFriend(searchResult!);
+    if (response.status === 200) setIsAdded(true);
   };
 
   return (
@@ -59,7 +62,12 @@ const SearchResultView = ({ searchResult }: SearchResultViewProps) => {
         <>
           <SearchResultTitle>검색 결과</SearchResultTitle>
           <SearchResult>
-            <Avatar isLoading={false} uri={searchResult.user_profile_image} size="large" />
+            {searchResult.user_profile_image === 'deafult image url' ? (
+              <UserCircle size={130} color={theme.subColor} weight="light" />
+            ) : (
+              <Avatar uri={searchResult.user_profile_image} isLoading={false} size="tab" />
+            )}
+            {/* <Avatar isLoading={false} uri={searchResult.user_profile_image} size="large" /> */}
             <Divider />
             <Typography size="body2" weight="bold">
               {searchResult.user_nickname}
