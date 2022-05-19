@@ -11,6 +11,7 @@ const Label = styled.Text`
 const TextInputComp = styled.TextInput.attrs((props) => ({
   inlineImageLeft: <Alien />,
   allowFontScaling: true,
+  returnKeyType: 'done',
 }))`
   height: 50px;
   /* margin: 0px 16px 10px 16px; */
@@ -32,6 +33,7 @@ interface StrippedInputProps {
   presetValue?: string;
   isPassword?: boolean;
   setValue: any;
+  onSubmitEditing?: any;
 }
 
 const StrippedInput: React.FC<StrippedInputProps> = ({

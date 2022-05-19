@@ -1,4 +1,12 @@
-import { ScrollView, Text, View, StyleSheet, Image, TouchableWithoutFeedback } from 'react-native';
+import {
+  ScrollView,
+  Text,
+  View,
+  StyleSheet,
+  Image,
+  TouchableWithoutFeedback,
+  Alert,
+} from 'react-native';
 import React, { useEffect, useState } from 'react';
 import EasySendAndReceive from '@containers/EasySendAndReceive';
 import ExpandableView from '@containers/ExpandableView';
@@ -19,7 +27,7 @@ import SelectTargetView from '@containers/Send/SelectTargetView/SelectTargetView
 
 interface SendProps {
   address: string;
-  to: string;
+  presetTarget?: string;
 }
 interface ExpandProp {
   width: string;
@@ -36,7 +44,7 @@ const Container = styled.View`
 
 const defaultAddress = '';
 
-const Send: React.FC<SendProps> = ({ address }) => {
+const Send: React.FC<SendProps> = ({ address, presetTarget }) => {
   const [card, setCard] = useState({
     width: WIDTH,
     height: HEIGHT,
@@ -61,10 +69,10 @@ const Send: React.FC<SendProps> = ({ address }) => {
   useEffect(() => {
     if (address) {
       setFromAddress(address);
-      expnadSwitch(target);
+      expandSwitch(target);
     }
   }, []);
-  const [to, setTo] = useState('');
+  const [to, setTo] = useState(presetTarget);
   const [price, setPrice] = useState(0);
   const [token, setToken] = useState('');
   const [amount, setAmount] = useState('');
@@ -74,8 +82,9 @@ const Send: React.FC<SendProps> = ({ address }) => {
   // @신지우
   // 현재 선택된 단계
   const [focus, setFocus] = useState(1);
+  const [targetAddress, setTargetAddress] = useState('');
 
-  const expnadSwitch = (val: ExpandProp) => {
+  const expandSwitch = (val: ExpandProp) => {
     const list = [card, target, tokenFlag, amountFlag];
     const setList = [setCard, setTarget, setTokenFlag, setAmountFlag];
     for (let i = 0; i < list.length; i++) {
@@ -122,7 +131,7 @@ const Send: React.FC<SendProps> = ({ address }) => {
           title={`송금 카드 선택${fromAddress ? `: ${fromAddress}` : ''}`}
           index={1}
           onPress={() => {
-            expnadSwitch(card);
+            expandSwitch(card);
             setFocus(1);
           }}
           state={focus === 1 ? 'focus' : fromAddress ? 'selected' : 'empty'}
@@ -136,17 +145,17 @@ const Send: React.FC<SendProps> = ({ address }) => {
         ) : null}
         <Divider size="small" />
         <ProgressTab
-          title={`송금 대상 선택${to ? `: ${to}` : ''}`}
+          title={`송금할 주소${targetAddress ? `: ${targetAddress.substring(0, 15)}...` : ''}`}
           index={2}
           onPress={() => {
-            expnadSwitch(target);
+            expandSwitch(target);
             setFocus(2);
           }}
-          state={focus === 2 ? 'focus' : to ? 'selected' : 'empty'}
+          state={focus === 2 ? 'focus' : targetAddress ? 'selected' : 'empty'}
         />
         {focus === 2 ? (
           <ExpandableView width={target.width} height={target.height}>
-            <SelectTargetView />
+            <SelectTargetView targetAddress={targetAddress} setTargetAddress={setTargetAddress} />
             {/* <EasySendAndReceive address={to} setAddress={getTo} setType={getType} /> */}
           </ExpandableView>
         ) : null}
@@ -155,7 +164,7 @@ const Send: React.FC<SendProps> = ({ address }) => {
           title={`토큰 종류 선택${token ? `: ${token}` : ''}`}
           index={3}
           onPress={() => {
-            expnadSwitch(tokenFlag);
+            expandSwitch(tokenFlag);
             setFocus(3);
           }}
           state={focus === 3 ? 'focus' : token ? 'selected' : 'empty'}
@@ -170,7 +179,7 @@ const Send: React.FC<SendProps> = ({ address }) => {
           title={`송금 수량 입력${amount ? `: ${amount}` : ''}`}
           index={4}
           onPress={() => {
-            expnadSwitch(amountFlag);
+            expandSwitch(amountFlag);
             setFocus(4);
           }}
           state={focus === 4 ? 'focus' : amount ? 'selected' : 'empty'}
