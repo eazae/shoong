@@ -1,7 +1,7 @@
 import Coin from '@components/common/Coin';
 import { carPOSTapi } from '@containers/SecurityCard/SecurityCardHooks';
 import Typography from '@theme/Typography';
-import coinImgUri from '@utils/CoinVariations';
+import { coinImgUri } from '@utils/CoinVariations';
 import { CurrencyKrw } from 'phosphor-react-native';
 import { TouchableOpacity } from 'react-native';
 import { useTheme } from 'styled-components';

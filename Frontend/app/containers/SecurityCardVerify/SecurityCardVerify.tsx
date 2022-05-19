@@ -11,7 +11,7 @@ import {
 import { useNavigation } from '@react-navigation/native';
 import Color from '@theme/Color';
 import Typography from '@theme/Typography';
-import { ShieldCheck } from 'phosphor-react-native';
+import { Check, ShieldCheck } from 'phosphor-react-native';
 import React, { useState } from 'react';
 import styled from 'styled-components/native';
 import { useFormContext } from 'react-hook-form';
@@ -19,6 +19,7 @@ import { login } from '@services/api/user/userAPI';
 import { IJoin } from '@screens/Join/Join.props';
 import { defaultCardBg } from '@containers/CardLarge/CardLarge';
 import * as SecureStore from 'expo-secure-store';
+import Modal from '@components/common/Modal/Modal';
 
 interface SCVProps {
   mnemonicWords: readonly string[];
@@ -28,6 +29,7 @@ interface SCVProps {
 const SecurityCardVerify = ({ mnemonicWords, shuffledMnemonics }: SCVProps) => {
   const [ansWords, setAnsWords] = useState<string[]>([]);
   const isNotReady = ansWords[11] === undefined;
+  const [isSuccess, setIsSuccess] = useState(false);
   const { getValues } = useFormContext<IJoin>();
 
   const { navigate } = useNavigation();
@@ -94,8 +96,7 @@ const SecurityCardVerify = ({ mnemonicWords, shuffledMnemonics }: SCVProps) => {
                 .then(() => {
                   SecureStore.deleteItemAsync('Cards');
                   storeCardKeys(card).then(() => {
-                    alert('keys are stored!');
-                    navigate('Join', { screen: 'JoinSuccess' });
+                    setIsSuccess(true);
                   });
                 })
                 .catch((err) => alert(err));
@@ -105,6 +106,13 @@ const SecurityCardVerify = ({ mnemonicWords, shuffledMnemonics }: SCVProps) => {
         icon={<ShieldCheck color={Color.textColor.light} />}
         title="지갑 생성 마무리하기"
         variant={isNotReady ? 'disabled' : 'primary'}
+      />
+      <Modal
+        modalVisible={isSuccess}
+        modalTitle={'축하합니다!'}
+        content={`재확인에 성공했습니다\n   다음으로 넘어가기`}
+        buttonIcon={<Check color={Color.textColor.light} />}
+        onModalClosed={() => navigate('Join', { screen: 'JoinSuccess' })}
       />
     </LayOut>
   );

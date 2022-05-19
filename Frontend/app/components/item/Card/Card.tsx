@@ -22,7 +22,7 @@ const Card = ({ card_address, card_name, id, card_profile_image, createdAt, pric
     isRefetching: ethLoaded,
     data: ethBalance,
   } = useQuery(['balance', 'ether', card_address], () => getEthBalance(card_address), {
-    refetchInterval: 5000,
+    refetchInterval: 2500,
   });
   const {
     isLoading: isTetherLoading,
@@ -31,7 +31,7 @@ const Card = ({ card_address, card_name, id, card_profile_image, createdAt, pric
   } = useQuery(
     ['balance', 'tether', card_address],
     () => getTokenBalance(card_address, contractAddr['tether']),
-    { refetchInterval: 5000 }
+    { refetchInterval: 2500 }
   );
   const {
     isLoading: isManaLoading,
@@ -40,13 +40,14 @@ const Card = ({ card_address, card_name, id, card_profile_image, createdAt, pric
   } = useQuery(
     ['balance', 'mana', card_address],
     () => getTokenBalance(card_address, contractAddr['mana']),
-    { refetchInterval: 5000 }
+    { refetchInterval: 2500 }
   );
   const setTotal = useSetRecoilState(appTotalBalanceState);
   const isDark = useColorScheme() === 'dark';
   const [focus, setFocus] = useState(false);
   const [prev, setPrev] = useState(0);
   const { navigate } = useNavigation();
+  const [totalBalance, setTotalBalance] = useState(0);
   const goToDetail = () => {
     // @ts-ignore
     navigate('Details', {
@@ -63,13 +64,6 @@ const Card = ({ card_address, card_name, id, card_profile_image, createdAt, pric
   };
   const profile_image = card_profile_image || defaultCardBg;
   const balances = { ethBalance, tetherBalance, manaBalance };
-  const totalBalance =
-    manaBalance * prices?.decentraland.krw ||
-    0 + // @ts-ignore
-      ethBalance * prices?.ethereum?.krw ||
-    0 + // @ts-ignore
-      tetherBalance * prices?.tether.krw ||
-    0;
 
   const isRefetching = ethLoaded || tetherLoaded || manaLoaded;
   const isLoading = isEthLoading || isManaLoading || isTetherLoading;
@@ -82,6 +76,14 @@ const Card = ({ card_address, card_name, id, card_profile_image, createdAt, pric
   }, [isRefetching]);
 
   useEffect(() => {
+    // alert(prices);
+    const balance =
+      prices !== undefined
+        ? manaBalance * prices?.decentraland?.krw + // @ts-ignore
+          ethBalance * prices?.ethereum?.krw + // @ts-ignore
+          tetherBalance * prices?.tether.krw
+        : 0;
+    setTotalBalance(balance);
     if (totalBalance > 0) {
       setTotal((now) => now - prev);
       setPrev(() => totalBalance);
@@ -103,7 +105,7 @@ const Card = ({ card_address, card_name, id, card_profile_image, createdAt, pric
           </Header>
           <Body>
             <Balance size="h2" weight="bold">
-              {totalBalance.toLocaleString()} 원
+              {totalBalance?.toLocaleString() || '불러오는 중'} 원
             </Balance>
             <Name size="body3" weight="regular">
               {truncateLongWord(card_name, 10)}

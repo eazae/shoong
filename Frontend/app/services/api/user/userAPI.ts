@@ -9,18 +9,18 @@ import instance from '../axios';
 const COMMON = '/user';
 
 export const login = async ({ email: user_email, passWord: user_password }: ILogin) => {
-  const response = await instance
-    .post('/login', {
-      user_email,
-      user_password,
-    })
+  const response = await instance.post('/login', {
+    user_email,
+    user_password,
+  });
+
     .then((res) => {
       setJWTValue(res.data);
     })
     .catch(() =>
       Alert.alert('로그인이 되지 않아요', '아이디와 비밀번호를 다시 한 번 확인해주세요')
     );
-  return response;
+  return responses;
 };
 
 export const join = async (body: JoinRequestProps) => {

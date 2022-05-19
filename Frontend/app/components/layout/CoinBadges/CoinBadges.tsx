@@ -1,5 +1,5 @@
 import Coin from '@components/common/Coin';
-import coinImgUri from '@utils/CoinVariations';
+import { coinImgUri } from '@utils/CoinVariations';
 import { ScrollView } from 'react-native';
 import styled from 'styled-components/native';
 
