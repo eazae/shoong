@@ -8,5 +8,3 @@ const coinImgUri: CoinImgUriType = {
   solana: 'https://static.coinpaprika.com/coin/sol-solana/logo.png?rev=10632791',
   decentraland: 'https://static.coinpaprika.com/coin/mana-decentraland/logo.png?rev=115871',
 };
-
-export default coinImgUri;

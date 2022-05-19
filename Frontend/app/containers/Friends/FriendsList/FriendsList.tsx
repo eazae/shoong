@@ -56,16 +56,16 @@ const data: Array<FriendType> = [
   },
 ];
 const FriendsList = () => {
-  const isLoading = false;
+  // const isLoading = false;
   // (https://stackoverflow.com/a/68111112)
   // const { isLoading, data, isRefetching } = useQuery<Array<FriendType>>(
   //   ['friendsList', userId],
   //   () => getFriendList(userId)
   // );
 
-  // const { isLoading, data, isRefetching } = useQuery<Array<FriendType>>(['friendsList'], () =>
-  //   getFriendList()
-  // );
+  const { isLoading, data, isRefetching } = useQuery<Array<FriendType>>(['friendsList'], () =>
+    getFriendList()
+  );
 
   const refreshList = () => {
     Alert.alert('API 연동 후 작업필요');

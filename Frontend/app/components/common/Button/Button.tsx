@@ -5,7 +5,7 @@ import { ButtonContainer, IconLayOut } from './Button.styled';
 const Button: React.FC<ButtonProps> = ({ disabled, icon, onPress, title, variant = 'primary' }) => (
   <ButtonContainer disabled={disabled} onPress={onPress} variant={variant}>
     {icon ? <IconLayOut>{icon}</IconLayOut> : null}
-    <Typography weight="regular" color={variant === 'transparent' ? 'primary' : 'light'}>
+    <Typography weight="regular" color={variant === 'transparent' ? 'primary' : 'white'}>
       {title}
     </Typography>
   </ButtonContainer>
