@@ -16,6 +16,7 @@ import 'styled-components';
 declare module 'styled-components/native' {
   export interface DefaultTheme {
     primaryColor: string;
+    primaryLightColor: string;
     secondaryColor: string;
 
     textColor: string;

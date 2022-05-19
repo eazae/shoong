@@ -3,9 +3,10 @@ import Input from '@components/common/TextInput/TextInput';
 import SearchResultView from '@containers/Friends/SearchResultView/SearchResultView';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { getUserWithNickname } from '@services/api/friends/friendsAPI';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { Alert } from 'react-native';
 import styled from 'styled-components/native';
-import { FriendType } from 'types/apiTypes';
+import { UserSearchResultType } from 'types/apiTypes';
 
 const Container = styled.View`
   margin-top: 30px;
@@ -14,7 +15,7 @@ const Container = styled.View`
 
 const NicknameFriend: React.FC<NativeStackScreenProps<any, 'Friends'>> = ({ navigation }) => {
   const [nickname, setNickname] = useState('');
-  const [searchResult, setSearchResult] = useState<FriendType>();
+  const [searchResult, setSearchResult] = useState<UserSearchResultType>();
   const [isRequested, setIsRequested] = useState(false);
 
   // const { isLoading, data, isRefetching } = useQuery<Array<FriendType>>('searchFriendByPhone', () =>
@@ -22,10 +23,15 @@ const NicknameFriend: React.FC<NativeStackScreenProps<any, 'Friends'>> = ({ navi
   // );
 
   const handleSearch = async () => {
+    setIsRequested(false);
+    const { status, data } = await getUserWithNickname(nickname);
+    if (status === 200) {
+      const { user_email, user_nickname, user_phone_number } = data;
+      // const param: FriendType= {};
+      // Object.assign(param, { user_email, user_nickname, user_phone_number });
+      setSearchResult({ user_email, user_nickname, user_phone_number });
+    } else Alert.alert('문제');
     setIsRequested(true);
-    const response = await getUserWithNickname(nickname);
-    if (response.status === 200) setSearchResult(response.data);
-
     // 임시
     // setSearchResult({
     //   user_profile_image: 'https://picsum.photos/200',
@@ -33,6 +39,10 @@ const NicknameFriend: React.FC<NativeStackScreenProps<any, 'Friends'>> = ({ navi
     //   user_phone_number: '010-0090-3988',
     // });
   };
+
+  useEffect(() => {
+    setIsRequested(false);
+  }, []);
 
   return (
     <>

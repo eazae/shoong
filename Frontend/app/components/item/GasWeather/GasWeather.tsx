@@ -1,6 +1,6 @@
 import Coin from '@components/common/Coin';
 import Size from '@theme/Typography/Size';
-import coinImgUri, { CoinVariation } from '@utils/CoinVariations';
+import { coinImgUri, CoinVariation } from '@utils/CoinVariations';
 import { CloudRain, Sun } from 'phosphor-react-native';
 import { Touchable, TouchableOpacity } from 'react-native';
 import { useTheme } from 'styled-components';

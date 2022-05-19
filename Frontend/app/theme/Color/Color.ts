@@ -6,6 +6,7 @@ const textColor: textColorType = {
   error: Palette.danger,
   dark: Palette.mono500,
   light: Palette.mono100,
+  white: '#FFFFFF',
 };
 
 const borderColor: borderColorType = {
@@ -82,7 +83,7 @@ export const LightColors = {
   PRIMARY120: '#5337D4',
   PRIMARY100: '#5F39F8',
   PRIMARY80: '#7F61F9',
-  PRIMARY60: '#9F88FB',
+  PRIMARY60: '#9886E0',
   PRIMARY40: '#BFB0FC',
   PRIMARY20: '#DFD7FE',
 

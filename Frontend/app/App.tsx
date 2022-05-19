@@ -39,42 +39,42 @@ export default function App() {
     requestUserPermission();
   }, []);
 
-  // (https://rnfirebase.io/messaging/usage#foreground-state-messages)
-  useEffect(() => {
-    const unsubscribe = messaging().onMessage(async (remoteMessage) => {
-      Alert.alert('A new FCM message arrived!', JSON.stringify(remoteMessage));
-    });
-    return unsubscribe;
-  }, []);
+  // // (https://rnfirebase.io/messaging/usage#foreground-state-messages)
+  // useEffect(() => {
+  //   const unsubscribe = messaging().onMessage(async (remoteMessage) => {
+  //     Alert.alert('A new FCM message arrived!', JSON.stringify(remoteMessage));
+  //   });
+  //   return unsubscribe;
+  // }, []);
 
-  useEffect(() => {
-    fcmService.registerAppWithFCM();
-    fcmService.register(onRegister, onNotification, onOpenNotification);
-    notificationService.configure(onOpenNotification);
+  // useEffect(() => {
+  //   fcmService.registerAppWithFCM();
+  //   fcmService.register(onRegister, onNotification, onOpenNotification);
+  //   notificationService.configure(onOpenNotification);
 
-    function onRegister(token: string) {
-      console.log('[App] onRegister : token :', token);
-    }
+  //   function onRegister(token: string) {
+  //     console.log('[App] onRegister : token :', token);
+  //   }
 
-    function onNotification(notify: FirebaseMessagingTypes.Notification) {
-      console.log('[App] onNotification : notify :', notify);
-      const options = {
-        soundName: 'default',
-        playSound: true,
-      };
-      notificationService.showNotification(0, notify.title, notify.body, notify, options);
-    }
+  //   function onNotification(notify: FirebaseMessagingTypes.Notification) {
+  //     console.log('[App] onNotification : notify :', notify);
+  //     const options = {
+  //       soundName: 'default',
+  //       playSound: true,
+  //     };
+  //     notificationService.showNotification(0, notify.title, notify.body, notify, options);
+  //   }
 
-    function onOpenNotification(notify: FirebaseMessagingTypes.Notification) {
-      console.log('[App] onOpenNotification : notify :', notify);
-      alert('Open Notification : notify.body :' + notify.body);
-    }
-    return () => {
-      console.log('[App] unRegister');
-      fcmService.unRegister();
-      notificationService.unRegister();
-    };
-  }, []);
+  //   function onOpenNotification(notify: FirebaseMessagingTypes.Notification) {
+  //     console.log('[App] onOpenNotification : notify :', notify);
+  //     alert('Open Notification : notify.body :' + notify.body);
+  //   }
+  //   return () => {
+  //     console.log('[App] unRegister');
+  //     fcmService.unRegister();
+  //     notificationService.unRegister();
+  //   };
+  // }, []);
 
   return (
     <>
