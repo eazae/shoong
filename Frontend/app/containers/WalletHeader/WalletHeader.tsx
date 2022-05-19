@@ -10,12 +10,6 @@ import { appTotalBalanceState } from '@atoms/atoms';
 
 export const WALLET_HEADER_HEIGHT = 125;
 
-interface WalletHeaderProps {
-  userName: string;
-  totalBalance: number;
-  profileUri: string;
-}
-
 const profileUri = 'https://blog.kakaocdn.net/dn/YmhBn/btrheysMts6/GhjC6XXXhWC30n7Fmcqok1/img.jpg';
 
 const WalletHeader = () => {
@@ -37,7 +31,7 @@ const WalletHeader = () => {
 
   useEffect(() => {
     getUser();
-  }, []);
+  }, [total]);
 
   return (
     <LayOut>
@@ -49,7 +43,7 @@ const WalletHeader = () => {
               <Typography size="body3">님 안녕하세요</Typography>
             </Typography>
             <Typography size="body1" weight="bold">
-              총 자산 <Typography size="body1">{total}</Typography> 원
+              총 자산 <Typography size="body1">{total.toLocaleString()}</Typography> 원
             </Typography>
           </TextLayOut>
           <Avatar

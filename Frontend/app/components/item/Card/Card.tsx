@@ -12,26 +12,40 @@ import { truncateLongWord } from '@utils/text';
 import { useEffect, useState } from 'react';
 import { Pressable, useColorScheme } from 'react-native';
 import { useQuery } from 'react-query';
-import { useRecoilState, useSetRecoilState } from 'recoil';
+import { useSetRecoilState } from 'recoil';
 import styled from 'styled-components/native';
 import { ICard } from './Card.props';
 
 const Card = ({ card_address, card_name, id, card_profile_image, createdAt, prices }: ICard) => {
-  const { isLoading: ethLoaded, data: ethBalance } = useQuery(
-    ['balance', 'ether', card_address],
-    () => getEthBalance(card_address)
-  );
-  const { isLoading: tetherLoaded, data: tetherBalance } = useQuery(
+  const {
+    isLoading: isEthLoading,
+    isRefetching: ethLoaded,
+    data: ethBalance,
+  } = useQuery(['balance', 'ether', card_address], () => getEthBalance(card_address), {
+    refetchInterval: 5000,
+  });
+  const {
+    isLoading: isTetherLoading,
+    isRefetching: tetherLoaded,
+    data: tetherBalance,
+  } = useQuery(
     ['balance', 'tether', card_address],
-    () => getTokenBalance(card_address, contractAddr['tether'])
+    () => getTokenBalance(card_address, contractAddr['tether']),
+    { refetchInterval: 5000 }
   );
-  const { isLoading: manaLoaded, data: manaBalance } = useQuery(
+  const {
+    isLoading: isManaLoading,
+    isRefetching: manaLoaded,
+    data: manaBalance,
+  } = useQuery(
     ['balance', 'mana', card_address],
-    () => getTokenBalance(card_address, contractAddr['mana'])
+    () => getTokenBalance(card_address, contractAddr['mana']),
+    { refetchInterval: 5000 }
   );
   const setTotal = useSetRecoilState(appTotalBalanceState);
   const isDark = useColorScheme() === 'dark';
   const [focus, setFocus] = useState(false);
+  const [prev, setPrev] = useState(0);
   const { navigate } = useNavigation();
   const goToDetail = () => {
     // @ts-ignore
@@ -49,17 +63,32 @@ const Card = ({ card_address, card_name, id, card_profile_image, createdAt, pric
   };
   const profile_image = card_profile_image || defaultCardBg;
   const balances = { ethBalance, tetherBalance, manaBalance };
-  const totalBalance = // @ts-ignore
-    manaBalance * prices?.decentraland.krw + // @ts-ignore
-    ethBalance * prices?.ethereum?.krw + // @ts-ignore
-    tetherBalance * prices?.tether.krw;
+  const totalBalance =
+    manaBalance * prices?.decentraland.krw ||
+    0 + // @ts-ignore
+      ethBalance * prices?.ethereum?.krw ||
+    0 + // @ts-ignore
+      tetherBalance * prices?.tether.krw ||
+    0;
 
-  const isLoading = ethLoaded || tetherLoaded || manaLoaded;
+  const isRefetching = ethLoaded || tetherLoaded || manaLoaded;
+  const isLoading = isEthLoading || isManaLoading || isTetherLoading;
   useEffect(() => {
     if (totalBalance > 0) {
-      setTotal((prev) => prev + totalBalance);
+      setTotal((now) => now - prev);
+      setPrev(() => totalBalance);
+      setTotal((now) => now + totalBalance);
+    }
+  }, [isRefetching]);
+
+  useEffect(() => {
+    if (totalBalance > 0) {
+      setTotal((now) => now - prev);
+      setPrev(() => totalBalance);
+      setTotal((now) => now + totalBalance);
     }
   }, [isLoading]);
+
   return (
     <Pressable
       onPress={goToDetail}
@@ -74,7 +103,7 @@ const Card = ({ card_address, card_name, id, card_profile_image, createdAt, pric
           </Header>
           <Body>
             <Balance size="h2" weight="bold">
-              {totalBalance} 원
+              {totalBalance.toLocaleString()} 원
             </Balance>
             <Name size="body3" weight="regular">
               {truncateLongWord(card_name, 10)}

@@ -73,7 +73,7 @@ const CardLarge = ({ card_address, card_profile_image, createdAt, prices }: Card
           </Header>
           <Body>
             <Typography size="h1" weight="bold">
-              {totalBalance} 원
+              {totalBalance.toLocaleString()} 원
             </Typography>
             <Address
               onPress={onAddrPress}

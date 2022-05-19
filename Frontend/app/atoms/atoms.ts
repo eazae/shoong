@@ -18,4 +18,7 @@ export const changeAppTheme = atom({
   default: false,
 });
 
-export const appTotalBalanceState = atom({ key: 'appTotalBalance', default: 0 });
+export const appTotalBalanceState = atom<number>({
+  key: 'appTotalBalance',
+  default: 0,
+});
