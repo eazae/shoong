@@ -6,6 +6,7 @@ import Typography from '@theme/Typography';
 import { UserCircle } from 'phosphor-react-native';
 import { useState } from 'react';
 import { Alert } from 'react-native';
+import { useQueryClient } from 'react-query';
 import styled, { useTheme } from 'styled-components/native';
 import { UserSearchResultType } from 'types/apiTypes';
 
@@ -50,11 +51,18 @@ const SearchResultView = ({ searchResult }: SearchResultViewProps) => {
   const theme = useTheme();
   const [isAdded, setIsAdded] = useState(false);
 
+  const queryClient = useQueryClient();
+
   const addFriend = async () => {
-    Alert.alert(JSON.stringify(searchResult));
     const response = await requestAddFriend(searchResult!);
-    if (response.status === 200) setIsAdded(true);
+    if (response.status === 200) {
+      setIsAdded(true);
+      queryClient.refetchQueries(['friendsList']);
+    }
   };
+
+  // TODO 확인
+  // Alert.alert(JSON.stringify(searchResult));
 
   return (
     <Container>
