@@ -12,10 +12,14 @@ import { AuthLayOut } from './LoginAuth.styled';
 import { useSetRecoilState } from 'recoil';
 import { isLoggedInState } from '@atoms/atoms';
 import { login } from '@services/api/user/userAPI';
-import { setJWTValue } from '@utils/secureStore';
 import { Alert } from 'react-native';
+import { setJWTValue } from '@utils/secureStore';
 
 const NOT_REGISTERED = '회원이 아니세요? 가입하러 가기';
+
+const errLogin = {
+  400: '이메일과 비밀번호를 확인해주세요',
+};
 
 const LoginAuth = () => {
   const {
@@ -40,8 +44,15 @@ const LoginAuth = () => {
       <EmailInput control={control} errors={errors} />
       <PassWordInput control={control} errors={errors} />
       <Button
-        onPress={handleSubmit((data) => {
-          login(data).then(() => setIsLoggedIn(() => true));
+        onPress={handleSubmit(async (data) => {
+          login(data)
+            .then(async (res) => {
+              await setJWTValue(res.data);
+              setIsLoggedIn(() => true);
+            })
+            .catch((err) => {
+              Alert.alert('😥\n로그인이 실패했어요', errLogin[400]);
+            });
         })}
         title="Continue"
       />
