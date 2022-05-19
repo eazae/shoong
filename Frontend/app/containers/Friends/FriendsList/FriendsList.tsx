@@ -34,13 +34,6 @@ const FlatListScroll = styled.FlatList`
 ` as unknown as typeof FlatList;
 
 const FriendsList = () => {
-  // const isLoading = false;
-  // (https://stackoverflow.com/a/68111112)
-  // const { isLoading, data, isRefetching } = useQuery<Array<FriendType>>(
-  //   ['friendsList', userId],
-  //   () => getFriendList(userId)
-  // );
-
   const queryClient = useQueryClient();
 
   const { isLoading, data, isRefetching } = useQuery<Array<FriendType>>(['friendsList'], () =>

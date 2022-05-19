@@ -3,6 +3,8 @@ import Palette from '@theme/Palette';
 import { DefaultTheme } from 'styled-components/native';
 
 export const LightTheme: DefaultTheme = {
+  theme: 'light',
+
   primaryColor: LightColors.PRIMARY100,
   primaryLightColor: LightColors.PRIMARY60,
 
@@ -45,6 +47,8 @@ export const LightTheme: DefaultTheme = {
 };
 
 export const DarkTheme: DefaultTheme = {
+  theme: 'dark',
+
   primaryColor: DarkColors.PRIMARY100,
   primaryLightColor: DarkColors.PRIMARY40,
   secondaryColor: DarkColors.SECONDARY100,

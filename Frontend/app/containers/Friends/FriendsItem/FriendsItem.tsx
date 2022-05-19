@@ -1,6 +1,7 @@
 import Avatar from '@components/common/Avatar';
+import { UserCircle } from 'phosphor-react-native';
 import { useState } from 'react';
-import styled from 'styled-components/native';
+import styled, { useTheme } from 'styled-components/native';
 import { FriendType } from 'types/apiTypes';
 import FriendDetailModal from '../FriendDetailModal/FriendDetailModal';
 
@@ -9,7 +10,7 @@ const Container = styled.TouchableOpacity`
   display: flex;
   flex-direction: row;
   align-items: center;
-  padding: 0px 8px;
+  padding: 0px 16px;
 `;
 
 const Column = styled.View`
@@ -35,11 +36,16 @@ interface FriendsItemProps {
 }
 
 const FriendsItem = ({ data, onRefreshList }: FriendsItemProps) => {
+  const theme = useTheme();
   const [modalVisible, setModalVisible] = useState(false);
 
   return (
     <Container onPress={() => setModalVisible(!modalVisible)}>
-      <Avatar isLoading={false} uri={data.user_profile_image} />
+      {data.user_profile_image === 'deafult image url' ? (
+        <UserCircle size={50} color={theme.subColor} weight="fill" />
+      ) : (
+        <Avatar uri={data.user_profile_image} isLoading={false} size="tab" />
+      )}
       <Column>
         <Nickname>{data.user_nickname}</Nickname>
         <Phone>{data.user_phone_number}</Phone>
