@@ -49,6 +49,4 @@ export interface FollowerType {
 
 export type CoinPriceTypeVariations = 'ethereum' | 'tether' | 'decentraland' | 'solana';
 export type CoinPricesType = Partial<Record<CoinPriceTypeVariations, CoinPriceType>>;
-export type CoinPriceType = {
-  krw?: number;
-};
+export type CoinPriceType = number;

@@ -6,6 +6,6 @@ export const getPrice = async (coin: CoinPriceTypeVariations, currency = 'krw') 
 
   const result = await axios(URL);
   const { data } = result;
-  const res = data[coin];
+  const res = data[coin].krw;
   return res;
 };
