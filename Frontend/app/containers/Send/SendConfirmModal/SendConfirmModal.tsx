@@ -4,6 +4,7 @@ import Divider from '@components/common/Divider/Divider';
 import { useNavigation } from '@react-navigation/native';
 import { requestAddFriend, requestDeleteFriend } from '@services/api/friends/friendsAPI';
 import { TokenSymbol } from '@services/api/token/tokenTypes';
+import { ethereumTransfer, ethereumTokenTransfer } from '@services/web3/transfer';
 import Typography from '@theme/Typography';
 import { UserCircle } from 'phosphor-react-native';
 import { Alert, Modal, TouchableWithoutFeedback } from 'react-native';
@@ -74,7 +75,15 @@ const SendConfirmModal = ({ modalVisible, onModalClosed, data }: SendConfirmModa
     // TODO
     Alert.alert('승현님 여기요!');
     ////////
+    if (data.token === 'ethereum') {
+      ethereumTransfer(data.sendAddress, myPrivate, data.targetAddress, data.amount, gasFee);
+    }
+    else if (data.token === 'solana') {
 
+    }
+    else {
+      ethereumTokenTransfer(data.sendAddress, privateKey, data.targetAddress, data.token, data.amount, gasFee);
+    }
     onModalClosed();
   };
 
@@ -117,7 +126,7 @@ const SendConfirmModal = ({ modalVisible, onModalClosed, data }: SendConfirmModa
                   title="네, 확인했어요"
                   onPress={handleTransaction}
                   variant="primary"
-                  // disabled={data.cards.length < 1}
+                // disabled={data.cards.length < 1}
                 />
                 <Divider orientation="horizontal" size="small" />
                 {/* <Button title="친구삭제" onPress={deleteFriend} variant="error" /> */}
