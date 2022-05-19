@@ -4,19 +4,34 @@ import Friends from '@screens/Friends/Friends';
 import Send from '@screens/Send';
 import Settings from '@screens/Settings/Settings';
 import Wallet from '@screens/Wallet';
+import { getUserInfo } from '@services/api/user/userAPI';
 import Typography from '@theme/Typography';
 import { isAndroid } from '@utils/native';
 import { BlurView } from 'expo-blur';
 import { Cardholder, CurrencyEth, GasPump, Users, UserCircleGear } from 'phosphor-react-native';
+import { useEffect, useState } from 'react';
 import { StyleSheet, useColorScheme } from 'react-native';
 import styled from 'styled-components/native';
 import { useTheme } from 'styled-components/native';
+import { UserInfoType } from 'types/apiTypes';
 
 const { Navigator, Screen } = createBottomTabNavigator();
 
 const Tabs = () => {
   const isDark = useColorScheme() === 'dark';
   const theme = useTheme();
+
+  const [accountInfo, setAccountInfo] = useState<UserInfoType>();
+
+  const getAccountInfo = async () => {
+    const response = await getUserInfo();
+    if (response.status === 200) setAccountInfo(response.data);
+  };
+
+  useEffect(() => {
+    getAccountInfo();
+  }, []);
+
   return (
     <Navigator
       initialRouteName="지갑"
@@ -41,6 +56,7 @@ const Tabs = () => {
       <Screen
         name="지갑"
         component={Wallet}
+        initialParams={{ accountInfo: accountInfo }}
         options={{
           header: WalletHeader,
           headerBackground: () => (

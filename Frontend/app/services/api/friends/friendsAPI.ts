@@ -1,4 +1,4 @@
-import { FriendType } from 'types/apiTypes';
+import { FriendType, UserSearchResultType } from 'types/apiTypes';
 import instance from '../axios';
 
 const COMMON = '/user';
@@ -24,7 +24,7 @@ export const getUserWithPhone = async (user_phone: string) => {
 /* QR코드로 유저 찾기 */
 
 /* 친구 추가하기 */
-export const requestAddFriend = async (account: FriendType) => {
+export const requestAddFriend = async (account: UserSearchResultType) => {
   const response = await instance.post(COMMON + '/makefriend', account);
   return response;
 };
