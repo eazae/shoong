@@ -1,4 +1,5 @@
 import Web3 from 'web3';
+import { AbiItem } from 'web3-utils';
 import * as solanaWeb3 from '@solana/web3.js';
 
 const MAINNET = 'https://mainnet.infura.io/v3/43b62be4d86946688b1fb5b4bf4df6c9';
@@ -22,7 +23,7 @@ export const getEthBalance = async (address: string) => {
 
 export const getTokenBalance = async (address: string, contractAddr: string) => {
   // 토큰 잔액 조회
-  let minABI = [
+  let minABI: AbiItem | AbiItem[] = [
     // balanceOf
     {
       constant: true,

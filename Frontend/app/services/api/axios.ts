@@ -51,6 +51,9 @@ instance.interceptors.response.use(
         case 409:
           console.log('409error!');
           break;
+        case 500:
+          console.log('문제가 발생했습니다');
+          break;
         default:
       }
     } else {
