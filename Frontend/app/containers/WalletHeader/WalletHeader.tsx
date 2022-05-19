@@ -1,31 +1,44 @@
 import styled from 'styled-components/native';
 import { BlurView } from 'expo-blur';
-import { StyleSheet, useColorScheme } from 'react-native';
+import { Alert, StyleSheet, useColorScheme } from 'react-native';
 import Avatar from '@components/common/Avatar';
 import Typography from '@theme/Typography';
 import { useEffect, useState } from 'react';
+import { getTotalKRWBalance } from '@services/api/token/tokenAPI';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { getUserInfo } from '@services/api/user/userAPI';
+import { CardType, UserInfoType } from 'types/apiTypes';
 
 export const WALLET_HEADER_HEIGHT = 125;
 
 interface WalletHeaderProps {
-  userName: string;
-  totalBalance: number;
+  // userName: string;
+  // totalBalance: number;
   profileUri: string;
 }
 
 const WalletHeaderData: WalletHeaderProps = {
-  totalBalance: 100000,
+  // totalBalance: 100000,
   profileUri: 'https://blog.kakaocdn.net/dn/YmhBn/btrheysMts6/GhjC6XXXhWC30n7Fmcqok1/img.jpg',
 };
 
 const WalletHeader = () => {
   const [userInfo, setUserInfo] = useState({ user_nickname: '', user_profile_image: '' });
   const isDark = useColorScheme() === 'dark';
-  const { profileUri, totalBalance } = WalletHeaderData;
+
+  const [totalBalance, setTotalBalance] = useState<number>(0);
+
+  const getUserTotalKRWBalance = async (cards: Array<CardType>) => {
+    console.log('cards');
+    const balance = await getTotalKRWBalance(cards);
+    console.log(balance);
+  };
+
+  const { profileUri } = WalletHeaderData;
+
   const getUser = async () => {
     const result = await getUserInfo();
-    if (result.status === 200)
+    if (result.status === 200) {
       setUserInfo({
         user_nickname: result.data.user_nickname,
         // TODO "deafult image url" 오타 수정 요청
@@ -34,6 +47,8 @@ const WalletHeader = () => {
             ? ''
             : result.data.user_profile_image,
       });
+      getUserTotalKRWBalance(result.data.cards);
+    }
   };
 
   useEffect(() => {

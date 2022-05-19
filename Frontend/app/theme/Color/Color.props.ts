@@ -1,4 +1,4 @@
-export type textColorNames = 'light' | 'dark' | 'primary' | 'error';
+export type textColorNames = 'light' | 'dark' | 'primary' | 'error' | 'white';
 export type borderColorNames = 'light' | 'dark' | 'primary' | 'error';
 export type buttonColorNames = 'primary' | 'secondary' | 'error' | 'disabled' | 'transparent';
 
