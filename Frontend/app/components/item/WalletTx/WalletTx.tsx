@@ -5,7 +5,12 @@ import { parseDate } from '@utils/date';
 import styled from 'styled-components/native';
 import { Balance, Info, LayOut, TxContent } from './WalletTx.styled';
 
-const WalletTx = ({ transaction_memo, createdAt, transaction_value }: WalletTxProps) => {
+const WalletTx = ({
+  transaction_memo,
+  createdAt,
+  transaction_value,
+  transaction_receiver_user_id,
+}: WalletTxProps) => {
   return (
     <LayOut>
       <Info>
@@ -22,7 +27,7 @@ const WalletTx = ({ transaction_memo, createdAt, transaction_value }: WalletTxPr
       </Info>
       <Balance>
         <Typography size="h2" weight="regular">
-          $ {transaction_value}
+          {transaction_value} 원
         </Typography>
       </Balance>
     </LayOut>

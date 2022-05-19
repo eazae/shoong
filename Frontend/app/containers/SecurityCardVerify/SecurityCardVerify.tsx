@@ -80,9 +80,9 @@ const SecurityCardVerify = ({ mnemonicWords, shuffledMnemonics }: SCVProps) => {
             }
           }
           getCardByMnemonic(0, ansWords).then((card) => {
-            const { cardAddress: address } = card!;
+            const { card_address } = card!;
             const data: CardApiProps = {
-              card_address: address,
+              card_address,
               card_name: `내 카드 ${0 + 1}`,
               card_profile_image: defaultCardBg,
             };
@@ -90,13 +90,15 @@ const SecurityCardVerify = ({ mnemonicWords, shuffledMnemonics }: SCVProps) => {
             const email = getValues('email');
             const passWord = getValues('passWord');
             login({ email, passWord }).then(() => {
-              carPOSTapi(data).then(() => {
-                SecureStore.deleteItemAsync('Cards');
-                storeCardKeys(card).then(() => {
-                  alert('keys are stored!');
-                  navigate('Join', { screen: 'JoinSuccess' });
-                });
-              });
+              carPOSTapi(data)
+                .then(() => {
+                  SecureStore.deleteItemAsync('Cards');
+                  storeCardKeys(card).then(() => {
+                    alert('keys are stored!');
+                    navigate('Join', { screen: 'JoinSuccess' });
+                  });
+                })
+                .catch((err) => alert(err));
             });
           });
         }}

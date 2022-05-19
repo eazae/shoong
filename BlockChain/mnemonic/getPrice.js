@@ -1,14 +1,16 @@
 import axios from "axios";
 
-const getPrice = async(coin, currency='krw') =>{
-    const URL = `https://api.coingecko.com/api/v3/simple/price?ids=${coin}&vs_currencies=${currency}`
+// ethereum, decentralland,
 
-    const result = await axios(URL)
-    const {data} = result
+const getPrice = async (coin, currency = "krw") => {
+  const URL = `https://api.coingecko.com/api/v3/simple/price?ids=${coin}&vs_currencies=${currency}`;
 
-    return data
-}
+  const result = await axios(URL);
+  const { data } = result;
+
+  return data;
+};
 
 // console.log(await getPrice('ethereum'))
 
-export default getPrice
+export default getPrice;

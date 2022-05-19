@@ -1,4 +1,8 @@
-export interface ICard extends CardApiProps {}
+import { CoinPricesType } from 'types/apiTypes';
+
+export interface ICard extends CardApiProps {
+  prices?: CoinPricesType;
+}
 
 export interface CardApiProps {
   id?: string;

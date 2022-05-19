@@ -15,7 +15,7 @@ const CoinBadges = ({ ethBalance, tetherBalance, manaBalance, solanaBalance }: I
     <ScrollView horizontal>
       {ethBalance ? (
         <Sep>
-          <Coin uri={coinImgUri['ether']} />
+          <Coin uri={coinImgUri['ethereum']} />
         </Sep>
       ) : null}
       {tetherBalance ? (
@@ -25,7 +25,7 @@ const CoinBadges = ({ ethBalance, tetherBalance, manaBalance, solanaBalance }: I
       ) : null}
       {manaBalance ? (
         <Sep>
-          <Coin uri={coinImgUri['mana']} />
+          <Coin uri={coinImgUri['decentraland']} />
         </Sep>
       ) : null}
       {solanaBalance ? (

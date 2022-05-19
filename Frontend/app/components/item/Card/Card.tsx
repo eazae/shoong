@@ -1,3 +1,4 @@
+import { appTotalBalanceState } from '@atoms/atoms';
 import ICChip from '@components/common/ICChip';
 import CoinBadges from '@components/layout/CoinBadges';
 import { defaultCardBg } from '@containers/CardLarge/CardLarge';
@@ -8,36 +9,57 @@ import Shadows from '@theme/Shadows';
 import Typography from '@theme/Typography';
 
 import { truncateLongWord } from '@utils/text';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Pressable, useColorScheme } from 'react-native';
 import { useQuery } from 'react-query';
+import { useRecoilState, useSetRecoilState } from 'recoil';
 import styled from 'styled-components/native';
-import { CardApiProps } from './Card.props';
+import { ICard } from './Card.props';
 
-const Card = ({ card_address, card_name, id, card_profile_image, createdAt }: CardApiProps) => {
-  const { data: ethBalance } = useQuery(['balance'], () => getEthBalance(card_address));
-  const { data: tetherBalance } = useQuery(['balance'], () =>
-    getTokenBalance(card_address, contractAddr['tether'])
+const Card = ({ card_address, card_name, id, card_profile_image, createdAt, prices }: ICard) => {
+  const { isLoading: ethLoaded, data: ethBalance } = useQuery(
+    ['balance', 'ether', card_address],
+    () => getEthBalance(card_address)
   );
-  const { data: manaBalance } = useQuery(['balance'], () =>
-    getTokenBalance(card_address, contractAddr['mana'])
+  const { isLoading: tetherLoaded, data: tetherBalance } = useQuery(
+    ['balance', 'tether', card_address],
+    () => getTokenBalance(card_address, contractAddr['tether'])
   );
+  const { isLoading: manaLoaded, data: manaBalance } = useQuery(
+    ['balance', 'mana', card_address],
+    () => getTokenBalance(card_address, contractAddr['mana'])
+  );
+  const setTotal = useSetRecoilState(appTotalBalanceState);
   const isDark = useColorScheme() === 'dark';
   const [focus, setFocus] = useState(false);
   const { navigate } = useNavigation();
   const goToDetail = () => {
+    // @ts-ignore
     navigate('Details', {
       screen: 'CardDetail',
       params: {
+        card_id: id,
         card_address,
         title: card_name,
         card_profile_image: profile_image,
         createdAt,
+        prices,
       },
     });
   };
   const profile_image = card_profile_image || defaultCardBg;
   const balances = { ethBalance, tetherBalance, manaBalance };
+  const totalBalance = // @ts-ignore
+    manaBalance * prices?.decentraland.krw + // @ts-ignore
+    ethBalance * prices?.ethereum?.krw + // @ts-ignore
+    tetherBalance * prices?.tether.krw;
+
+  const isLoading = ethLoaded || tetherLoaded || manaLoaded;
+  useEffect(() => {
+    if (totalBalance > 0) {
+      setTotal((prev) => prev + totalBalance);
+    }
+  }, [isLoading]);
   return (
     <Pressable
       onPress={goToDetail}
@@ -52,7 +74,7 @@ const Card = ({ card_address, card_name, id, card_profile_image, createdAt }: Ca
           </Header>
           <Body>
             <Balance size="h2" weight="bold">
-              {ethBalance} 원
+              {totalBalance} 원
             </Balance>
             <Name size="body3" weight="regular">
               {truncateLongWord(card_name, 10)}
@@ -64,7 +86,7 @@ const Card = ({ card_address, card_name, id, card_profile_image, createdAt }: Ca
             CARD ID
           </Balance>
           <Name size="body3" weight="regular">
-            {truncateLongWord(id, 10)}
+            {truncateLongWord(id!, 10)}
           </Name>
         </Bottom>
       </Container>
