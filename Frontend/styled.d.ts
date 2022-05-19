@@ -27,6 +27,7 @@ declare module 'styled-components/native' {
 
     mainBgColor: string;
     subBgColor: string;
+    greyBgColor: string;
 
     enabledColor: string;
     disabledColor: string;

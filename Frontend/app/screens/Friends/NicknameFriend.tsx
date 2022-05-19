@@ -18,26 +18,16 @@ const NicknameFriend: React.FC<NativeStackScreenProps<any, 'Friends'>> = ({ navi
   const [searchResult, setSearchResult] = useState<UserSearchResultType>();
   const [isRequested, setIsRequested] = useState(false);
 
-  // const { isLoading, data, isRefetching } = useQuery<Array<FriendType>>('searchFriendByPhone', () =>
-  //   getUserWithPhone(nickname)
-  // );
-
   const handleSearch = async () => {
     setIsRequested(false);
     const { status, data } = await getUserWithNickname(nickname);
     if (status === 200) {
-      const { user_email, user_nickname, user_phone_number } = data;
+      const { user_email, user_nickname, user_phone_number, user_profile_image } = data;
       // const param: FriendType= {};
       // Object.assign(param, { user_email, user_nickname, user_phone_number });
-      setSearchResult({ user_email, user_nickname, user_phone_number });
-    } else Alert.alert('문제');
+      setSearchResult({ user_email, user_nickname, user_phone_number, user_profile_image });
+    } else Alert.alert('문제가 발생했습니다. 잠시 후 다시 시도해주세요.');
     setIsRequested(true);
-    // 임시
-    // setSearchResult({
-    //   user_profile_image: 'https://picsum.photos/200',
-    //   user_nickname: '찾은 사용자',
-    //   user_phone_number: '010-0090-3988',
-    // });
   };
 
   useEffect(() => {

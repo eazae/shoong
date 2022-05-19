@@ -33,28 +33,6 @@ const FlatListScroll = styled.FlatList`
   margin-top: 20px;
 ` as unknown as typeof FlatList;
 
-const data: Array<FriendType> = [
-  {
-    user_profile_image: 'https://picsum.photos/200',
-    user_nickname: '삼성맨',
-    user_phone_number: '010-0239-2349',
-  },
-  {
-    user_profile_image: 'https://picsum.photos/200',
-    user_nickname: '삼성맨2',
-    user_phone_number: '010-0239-2349',
-  },
-  {
-    user_profile_image: 'https://picsum.photos/200',
-    user_nickname: '삼성맨3',
-    user_phone_number: '010-0239-2349',
-  },
-  {
-    user_profile_image: 'https://picsum.photos/200',
-    user_nickname: '삼성맨4',
-    user_phone_number: '010-0239-2349',
-  },
-];
 const FriendsList = () => {
   // const isLoading = false;
   // (https://stackoverflow.com/a/68111112)
@@ -63,12 +41,14 @@ const FriendsList = () => {
   //   () => getFriendList(userId)
   // );
 
+  const queryClient = useQueryClient();
+
   const { isLoading, data, isRefetching } = useQuery<Array<FriendType>>(['friendsList'], () =>
     getFriendList()
   );
 
   const refreshList = () => {
-    Alert.alert('API 연동 후 작업필요');
+    queryClient.refetchQueries(['friendsList']);
   };
 
   return isLoading ? (

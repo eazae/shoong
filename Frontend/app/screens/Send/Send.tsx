@@ -117,7 +117,6 @@ const Send: React.FC<SendProps> = ({ address }) => {
   return (
     <Container>
       <ScrollView nestedScrollEnabled={true}>
-        {/* <Button title='송금 카드 선택' onPress={() => { expnadSwitch(card) }} /> */}
         <Divider size="small" />
         <ProgressTab
           title={`송금 카드 선택${fromAddress ? `: ${fromAddress}` : ''}`}

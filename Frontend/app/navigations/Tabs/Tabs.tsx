@@ -51,9 +51,10 @@ const Tabs = () => {
             style={StyleSheet.absoluteFill}
           />
         ),
+        // unmountOnBlur: true,
       }}
     >
-      <Screen
+      {/* <Screen
         name="지갑"
         component={Wallet}
         initialParams={{ accountInfo: accountInfo }}
@@ -71,7 +72,7 @@ const Tabs = () => {
             return <Cardholder color={color} size={size} />;
           },
         }}
-      />
+      /> */}
       <Screen
         name="예약송금"
         component={Send}
@@ -91,6 +92,7 @@ const Tabs = () => {
           tabBarIcon: ({ color, size }) => {
             return <CurrencyEth color={color} size={size} />;
           },
+          unmountOnBlur: true,
         }}
       />
       <Screen
@@ -102,6 +104,7 @@ const Tabs = () => {
           tabBarIcon: ({ color, size }) => {
             return <Users color={color} size={size} />;
           },
+          unmountOnBlur: true,
         }}
       />
       <Screen
