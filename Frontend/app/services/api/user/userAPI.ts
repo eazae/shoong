@@ -14,13 +14,7 @@ export const login = async ({ email: user_email, passWord: user_password }: ILog
     user_password,
   });
 
-    .then((res) => {
-      setJWTValue(res.data);
-    })
-    .catch(() =>
-      Alert.alert('로그인이 되지 않아요', '아이디와 비밀번호를 다시 한 번 확인해주세요')
-    );
-  return responses;
+  return response;
 };
 
 export const join = async (body: JoinRequestProps) => {
