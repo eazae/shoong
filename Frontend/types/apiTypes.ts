@@ -38,7 +38,7 @@ export interface UserSearchResultType {
   user_email: string;
   user_nickname: string;
   user_phone_number: string;
-  // user_profile_image: string;
+  user_profile_image: string;
 }
 
 export interface FollowerType {

@@ -31,7 +31,7 @@ const AddFriendsButton = ({ navigation }: AddFriendsButtonProps) => {
       >
         <Phone size={32} color="white" weight="duotone" />
       </ActionButton.Item>
-      <ActionButton.Item
+      {/* <ActionButton.Item
         buttonColor={theme.subColor}
         title="QR코드"
         onPress={() => {
@@ -39,7 +39,7 @@ const AddFriendsButton = ({ navigation }: AddFriendsButtonProps) => {
         }}
       >
         <QrCode size={32} color="white" weight="duotone" />
-      </ActionButton.Item>
+      </ActionButton.Item> */}
     </ActionButton>
   );
 };

@@ -16,18 +16,18 @@ import { getPrice } from '@services/web3/getPrice';
 const Nav = createNativeStackNavigator();
 
 const Root = () => {
-  const { data: decentraland } = useQuery<CoinPriceType>(['coinPrice', 'decentraland'], () =>
-    getPrice('decentraland')
-  );
-  const { data: ethereum } = useQuery<CoinPriceType>(['coinPrice', 'ethereum'], () =>
-    getPrice('ethereum')
-  );
-  const { data: tether } = useQuery<CoinPriceType>(['coinPrice', 'tether'], () =>
-    getPrice('tether')
-  );
-  const { data: solana } = useQuery<CoinPriceType>(['coinPrice', 'solana'], () =>
-    getPrice('solana')
-  );
+  // const { data: decentraland } = useQuery<CoinPriceType>(['coinPrice', 'decentraland'], () =>
+  //   getPrice('decentraland')
+  // );
+  // const { data: ethereum } = useQuery<CoinPriceType>(['coinPrice', 'ethereum'], () =>
+  //   getPrice('ethereum')
+  // );
+  // const { data: tether } = useQuery<CoinPriceType>(['coinPrice', 'tether'], () =>
+  //   getPrice('tether')
+  // );
+  // const { data: solana } = useQuery<CoinPriceType>(['coinPrice', 'solana'], () =>
+  //   getPrice('solana')
+  // );
   // test
   const [isLoggedIn, setIsLoggedIn] = useRecoilState(isLoggedInState);
 

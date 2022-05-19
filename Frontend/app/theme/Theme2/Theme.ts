@@ -17,6 +17,7 @@ export const LightTheme: DefaultTheme = {
   /* Background */
   mainBgColor: LightColors.BACKGROUND_DEFAULT,
   subBgColor: LightColors.BACKGROUND_VARIANT,
+  greyBgColor: LightColors.MONO60,
 
   /* Components */
   enabledColor: LightColors.PRIMARY100,
@@ -45,7 +46,7 @@ export const LightTheme: DefaultTheme = {
 
 export const DarkTheme: DefaultTheme = {
   primaryColor: DarkColors.PRIMARY100,
-  primaryLightColor: DarkColors.PRIMARY60,
+  primaryLightColor: DarkColors.PRIMARY40,
   secondaryColor: DarkColors.SECONDARY100,
   /* Text */
   textColor: TextColors.MONO0,
@@ -57,6 +58,7 @@ export const DarkTheme: DefaultTheme = {
   /* Background */
   mainBgColor: DarkColors.BACKGROUND_DEFAULT,
   subBgColor: DarkColors.BACKGROUND_VARIANT,
+  greyBgColor: DarkColors.MONO100,
 
   /* Components */
   enabledColor: DarkColors.PRIMARY40,
