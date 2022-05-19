@@ -51,6 +51,7 @@ const SelectTargetView = ({ presetTarget }: SelectTargetViewProps) => {
     const { status, data } = await getFriendList();
     if (status === 200) {
       Alert.alert(JSON.stringify(data));
+      //@ts-ignore
       let list = [];
       data.forEach((e: FriendType) =>
         list.push({ label: e.user_nickname, value: e.user_nickname })
