@@ -54,7 +54,7 @@ const Tabs = () => {
         // unmountOnBlur: true,
       }}
     >
-      {/* <Screen
+      <Screen
         name="지갑"
         component={Wallet}
         initialParams={{ accountInfo: accountInfo }}
@@ -72,7 +72,7 @@ const Tabs = () => {
             return <Cardholder color={color} size={size} />;
           },
         }}
-      /> */}
+      />
       <Screen
         name="예약송금"
         component={Send}
