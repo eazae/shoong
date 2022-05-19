@@ -26,7 +26,7 @@ import TargetModal from '@containers/Send/TargetModal/TargetModal';
 import SelectTargetView from '@containers/Send/SelectTargetView/SelectTargetView';
 
 interface SendProps {
-  presetAddress: string;
+  presetAddress?: string;
   presetTarget?: string;
 }
 interface ExpandProp {

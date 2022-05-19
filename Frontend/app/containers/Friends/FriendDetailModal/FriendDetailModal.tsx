@@ -7,7 +7,7 @@ import Typography from '@theme/Typography';
 import { UserCircle } from 'phosphor-react-native';
 import { Alert, Modal, TouchableWithoutFeedback } from 'react-native';
 import styled, { useTheme } from 'styled-components/native';
-import { FriendType } from 'types/apiTypes';
+import { FriendType, UserInfoType } from 'types/apiTypes';
 
 const Wrapper = styled.TouchableOpacity`
   flex: 1;
@@ -42,7 +42,7 @@ const ButtonGroup = styled.View`
 interface FriendDetailModalProps {
   modalVisible: boolean;
   onModalClosed: any;
-  data?: FriendType;
+  data?: UserInfoType;
   onRefreshList: any;
 }
 
@@ -59,7 +59,7 @@ const FriendDetailModal = ({
 
   const goToSendScreen = () => {
     //@ts-ignore
-    navigation.navigate('송금', { presetAddress: '102398' });
+    navigation.navigate('송금', { presetAddress: data.cards[0].card_address });
     onModalClosed();
   };
 
@@ -89,8 +89,8 @@ const FriendDetailModal = ({
       >
         <Wrapper onPress={onModalClosed}>
           <TouchableWithoutFeedback onPress={(e) => e.stopPropagation()}>
-            <Container>
-              {data ? (
+            {data ? (
+              <Container>
                 <>
                   {data.user_profile_image === 'deafult image url' ? (
                     <UserCircle size={130} color={theme.subColor} weight="light" />
@@ -103,16 +103,22 @@ const FriendDetailModal = ({
                   </Typography>
                   <Typography size="body2">{data.user_phone_number}</Typography>
                 </>
-              ) : null}
-              <Divider />
 
-              <ButtonGroup>
-                <Button title="송금하기" onPress={goToSendScreen} variant="primary" />
-                <Divider orientation="horizontal" size="small" />
-                <Button title="친구삭제" onPress={deleteFriend} variant="error" />
-                {/* <Button title="닫기" /> */}
-              </ButtonGroup>
-            </Container>
+                <Divider />
+
+                <ButtonGroup>
+                  <Button
+                    title="송금하기"
+                    onPress={goToSendScreen}
+                    variant="primary"
+                    disabled={data.cards.length < 1}
+                  />
+                  <Divider orientation="horizontal" size="small" />
+                  <Button title="친구삭제" onPress={deleteFriend} variant="error" />
+                  {/* <Button title="닫기" /> */}
+                </ButtonGroup>
+              </Container>
+            ) : null}
           </TouchableWithoutFeedback>
         </Wrapper>
       </Modal>
