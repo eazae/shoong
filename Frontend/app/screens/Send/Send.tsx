@@ -26,7 +26,7 @@ import TargetModal from '@containers/Send/TargetModal/TargetModal';
 import SelectTargetView from '@containers/Send/SelectTargetView/SelectTargetView';
 
 interface SendProps {
-  address: string;
+  presetAddress: string;
   presetTarget?: string;
 }
 interface ExpandProp {
@@ -44,7 +44,9 @@ const Container = styled.View`
 
 const defaultAddress = '';
 
-const Send: React.FC<SendProps> = ({ address, presetTarget }) => {
+const Send: React.FC<SendProps> = ({ route }) => {
+  const { presetAddress, presetTarget } = route.params;
+
   const [card, setCard] = useState({
     width: WIDTH,
     height: HEIGHT,
@@ -64,14 +66,14 @@ const Send: React.FC<SendProps> = ({ address, presetTarget }) => {
   const [visible, setVisible] = useState(false);
   const [nick, setNick] = useState('');
   const [phone, setPhone] = useState('');
-  const addr = '' + address;
+  // const addr = '' + address;
   const [fromAddress, setFromAddress] = useState('');
-  useEffect(() => {
-    if (address) {
-      setFromAddress(address);
-      expandSwitch(target);
-    }
-  }, []);
+  // useEffect(() => {
+  //   if (address) {
+  //     setFromAddress(address);
+  //     expandSwitch(target);
+  //   }
+  // }, []);
   const [to, setTo] = useState(presetTarget);
   const [price, setPrice] = useState(0);
   const [token, setToken] = useState('');
@@ -82,7 +84,7 @@ const Send: React.FC<SendProps> = ({ address, presetTarget }) => {
   // @신지우
   // 현재 선택된 단계
   const [focus, setFocus] = useState(1);
-  const [targetAddress, setTargetAddress] = useState('');
+  const [targetAddress, setTargetAddress] = useState(presetAddress ?? '');
 
   const expandSwitch = (val: ExpandProp) => {
     const list = [card, target, tokenFlag, amountFlag];
@@ -145,17 +147,28 @@ const Send: React.FC<SendProps> = ({ address, presetTarget }) => {
         ) : null}
         <Divider size="small" />
         <ProgressTab
-          title={`송금할 주소${targetAddress ? `: ${targetAddress.substring(0, 15)}...` : ''}`}
+          // 외부에서 주소 설정해서 들어왔을 시 정보 초기화 되는 것 방지하기 위해 'presetAddress' 사용
+          title={`송금할 주소${
+            targetAddress
+              ? `: ${targetAddress.substring(0, 15)}...`
+              : presetAddress
+              ? `: ${presetAddress.substring(0, 15)}...`
+              : ''
+          }`}
           index={2}
           onPress={() => {
             expandSwitch(target);
             setFocus(2);
           }}
-          state={focus === 2 ? 'focus' : targetAddress ? 'selected' : 'empty'}
+          state={focus === 2 ? 'focus' : targetAddress || presetAddress ? 'selected' : 'empty'}
         />
         {focus === 2 ? (
           <ExpandableView width={target.width} height={target.height}>
-            <SelectTargetView targetAddress={targetAddress} setTargetAddress={setTargetAddress} />
+            <SelectTargetView
+              targetAddress={targetAddress}
+              setTargetAddress={setTargetAddress}
+              presetAddress={presetAddress}
+            />
             {/* <EasySendAndReceive address={to} setAddress={getTo} setType={getType} /> */}
           </ExpandableView>
         ) : null}
