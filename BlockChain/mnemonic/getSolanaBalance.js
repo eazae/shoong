@@ -1,19 +1,17 @@
 // const solanaWeb3 = require('@solana/web3.js')
-import * as solanaWeb3 from '@solana/web3.js';
-   
+import * as solanaWeb3 from "@solana/web3.js";
+
 // test 주소
-const address = 'CqKfJPQFRn6sSN2zWbKUckR68XPFYSDY42D2grecCwr1'
-   
+const address = "CqKfJPQFRn6sSN2zWbKUckR68XPFYSDY42D2grecCwr1";
 
-   // 잔액조회하기(테스트 devnet)
+// 잔액조회하기(테스트 devnet)
 const getSolanaBalance = async (address) => {
-        const solanaAddress = new solanaWeb3.PublicKey(address)
-        const solana = new solanaWeb3.Connection(solanaWeb3.clusterApiUrl('devnet'),
-        'confirmed');
+  const solanaAddress = new solanaWeb3.PublicKey(address);
+  const solana = new solanaWeb3.Connection(solanaWeb3.clusterApiUrl("devnet"), "confirmed");
 
-        const balance = await solana.getBalance(solanaAddress)
-        console.log(`잔액조회 ${balance/1000000000}`);
-        return balance/1000000000
-}
+  const balance = await solana.getBalance(solanaAddress);
+  console.log(`잔액조회 ${balance / 1000000000}`);
+  return balance / 1000000000;
+};
 
-export default getSolanaBalance
+export default getSolanaBalance;

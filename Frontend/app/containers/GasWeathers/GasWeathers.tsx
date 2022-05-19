@@ -1,25 +1,17 @@
 import GasWeather from '@components/item/GasWeather';
+import { GasWeatherProps } from '@components/item/GasWeather/GasWeather';
 import HFlatList from '@components/layout/HFlatList';
-import { CoinVariation } from '@utils/CoinVariations';
+import { CoinPricesType } from 'types/apiTypes';
 
-interface GasWeatherProps {
-  coinName: CoinVariation;
-}
-
-const gasWeathers: GasWeatherProps[] = [
-  { coinName: 'ether' },
-  { coinName: 'tether' },
-  { coinName: 'mana' },
-  { coinName: 'solana' },
-];
-
-const GasWeathers = () => {
+const GasWeathers = ({ decentraland, ethereum, tether, solana }: CoinPricesType) => {
+  const gasWeathers: GasWeatherProps[] = [
+    { coinName: 'ethereum', coinPrice: ethereum },
+    { coinName: 'tether', coinPrice: tether },
+    { coinName: 'decentraland', coinPrice: decentraland },
+    { coinName: 'solana', coinPrice: solana },
+  ];
   return (
-    <HFlatList
-      data={gasWeathers}
-      renderItem={({ item }) => <GasWeather coinName={item.coinName} />}
-      margin={5}
-    />
+    <HFlatList data={gasWeathers} renderItem={({ item }) => <GasWeather {...item} />} margin={5} />
   );
 };
 

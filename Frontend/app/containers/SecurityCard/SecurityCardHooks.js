@@ -6,7 +6,7 @@ import { hdkey } from 'ethereumjs-wallet';
 import { getSecureStoreValue, setSecureStoreValue } from '@utils/secureStore';
 import { serialize } from '@utils/serialize';
 import instance from '@services/api/axios';
-import { getCards } from '@services/api/card/cardAPI';
+import { getCardsFromSHOONG } from '@services/api/card/cardAPI';
 import * as SecureStore from 'expo-secure-store';
 import { defaultCardBg } from '@containers/CardLarge/CardLarge';
 
@@ -50,7 +50,7 @@ export const getCardByMnemonic = async (key, mnemonicWords) => {
 
 // CASE masterKey Exists
 export const createCard = async () => {
-  const length = (await getCards()).length;
+  const length = (await getCardsFromSHOONG()).length;
   let mnemonic = await getSecureStoreValue(MNEMONIC_KEY);
   const masterKey = await mnemonicToMasterKey(mnemonic);
 

@@ -10,6 +10,7 @@ import { Clipboard } from 'phosphor-react-native';
 import { useState } from 'react';
 import { useColorScheme, Clipboard as Copy } from 'react-native';
 import { useQuery } from 'react-query';
+import { CoinPricesType } from 'types/apiTypes';
 import {
   Address,
   Body,
@@ -24,20 +25,22 @@ import {
 
 export const defaultCardBg =
   'https://media.istockphoto.com/photos/sunset-at-seoul-city-skylinesouth-korea-picture-id621371796?b=1&k=20&m=621371796&s=170667a&w=0&h=6qfZvdg08Y9511NMWMGGh6gBqlncAybUQRmZ8i2PlRI=';
-const cardBalance = 10;
 
 interface CardLargeProps {
+  prices: CoinPricesType;
   card_address: string;
   card_profile_image: string;
   createdAt: number[];
 }
 
-const CardLarge = ({ card_address, card_profile_image, createdAt }: CardLargeProps) => {
-  const { data: ethBalance } = useQuery(['balance'], () => getEthBalance(card_address));
-  const { data: tetherBalance } = useQuery(['balance'], () =>
+const CardLarge = ({ card_address, card_profile_image, createdAt, prices }: CardLargeProps) => {
+  const { data: ethBalance } = useQuery(['balance', 'ether', card_address], () =>
+    getEthBalance(card_address)
+  );
+  const { data: tetherBalance } = useQuery(['balance', 'tether', card_address], () =>
     getTokenBalance(card_address, contractAddr['tether'])
   );
-  const { data: manaBalance } = useQuery(['balance'], () =>
+  const { data: manaBalance } = useQuery(['balance', 'mana', card_address], () =>
     getTokenBalance(card_address, contractAddr['mana'])
   );
   const [addrPressed, setAddrPressed] = useState(false);
@@ -55,6 +58,10 @@ const CardLarge = ({ card_address, card_profile_image, createdAt }: CardLargePro
     Copy.setString(card_address);
     setModalOn(false);
   };
+  const totalBalance = // @ts-ignore
+    manaBalance * prices?.decentraland.krw + // @ts-ignore
+    ethBalance * prices?.ethereum?.krw + // @ts-ignore
+    tetherBalance * prices?.tether.krw;
 
   return (
     <LayOut>
@@ -66,7 +73,7 @@ const CardLarge = ({ card_address, card_profile_image, createdAt }: CardLargePro
           </Header>
           <Body>
             <Typography size="h1" weight="bold">
-              {cardBalance} 원
+              {totalBalance} 원
             </Typography>
             <Address
               onPress={onAddrPress}
@@ -84,7 +91,7 @@ const CardLarge = ({ card_address, card_profile_image, createdAt }: CardLargePro
               content={card_address}
               modalVisible={modalOn}
               onModalClosed={onModalClose}
-            ></Modal>
+            />
           </Body>
         </Filter>
         <Bottom>

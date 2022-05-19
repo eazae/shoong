@@ -8,6 +8,8 @@ export interface WalletTxProps {
   transaction_memo?: string;
   transaction_receiver_user_id: string;
   transaction_sender_user_id: string;
+  transaction_receiver_card_id: string;
+  transaction_sender_card_id: string;
   transaction_value: number;
   updatedAt: number[];
 }

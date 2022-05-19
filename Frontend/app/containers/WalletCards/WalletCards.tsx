@@ -1,8 +1,8 @@
 import Card from '@components/item/Card';
-import { CardApiProps } from '@components/item/Card/Card.props';
+import { CardApiProps, ICard } from '@components/item/Card/Card.props';
 import HFlatList from '@components/layout/HFlatList';
 import { createCard } from '@containers/SecurityCard/SecurityCardHooks';
-import { getCards } from '@services/api/card/cardAPI';
+import { getCardsFromSHOONG } from '@services/api/card/cardAPI';
 import Palette from '@theme/Palette';
 import Shadows from '@theme/Shadows';
 import Typography from '@theme/Typography';
@@ -12,15 +12,19 @@ import { Pressable } from 'react-native';
 import { QueryObserverResult, RefetchOptions, RefetchQueryFilters, useQuery } from 'react-query';
 import { useTheme } from 'styled-components';
 import styled from 'styled-components/native';
+import { CoinPricesType } from 'types/apiTypes';
 
-const WalletCards = () => {
-  const { data, refetch } = useQuery<CardApiProps[]>(['cards'], getCards);
+const WalletCards = (prices: CoinPricesType) => {
+  const { data: cardData, refetch } = useQuery<CardApiProps[]>(['cards'], getCardsFromSHOONG);
+
   return (
     <HFlatList
       ListFooterComponent={() => <AddCard refetch={refetch} />}
-      data={data!}
+      data={cardData?.map((data) => ({ ...data, prices }))}
       margin={5}
-      renderItem={({ item }) => <Card {...item} />}
+      renderItem={({ item }) => {
+        return <Card {...item} />;
+      }}
     />
   );
 };
@@ -41,7 +45,10 @@ const AddCard = ({ refetch }: AddCardProps) => {
       onPressOut={() => setFocus(false)}
     >
       <Container focus={focus}>
-        <Plus color={useTheme().textColor} size={54} />
+        {
+          // @ts-ignore
+          <Plus color={useTheme().textColor} size={54} />
+        }
         <Typography size="body3">카드 추가하기</Typography>
       </Container>
     </Pressable>
