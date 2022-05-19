@@ -51,6 +51,8 @@ const AmountInput = ({ amount, setAmount, token }: AmountInputProps) => {
     setConvertedAmount(Number(amount) * KRWPrice);
   }, [amount]);
 
+  console.log(amount);
+
   return (
     <Container>
       <Row>
