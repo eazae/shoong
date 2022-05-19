@@ -49,6 +49,13 @@ export interface FollowerType {
   id: string;
 }
 
+export interface TransactionType {
+  sendAddress: string;
+  targetAddress: string;
+  token: string;
+  amount: string;
+}
+
 export type CoinPriceTypeVariations = 'ethereum' | 'tether' | 'decentraland' | 'solana';
 export type CoinPricesType = Partial<Record<CoinPriceTypeVariations, CoinPriceType>>;
 export type CoinPriceType = number;

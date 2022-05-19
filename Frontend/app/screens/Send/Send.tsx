@@ -30,6 +30,7 @@ import { getUserInfo } from '@services/api/user/userAPI';
 import SenderCardItem from '@containers/Send/SenderCardItem/SenderCardItem';
 import { getCoinPrice } from '@services/api/token/tokenAPI';
 import { CardType } from 'types/apiTypes';
+import SendConfirmModal from '@containers/Send/SendConfirmModal/SendConfirmModal';
 
 interface SendProps {
   presetAddress?: string;
@@ -90,11 +91,14 @@ const Send: React.FC<SendProps> = ({ route }) => {
   // @신지우
   // 현재 선택된 단계
   const [focus, setFocus] = useState(1);
-  const [targetAddress, setTargetAddress] = useState(presetAddress ?? '');
   const [senderCardList, setSenderCardList] = useState();
   const [sendCard, setSendCard] = useState<CardType>();
   const [sendAddress, setSendAddress] = useState();
+  const [targetAddress, setTargetAddress] = useState(presetAddress ?? '');
+
   const [tokenPrices, setTokenPrices] = useState();
+
+  const [confirmModalVisible, setConfirmModalVisible] = useState(false);
 
   const expandSwitch = (val: ExpandProp) => {
     const list = [card, target, tokenFlag, amountFlag];
@@ -263,12 +267,22 @@ const Send: React.FC<SendProps> = ({ route }) => {
           </ExpandableView>
         ) : null}
         <Divider size="small" />
-        <Button
-          title="송 금"
-          onPress={() => {
-            setVisible(true);
-          }}
-          disabled={fromAddress !== null && to !== null && token !== null && amount !== null}
+        {focus === 4 ? (
+          <Button
+            title="송 금"
+            onPress={() => {
+              // setVisible(true);
+              setConfirmModalVisible(!confirmModalVisible);
+            }}
+            disabled={
+              sendAddress == null || targetAddress == null || token == null || amount == null
+            }
+          />
+        ) : null}
+        <SendConfirmModal
+          modalVisible={confirmModalVisible}
+          onModalClosed={() => setConfirmModalVisible(!confirmModalVisible)}
+          data={{ sendAddress, targetAddress, token, amount }}
         />
         {visible === true && (
           <SendModal>
