@@ -6,20 +6,17 @@ import {
 } from '@services/web3/getBalance';
 // import { getSolanaBalance } from '@services/web3/solana';
 import axios from 'axios';
+import { Alert } from 'react-native';
 import { CardType } from 'types/apiTypes';
-
-// type CoinType = 'ethereum' | 'tether' | 'solana' | 'decentraland';
-
-export const coins = ['ethereum', 'tether', 'solana', 'decentraland'] as const;
-export type CoinType = typeof coins[number];
+import { CoinType } from '@services/api/token/tokenTypes';
 
 export const getCoinPrice = async (coin: CoinType, currency = 'krw') => {
   const URL = `https://api.coingecko.com/api/v3/simple/price?ids=${coin}&vs_currencies=${currency}`;
 
   const result = await axios(URL);
-  const { data } = result;
+  // const { data } = result;
 
-  return data;
+  return result.data[coin].krw;
 };
 
 export const getTotalKRWBalance = async (wallet: Array<CardType>) => {

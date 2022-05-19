@@ -1,8 +1,8 @@
-import coinImgUri from '@utils/CoinVariations';
 import { getScreenWidth } from '@utils/native';
 import { useState } from 'react';
 import { Dimensions, FlatList } from 'react-native';
 import styled from 'styled-components/native';
+import { CoinIconUri } from '@services/api/token/tokenTypes';
 import TokenItem from './TokenItem';
 
 const Container = styled.View`
@@ -27,9 +27,9 @@ const TokenList = ({ selectedToken, setSelectedToken }: TokenListProp) => {
 
   return (
     <Container onLayout={(e) => setContainerWidth(e.nativeEvent.layout.width)}>
-      {Object.entries(coinImgUri).map((item) => (
+      {Object.entries(CoinIconUri).map((item) => (
         <TokenItem
-          label={item[0]}
+          token={item[0]}
           uri={item[1]}
           isSelected={selectedToken === item[0]}
           setSelectedToken={setSelectedToken}

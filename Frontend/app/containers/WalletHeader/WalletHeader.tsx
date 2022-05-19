@@ -29,7 +29,7 @@ const WalletHeader = () => {
   const [totalBalance, setTotalBalance] = useState<number>(0);
 
   const getUserTotalKRWBalance = async (cards: Array<CardType>) => {
-    console.log(cards);
+    console.log('cards');
     const balance = await getTotalKRWBalance(cards);
     console.log(balance);
   };
@@ -38,7 +38,6 @@ const WalletHeader = () => {
 
   const getUser = async () => {
     const result = await getUserInfo();
-    Alert.alert(result.status.toString());
     if (result.status === 200) {
       setUserInfo({
         user_nickname: result.data.user_nickname,

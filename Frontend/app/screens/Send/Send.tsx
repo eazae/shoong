@@ -6,14 +6,13 @@ import Button from '@components/common/Button';
 import { SendConfirm } from './SendConfirm';
 import { theme } from '@storybook/react-native/dist/preview/components/Shared/theme';
 import Typography from '@theme/Typography';
-import { useTheme } from 'styled-components';
 import { useLinkProps, useNavigation } from '@react-navigation/native';
 // import Input from '@components/common/Input';
 import ProgressTab from '@containers/Send/ProgressTab/ProgressTab';
 import Divider from '@components/common/Divider/Divider';
 import styled from 'styled-components/native';
 import TokenList from '@containers/Send/TokenList/TokenList';
-import Input from '@components/common/TextInput/TextInput';
+import AmountInput from '@containers/Send/AmountInput/AmountInput';
 
 interface SendProps {
   address: string;
@@ -187,13 +186,9 @@ const Send: React.FC<SendProps> = ({ address }) => {
                 console.log(e);
               }}
             /> */}
-            <Input
-              placeholder="수량 입력"
-              keyboardType="numeric"
-              presetValue={amount}
-              setValue={setAmount}
-            />
-            <Won>{price}원</Won>
+            <Divider />
+            <AmountInput amount={amount} setAmount={setAmount} token={token} />
+            {/* <Won>{price}원</Won> */}
           </ExpandableView>
         ) : null}
         <Divider size="small" />
