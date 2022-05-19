@@ -47,7 +47,6 @@ const Card = ({ card_address, card_name, id, card_profile_image, createdAt, pric
   const [focus, setFocus] = useState(false);
   const [prev, setPrev] = useState(0);
   const { navigate } = useNavigation();
-  const [totalBalance, setTotalBalance] = useState(0);
   const goToDetail = () => {
     // @ts-ignore
     navigate('Details', {
@@ -67,6 +66,11 @@ const Card = ({ card_address, card_name, id, card_profile_image, createdAt, pric
 
   const isRefetching = ethLoaded || tetherLoaded || manaLoaded;
   const isLoading = isEthLoading || isManaLoading || isTetherLoading;
+  const totalBalance =
+    manaBalance * prices?.decentraland + // @ts-ignore
+    ethBalance * prices?.ethereum + // @ts-ignore
+    tetherBalance * prices?.tether;
+
   useEffect(() => {
     if (totalBalance > 0) {
       setTotal((now) => now - prev);
@@ -77,13 +81,6 @@ const Card = ({ card_address, card_name, id, card_profile_image, createdAt, pric
 
   useEffect(() => {
     // alert(prices);
-    const balance =
-      prices !== undefined
-        ? manaBalance * prices?.decentraland + // @ts-ignore
-          ethBalance * prices?.ethereum + // @ts-ignore
-          tetherBalance * prices?.tether
-        : 0;
-    setTotalBalance(balance);
     if (totalBalance > 0) {
       setTotal((now) => now - prev);
       setPrev(() => totalBalance);

@@ -17,6 +17,7 @@ type CardDetailParamList = {
   CardDetail: {
     card_id: string;
     card_address: string;
+    card_name: string;
     title: string;
     card_profile_image: string;
     createdAt: number[];
@@ -46,6 +47,7 @@ const CardDetail: React.FC<NativeStackScreenProps<CardDetailParamList, 'CardDeta
         ListHeaderComponent={
           <>
             <CardLarge
+              card_name={title}
               prices={prices}
               card_address={card_address}
               card_profile_image={card_profile_image}
