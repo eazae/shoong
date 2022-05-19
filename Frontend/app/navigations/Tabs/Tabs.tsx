@@ -74,7 +74,7 @@ const Tabs = () => {
       />
       <Screen
         name="예약송금"
-        component={() => <Send address="" />}
+        component={Send}
         options={{
           headerShown: true,
           tabBarIcon: ({ color, size }) => {
@@ -85,7 +85,7 @@ const Tabs = () => {
 
       <Screen
         name="송금"
-        component={() => <Send address="" />}
+        component={Send}
         options={{
           headerShown: true,
           tabBarIcon: ({ color, size }) => {

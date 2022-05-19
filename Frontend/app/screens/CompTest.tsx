@@ -14,6 +14,8 @@ import styled from 'styled-components/native';
 const { height: SCREEN_HEIGHT } = Dimensions.get('window');
 
 const CompTest: React.FC<any> = () => {
+  const [inputValue, setInputValue] = useState('');
+
   const [modalVisible, setModalVisible] = useState(false);
   const onModalClosed = () => {
     Alert.alert('Modal has been closed.');
@@ -45,7 +47,12 @@ const CompTest: React.FC<any> = () => {
         <Text>Show Modal</Text>
       </Pressable>
       {/* Text Input */}
-      <Input keyboardType="numeric" placeholder="입력하시오" />
+      <Input
+        keyboardType="numeric"
+        placeholder="입력하시오"
+        setValue={setInputValue}
+        presetValue={inputValue}
+      />
       {/* Tab Button */}
       <TabButton
         onPress={() => console.log('PRESSED')}
