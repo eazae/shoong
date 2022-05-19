@@ -8,35 +8,47 @@ import WalletTx from '@components/item/WalletTx';
 import { FlatList } from 'react-native';
 import WalletTxsEmpty from '@containers/WalletTxsEmpty';
 import { getScreenHeight } from '@utils/native';
-import { useQuery } from 'react-query';
+import { useQuery, useQueryClient } from 'react-query';
 import { getAllTransactions } from '@services/api/transactions/transactionsAPI';
 import { CoinPricesType, CoinPriceType } from 'types/apiTypes';
 import { getPrice } from '@services/web3/getPrice';
 import GasWeathers from '@containers/GasWeathers';
 
 const Wallet = () => {
+  const queryClient = useQueryClient();
   const [prices, setPrices] = useState<CoinPricesType>();
-  const { isRefetching: manaPriceLoading, data: decentraland } = useQuery<CoinPriceType>(
-    ['coinPrice', 'decentraland'],
-    () => getPrice('decentraland'),
-    { refetchInterval: 30000 }
-  );
-  const { isRefetching: ethPriceLoading, data: ethereum } = useQuery<CoinPriceType>(
-    ['coinPrice', 'ethereum'],
-    () => getPrice('ethereum'),
-    { refetchInterval: 30000 }
-  );
-  const { isRefetching: tetherPriceLoading, data: tether } = useQuery<CoinPriceType>(
-    ['coinPrice', 'tether'],
-    () => getPrice('tether'),
-    { refetchInterval: 30000 }
-  );
-  const { isRefetching: solanaPriceLoading, data: solana } = useQuery<CoinPriceType>(
-    ['coinPrice', 'solana'],
-    () => getPrice('solana'),
-    { refetchInterval: 30000 }
-  );
-  const isLoading = manaPriceLoading || ethPriceLoading || tetherPriceLoading || solanaPriceLoading;
+  const {
+    isLoading: manaPriceIsLoading,
+    isRefetching: manaPriceRefetching,
+    data: decentraland,
+  } = useQuery<CoinPriceType>(['coinPrice', 'decentraland'], () => getPrice('decentraland'), {
+    refetchInterval: 50000,
+  });
+  const {
+    isLoading: ethPriceIsLoading,
+    isRefetching: ethPriceRefetching,
+    data: ethereum,
+  } = useQuery<CoinPriceType>(['coinPrice', 'ethereum'], () => getPrice('ethereum'), {
+    refetchInterval: 50000,
+  });
+  const {
+    isLoading: tetherPriceIsLoading,
+    isRefetching: tetherPriceRefetching,
+    data: tether,
+  } = useQuery<CoinPriceType>(['coinPrice', 'tether'], () => getPrice('tether'), {
+    refetchInterval: 50000,
+  });
+  const {
+    isLoading: solanaPriceIsLoading,
+    isRefetching: solanaPriceRefetching,
+    data: solana,
+  } = useQuery<CoinPriceType>(['coinPrice', 'solana'], () => getPrice('solana'), {
+    refetchInterval: 50000,
+  });
+  const isLoading =
+    manaPriceIsLoading || ethPriceIsLoading || tetherPriceIsLoading || solanaPriceIsLoading;
+  const isRefetching =
+    manaPriceRefetching || ethPriceRefetching || tetherPriceRefetching || solanaPriceRefetching;
   const { data } = useQuery<WalletTxProps[]>(['transactions', 'all'], getAllTransactions);
 
   useEffect(() => {
@@ -48,27 +60,29 @@ const Wallet = () => {
     });
   }, [isLoading]);
 
-  // useEffect(() => {}, []);
-
   return (
     <WalletLayOut>
-      <FlatList
-        data={data}
-        ListHeaderComponent={
-          <>
-            <HeaderArea />
-            <WalletListTitle title="카드" />
-            <WalletCards {...prices} />
-            <WalletListTitle title="코인별 시세 현황" />
-            <GasWeathers {...prices} />
-            <WalletListTitle title="지난 송금 내역" />
-          </>
-        }
-        ListEmptyComponent={WalletTxsEmpty}
-        ItemSeparatorComponent={Sep}
-        showsVerticalScrollIndicator={false}
-        renderItem={({ item: tx }) => <WalletTx {...tx} />}
-      />
+      {isLoading ? null : (
+        <FlatList
+          data={data}
+          ListHeaderComponent={
+            <>
+              <HeaderArea />
+              <WalletListTitle title="카드" />
+              <WalletCards {...prices} />
+              <WalletListTitle title="코인별 시세 현황" />
+              <GasWeathers {...prices} />
+              <WalletListTitle title="지난 송금 내역" />
+            </>
+          }
+          ListEmptyComponent={WalletTxsEmpty}
+          ItemSeparatorComponent={Sep}
+          showsVerticalScrollIndicator={false}
+          refreshing={isRefetching}
+          onRefresh={() => queryClient.refetchQueries(['balance', 'coinPrice'])}
+          renderItem={({ item: tx }) => <WalletTx {...tx} />}
+        />
+      )}
     </WalletLayOut>
   );
 };

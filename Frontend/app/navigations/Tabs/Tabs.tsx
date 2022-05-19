@@ -73,7 +73,7 @@ const Tabs = () => {
           },
         }}
       />
-      <Screen
+      {/* <Screen
         name="예약송금"
         component={Send}
         options={{
@@ -82,7 +82,7 @@ const Tabs = () => {
             return <GasPump color={color} size={size} />;
           },
         }}
-      />
+      /> */}
 
       <Screen
         name="송금"
