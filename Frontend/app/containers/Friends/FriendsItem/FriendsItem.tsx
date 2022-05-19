@@ -2,7 +2,7 @@ import Avatar from '@components/common/Avatar';
 import { UserCircle } from 'phosphor-react-native';
 import { useState } from 'react';
 import styled, { useTheme } from 'styled-components/native';
-import { FriendType } from 'types/apiTypes';
+import { FriendType, UserInfoType } from 'types/apiTypes';
 import FriendDetailModal from '../FriendDetailModal/FriendDetailModal';
 
 const Container = styled.TouchableOpacity`
@@ -31,7 +31,7 @@ const Phone = styled.Text`
 
 // type FriendsItemProps = FriendType;
 interface FriendsItemProps {
-  data: FriendType;
+  data: UserInfoType;
   onRefreshList: any;
 }
 

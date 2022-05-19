@@ -1,10 +1,11 @@
 import Divider from '@components/common/Divider/Divider';
 import Loader from '@components/common/Loader/Loader';
 import { getFriendList } from '@services/api/friends/friendsAPI';
+import { UserInfo } from 'os';
 import { Alert, FlatList } from 'react-native';
 import { useQuery, useQueryClient } from 'react-query';
 import styled from 'styled-components/native';
-import { FriendType } from 'types/apiTypes';
+import { UserInfoType } from 'types/apiTypes';
 import FriendsItem from '../FriendsItem/FriendsItem';
 
 const Container = styled.View``;
@@ -36,7 +37,7 @@ const FlatListScroll = styled.FlatList`
 const FriendsList = () => {
   const queryClient = useQueryClient();
 
-  const { isLoading, data, isRefetching } = useQuery<Array<FriendType>>(['friendsList'], () =>
+  const { isLoading, data, isRefetching } = useQuery<Array<UserInfoType>>(['friendsList'], () =>
     getFriendList()
   );
 
@@ -56,7 +57,7 @@ const FriendsList = () => {
           </Title>
           <FlatListScroll
             data={data}
-            keyExtractor={(item: FriendType) => item.user_nickname}
+            keyExtractor={(item: UserInfoType) => item.user_nickname}
             ItemSeparatorComponent={Divider}
             renderItem={({ item }) => <FriendsItem data={item} onRefreshList={refreshList} />}
           />

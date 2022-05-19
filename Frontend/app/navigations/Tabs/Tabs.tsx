@@ -87,6 +87,7 @@ const Tabs = () => {
       <Screen
         name="송금"
         component={Send}
+        initialParams={{ presetAddress: '', presetTarget: '' }}
         options={{
           headerShown: true,
           tabBarIcon: ({ color, size }) => {
