@@ -112,7 +112,10 @@ const SecurityCardVerify = ({ mnemonicWords, shuffledMnemonics }: SCVProps) => {
         modalTitle={'축하합니다!'}
         content={`재확인에 성공했습니다\n   다음으로 넘어가기`}
         buttonIcon={<Check color={Color.textColor.light} />}
-        onModalClosed={() => navigate('Join', { screen: 'JoinSuccess' })}
+        onModalClosed={() => {
+          navigate('Join', { screen: 'JoinSuccess' });
+          setIsSuccess(false);
+        }}
       />
     </LayOut>
   );
