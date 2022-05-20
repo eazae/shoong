@@ -10,7 +10,7 @@ export const getSolanaBalance = async (publicKey: string) => {
   const address = new solanaWeb3.PublicKey(publicKey);
 
   const balance = await solanaClient.getBalance(address);
-  Alert.alert('SOL Balance', balance.toString());
+  // Alert.alert('SOL Balance', balance.toString());
 
   return balance;
 };

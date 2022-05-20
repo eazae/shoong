@@ -49,7 +49,7 @@ const Container = styled.View`
   padding: 0px 10px;
 `;
 
-const defaultAddress = '';
+// const defaultAddress = '';
 
 const Send: React.FC<SendProps> = ({ route }) => {
   const { presetAddress, presetTarget } = route.params;
@@ -70,19 +70,19 @@ const Send: React.FC<SendProps> = ({ route }) => {
     width: FOLDED,
     height: FOLDED,
   });
-  const [visible, setVisible] = useState(false);
-  const [nick, setNick] = useState('');
-  const [phone, setPhone] = useState('');
+  // const [visible, setVisible] = useState(false);
+  // const [nick, setNick] = useState('');
+  // const [phone, setPhone] = useState('');
   // const addr = '' + address;
-  const [fromAddress, setFromAddress] = useState('');
+  // const [fromAddress, setFromAddress] = useState('');
   // useEffect(() => {
   //   if (address) {
   //     setFromAddress(address);
   //     expandSwitch(target);
   //   }
   // }, []);
-  const [to, setTo] = useState(presetTarget);
-  const [price, setPrice] = useState(0);
+  // const [to, setTo] = useState(presetTarget);
+  // const [price, setPrice] = useState(0);
   const [token, setToken] = useState('');
   const [amount, setAmount] = useState('');
   //토큰
@@ -98,6 +98,8 @@ const Send: React.FC<SendProps> = ({ route }) => {
   const [tokenPrices, setTokenPrices] = useState();
 
   const [confirmModalVisible, setConfirmModalVisible] = useState(false);
+  const [isProceeded, setIsProceeded] = useState(false);
+
   const expandSwitch = (val: ExpandProp) => {
     const list = [card, target, tokenFlag, amountFlag];
     const setList = [setCard, setTarget, setTokenFlag, setAmountFlag];
@@ -115,27 +117,27 @@ const Send: React.FC<SendProps> = ({ route }) => {
     }
   };
 
-  const goConfirm = () => {
-    //트랜잭션 id 들고 페이지 넘기기
-    //트랜잭션 요청 후 트랜잭션 id 가지고 다음 페이지로 이동
-    //@ts-ignore
-    navigate('Send', { screen: 'SendConfirm' });
-  };
-  const getType = (props: IType) => {
-    if (!props) return;
-    if (props.type === '전화번호') {
-      setPhone(props.value);
-      setNick('');
-    } else if (props.type === '닉네임') {
-      setNick(props.value);
-      setPhone('');
-    }
-    setTo('');
-  };
-  const getTo = (to: string) => {
-    setTo(to);
-    console.log(to);
-  };
+  // const goConfirm = () => {
+  //   //트랜잭션 id 들고 페이지 넘기기
+  //   //트랜잭션 요청 후 트랜잭션 id 가지고 다음 페이지로 이동
+  //   //@ts-ignore
+  //   navigate('Send', { screen: 'SendConfirm' });
+  // };
+  // const getType = (props: IType) => {
+  //   if (!props) return;
+  //   if (props.type === '전화번호') {
+  //     setPhone(props.value);
+  //     setNick('');
+  //   } else if (props.type === '닉네임') {
+  //     setNick(props.value);
+  //     setPhone('');
+  //   }
+  //   setTo('');
+  // };
+  // const getTo = (to: string) => {
+  //   setTo(to);
+  //   console.log(to);
+  // };
   const { navigate } = useNavigation();
 
   // @신지우
@@ -208,12 +210,13 @@ const Send: React.FC<SendProps> = ({ route }) => {
         <Divider size="small" />
         <ProgressTab
           // 외부에서 주소 설정해서 들어왔을 시 정보 초기화 되는 것 방지하기 위해 'presetAddress' 사용
-          title={`송금할 주소${targetAddress
+          title={`송금할 주소${
+            targetAddress
               ? `: ${targetAddress.substring(0, 15)}...`
               : presetAddress
-                ? `: ${presetAddress.substring(0, 15)}...`
-                : ''
-            }`}
+              ? `: ${presetAddress.substring(0, 15)}...`
+              : ''
+          }`}
           index={2}
           onPress={() => {
             expandSwitch(target);
@@ -278,8 +281,14 @@ const Send: React.FC<SendProps> = ({ route }) => {
         ) : null}
         <SendConfirmModal
           modalVisible={confirmModalVisible}
-          onModalClosed={() => setConfirmModalVisible(!confirmModalVisible)}
+          onModalClosed={() => {
+            setConfirmModalVisible(!confirmModalVisible);
+            if (isProceeded) navigate('지갑', {});
+            setIsProceeded(false);
+          }}
           data={{ sendAddress, targetAddress, token, amount }}
+          isProceeded={isProceeded}
+          setIsProceeded={setIsProceeded}
         />
         {/* {visible === true && (
           <SendModal>

@@ -9,7 +9,7 @@ import Typography from '@theme/Typography';
 import { getSecureStoreValue } from '@utils/secureStore';
 import { getCardPrivateKeyValue } from '@utils/secureStore';
 import { UserCircle } from 'phosphor-react-native';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Alert, Modal, TouchableWithoutFeedback } from 'react-native';
 import styled, { useTheme } from 'styled-components/native';
 import { FriendType, TransactionType, UserInfoType } from 'types/apiTypes';
@@ -71,23 +71,45 @@ interface SendConfirmModalProps {
   modalVisible: boolean;
   onModalClosed: any;
   data: TransactionType;
+  // state: 'pending' | 'success' | 'fail';
+  isProceeded: boolean;
+  setIsProceeded: any;
 }
 
-const SendConfirmModal = ({ modalVisible, onModalClosed, data }: SendConfirmModalProps) => {
+const SendConfirmModal = ({
+  modalVisible,
+  onModalClosed,
+  data,
+  isProceeded,
+  setIsProceeded,
+}: SendConfirmModalProps) => {
   const [gasFee, setGasFee] = useState(0);
-  Alert.alert(JSON.stringify(data));
+  const [transactionHash, setTransactionHash] = useState('');
+  const [state, setState] = useState('confirm');
+  // Alert.alert(JSON.stringify(data));
 
-  const handleTransaction = async () => {
-    /* 출금 주소의 개인키 가져오기  */
-    const privateKey = await getCardPrivateKeyValue(data.sendAddress);
+  const setAutoGasFee = async () => {
     const gas = await setGas();
     setGasFee(gas[1]);
+  };
 
+  const handleTransaction = async () => {
+    setState('pending');
+    /* 출금 주소의 개인키 가져오기  */
+    const privateKey = await getCardPrivateKeyValue(data.sendAddress);
+
+    let result;
     if (data.token === 'ethereum') {
-      await ethereumTransfer(data.sendAddress, privateKey, data.targetAddress, data.amount, gasFee);
+      result = await ethereumTransfer(
+        data.sendAddress,
+        privateKey,
+        data.targetAddress,
+        data.amount,
+        gasFee
+      );
     } else if (data.token === 'solana') {
     } else {
-      ethereumTokenTransfer(
+      result = await ethereumTokenTransfer(
         data.sendAddress,
         privateKey,
         data.targetAddress,
@@ -96,8 +118,20 @@ const SendConfirmModal = ({ modalVisible, onModalClosed, data }: SendConfirmModa
         gasFee
       );
     }
-    onModalClosed();
+    if (result) {
+      setIsProceeded(true);
+      setTransactionHash(result);
+    }
+    // onModalClosed();
   };
+
+  useEffect(() => {
+    if (modalVisible) setState('confirm');
+  }, [modalVisible]);
+
+  useEffect(() => {
+    setAutoGasFee();
+  }, []);
 
   return (
     <>
@@ -109,41 +143,69 @@ const SendConfirmModal = ({ modalVisible, onModalClosed, data }: SendConfirmModa
       >
         <Wrapper onPress={onModalClosed}>
           <TouchableWithoutFeedback onPress={(e) => e.stopPropagation()}>
-            <Container>
-              <Title>송금 내용을 확인할게요</Title>
-              <Divider />
-              <Content>
-                <Label>출금 주소</Label>
-                <Info>{data.sendAddress}</Info>
-              </Content>
-              <Content>
-                <Label>송금 주소</Label>
-                <Info>{data.targetAddress}</Info>
-              </Content>
-              <Content>
-                <Label>토큰</Label>
-                <Info>{`${TokenSymbol[data.token]} (${data.token})`}</Info>
-              </Content>
-              <Content>
-                <Label>송금 수량</Label>
-                <Info>{data.amount}</Info>
-              </Content>
-              <Content>
-                <Label>송금 수수료</Label>
-                <Info>{`${gasFee} GWEI`}</Info>
-              </Content>
-              <Divider />
+            {!isProceeded ? (
+              <Container>
+                <Title>송금 내용을 확인할게요</Title>
+                <Divider />
+                <Content>
+                  <Label>출금 주소</Label>
+                  <Info>{data.sendAddress}</Info>
+                </Content>
+                <Content>
+                  <Label>송금 주소</Label>
+                  <Info>{data.targetAddress}</Info>
+                </Content>
+                <Content>
+                  <Label>토큰</Label>
+                  <Info>{`${TokenSymbol[data.token]} (${data.token})`}</Info>
+                </Content>
+                <Content>
+                  <Label>송금 수량</Label>
+                  <Info>{data.amount}</Info>
+                </Content>
+                <Content>
+                  <Label>송금 수수료</Label>
+                  <Info>{`${gasFee} GWEI`}</Info>
+                </Content>
+                <Divider />
 
-              <ButtonGroup>
-                <Button
-                  title="네, 확인했어요"
-                  onPress={handleTransaction}
-                  variant="primary"
-                // disabled={data.cards.length < 1}
-                />
-                <Divider orientation="horizontal" size="small" />
-              </ButtonGroup>
-            </Container>
+                <ButtonGroup>
+                  <Button
+                    title={state === 'confirm' ? '네, 확인했어요' : '송금 중입니다'}
+                    onPress={handleTransaction}
+                    variant={state === 'confirm' ? 'primary' : 'disabled'}
+                    disabled={state === 'pending'}
+                    // disabled={data.cards.length < 1}
+                  />
+                  <Divider orientation="horizontal" size="small" />
+                </ButtonGroup>
+              </Container>
+            ) : (
+              <Container>
+                <Title>송금이 완료됐어요!</Title>
+                <Divider />
+                <Content>
+                  <Label>출금 주소</Label>
+                  <Info>{data.sendAddress}</Info>
+                </Content>
+                <Content>
+                  <Label>{`트랜잭션${'\n'}해시`}</Label>
+                  <Info>{transactionHash}</Info>
+                </Content>
+
+                <Divider />
+
+                <ButtonGroup>
+                  <Button
+                    title="홈으로 가기"
+                    onPress={onModalClosed}
+                    variant="primary"
+                    // disabled={data.cards.length < 1}
+                  />
+                  <Divider orientation="horizontal" size="small" />
+                </ButtonGroup>
+              </Container>
+            )}
           </TouchableWithoutFeedback>
         </Wrapper>
       </Modal>
