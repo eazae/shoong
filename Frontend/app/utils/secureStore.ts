@@ -1,4 +1,5 @@
 import * as SecureStore from 'expo-secure-store';
+import { Alert } from 'react-native';
 
 /* JWT 저장 */
 export const setJWTValue = async (jwt: string) => {
@@ -12,6 +13,18 @@ export const getJWTValue = async () => {
 
 export const clearJWTValue = async () => {
   await SecureStore.deleteItemAsync('jwt', { requireAuthentication: true });
+};
+
+/* Private Key 가져옴 */
+export const getCardPrivateKeyValue = async (address: string) => {
+  let result = await SecureStore.getItemAsync('Cards');
+  result = JSON.parse(result);
+
+  if (result)
+    for (let card of result) {
+      if (card.card_address === address) return card.card_pv_key;
+    }
+  else return address;
 };
 
 // https://docs.expo.dev/versions/latest/sdk/securestore/

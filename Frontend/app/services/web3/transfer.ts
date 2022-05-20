@@ -8,7 +8,13 @@ const web3 = new Web3('https://goerli.infura.io/v3/43b62be4d86946688b1fb5b4bf4df
 /// test
 
 ///
-export const ethereumTransfer = async (address, privateKey, toAddress, inputEth, gasFee) => {
+export const ethereumTransfer = async (
+  address: string,
+  privateKey: string,
+  toAddress: any,
+  inputEth: any,
+  gasFee: any
+) => {
   const accountNonce = await web3.eth.getTransactionCount(address);
   const block = await web3.eth.getBlock('latest');
   const maxGas = block.gasLimit / block.transactions.length;
@@ -29,16 +35,16 @@ export const ethereumTransfer = async (address, privateKey, toAddress, inputEth,
 
   return receipt.transactionHash;
 };
-ethereumTransfer(address, privateKey, toAddress, inputEth, gasFee);
+// ethereumTransfer(address, privateKey, toAddress, inputEth, gasFee);
 
-const getEth = (num) => {
+const getEth = (num: any) => {
   const inputEth = Web3.utils.toWei(`${num}`, 'ether');
   const convertEth = Web3.utils.toHex(inputEth);
   return convertEth;
 };
 
 // 입력된 토큰값 단위 wei로 바꾸기
-const getToken = (num, decimals) => {
+const getToken = (num: any, decimals: any) => {
   let inputToken;
   switch (decimals) {
     case 18:
@@ -52,12 +58,12 @@ const getToken = (num, decimals) => {
 };
 
 export const ethereumTokenTransfer = async (
-  address,
-  privateKey,
-  toAddress,
-  type,
-  inputToken,
-  gasFee
+  address: any,
+  privateKey: string,
+  toAddress: any,
+  type: string,
+  inputToken: any,
+  gasFee: any
 ) => {
   // 토큰 보내기
 

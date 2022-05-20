@@ -74,7 +74,7 @@ const TargetModal = ({ modalVisible, onModalClosed, selected, setSelected }: Tar
               <Divider />
               <ButtonGroup>
                 <TargetButton
-                  title="지갑주소"
+                  title="카드주소"
                   // onPress={onModalClosed}
                   icon={<Wallet color={theme.textDisabledColor} />}
                   guide="블록체인 지갑주소를 직접 입력"
