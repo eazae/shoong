@@ -90,7 +90,7 @@ const SendConfirmModal = ({
 
   const setAutoGasFee = async () => {
     const gas = await setGas();
-    setGasFee(gas[1]);
+    setGasFee(gas[2]);
   };
 
   const handleTransaction = async () => {
@@ -175,7 +175,7 @@ const SendConfirmModal = ({
                     onPress={handleTransaction}
                     variant={state === 'confirm' ? 'primary' : 'disabled'}
                     disabled={state === 'pending'}
-                    // disabled={data.cards.length < 1}
+                  // disabled={data.cards.length < 1}
                   />
                   <Divider orientation="horizontal" size="small" />
                 </ButtonGroup>
@@ -200,7 +200,7 @@ const SendConfirmModal = ({
                     title="홈으로 가기"
                     onPress={onModalClosed}
                     variant="primary"
-                    // disabled={data.cards.length < 1}
+                  // disabled={data.cards.length < 1}
                   />
                   <Divider orientation="horizontal" size="small" />
                 </ButtonGroup>
