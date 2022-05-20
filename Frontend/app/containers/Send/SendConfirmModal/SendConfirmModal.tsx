@@ -75,12 +75,13 @@ interface SendConfirmModalProps {
 
 const SendConfirmModal = ({ modalVisible, onModalClosed, data }: SendConfirmModalProps) => {
   const [gasFee, setGasFee] = useState(0);
-
   Alert.alert(JSON.stringify(data));
 
   const handleTransaction = async () => {
     /* 출금 주소의 개인키 가져오기  */
     const privateKey = await getCardPrivateKeyValue(data.sendAddress);
+    const gas = await setGas();
+    setGasFee(gas[1]);
 
     if (data.token === 'ethereum') {
       await ethereumTransfer(data.sendAddress, privateKey, data.targetAddress, data.amount, gasFee);
