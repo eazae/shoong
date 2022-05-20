@@ -49,7 +49,7 @@ const TargetAddress = styled.Text`
   /* font-weight: 500; */
 `;
 
-export type MethodType = '지갑주소' | '친구' | '닉네임' | 'QR코드' | '전화번호';
+export type MethodType = '카드주소' | '친구' | '닉네임' | 'QR코드' | '전화번호';
 
 interface SelectTargetViewProps {
   targetAddress: string;
@@ -128,7 +128,7 @@ const SelectTargetView = ({
         송금 방식 선택하기
       </SelectMethodButton>
       <MethodTypeLabel>{type}</MethodTypeLabel>
-      {type === '지갑주소' ? (
+      {type === '카드주소' ? (
         <Input
           keyboardType="default"
           placeholder={type}

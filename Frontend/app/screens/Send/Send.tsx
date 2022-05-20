@@ -94,7 +94,7 @@ const Send: React.FC<SendProps> = ({ route }) => {
   const [focus, setFocus] = useState(1);
   const [senderCardList, setSenderCardList] = useState();
   const [sendCard, setSendCard] = useState<CardType>();
-  const [sendAddress, setSendAddress] = useState();
+  const [sendAddress, setSendAddress] = useState('');
   const [targetAddress, setTargetAddress] = useState(presetAddress ?? '');
   const [tokenPrices, setTokenPrices] = useState();
 
@@ -209,12 +209,13 @@ const Send: React.FC<SendProps> = ({ route }) => {
         <Divider size="small" />
         <ProgressTab
           // 외부에서 주소 설정해서 들어왔을 시 정보 초기화 되는 것 방지하기 위해 'presetAddress' 사용
-          title={`송금할 주소${targetAddress
-            ? `: ${targetAddress.substring(0, 15)}...`
-            : presetAddress
+          title={`송금할 주소${
+            targetAddress
+              ? `: ${targetAddress.substring(0, 15)}...`
+              : presetAddress
               ? `: ${presetAddress.substring(0, 15)}...`
               : ''
-            }`}
+          }`}
           index={2}
           onPress={() => {
             expandSwitch(target);
@@ -282,7 +283,7 @@ const Send: React.FC<SendProps> = ({ route }) => {
           onModalClosed={() => setConfirmModalVisible(!confirmModalVisible)}
           data={{ sendAddress, targetAddress, token, amount }}
         />
-        {visible === true && (
+        {/* {visible === true && (
           <SendModal>
             <Typography size="body1">송금내용을 확인할게요!</Typography>
             <Typography size="body3">{nick !== '' && nick}</Typography>
@@ -311,7 +312,7 @@ const Send: React.FC<SendProps> = ({ route }) => {
               />
             </TouchableWithoutFeedback>
           </SendModal>
-        )}
+        )} */}
       </ScrollView>
     </Container>
   );
