@@ -6,11 +6,12 @@ import { requestAddFriend, requestDeleteFriend } from '@services/api/friends/fri
 import { TokenSymbol } from '@services/api/token/tokenTypes';
 import { ethereumTransfer, ethereumTokenTransfer } from '@services/web3/transfer';
 import Typography from '@theme/Typography';
+import { getSecureStoreValue } from '@utils/secureStore';
 import { UserCircle } from 'phosphor-react-native';
 import { Alert, Modal, TouchableWithoutFeedback } from 'react-native';
 import styled, { useTheme } from 'styled-components/native';
 import { FriendType, TransactionType, UserInfoType } from 'types/apiTypes';
-
+import { setGas } from '@services/web3/setGas';
 const Wrapper = styled.TouchableOpacity`
   flex: 1;
   justify-content: center;
@@ -71,18 +72,22 @@ interface SendConfirmModalProps {
 }
 
 const SendConfirmModal = ({ modalVisible, onModalClosed, data }: SendConfirmModalProps) => {
-  const handleTransaction = () => {
+  const handleTransaction = async () => {
     // TODO
-    Alert.alert('승현님 여기요!');
+
+    // 솔라나의 경우 네트워크 구조가 조금 달라서 종선님 에게 조금 더 여쭤 본 다음 해결해야 할 것 같습니다.
+    // 그 외 이더리움, 
     ////////
+    const gas = await setGas();
+    const privte = '';
     if (data.token === 'ethereum') {
-      ethereumTransfer(data.sendAddress, myPrivate, data.targetAddress, data.amount, gasFee);
+      ethereumTransfer(data.sendAddress, myPrivate, data.targetAddress, data.amount, gas[1]);
     }
     else if (data.token === 'solana') {
 
     }
     else {
-      ethereumTokenTransfer(data.sendAddress, privateKey, data.targetAddress, data.token, data.amount, gasFee);
+      ethereumTokenTransfer(data.sendAddress, privateKey, data.targetAddress, data.token, data.amount, gas[1]);
     }
     onModalClosed();
   };
