@@ -2,7 +2,9 @@
 
 <h3> 블록체인 간편 송금 서비스 </h3>
 
->
+> 어렵게만 느껴졌던 블록체인
+> 이제는 간편하게 클릭 몇번으로 송금할 수 있습니다!
+> 쉽고 빠른 송금 서비스 슝!
 
 ## 📎  프로젝트 목차
 
@@ -53,32 +55,99 @@
 
 ## 2️⃣ 프로젝트 폴더 구조
 
----
 
 - Back
+```
 
-  ```bash
-
-  ```
-
+C:.
+├─gradle
+│  └─wrapper
+└─src
+    ├─main
+    ├─kotlin
+    │  └─com
+    │      └─ssafy     
+    │          └─a103
+    │              └shoong
+    │                  ├─config
+    │                  ├─controller
+    │                  ├─model
+    │                  ├─repository
+    │                  ├─requestBody
+    │                  ├─responseBody
+    │                  ├─scheduler
+    │                  └─service
+    └─resources
+```
 - Front
 
-  ```bash
-
-  ```
-
+```
+C:.
+├─.expo
+├─android
+│  ├─app
+│  │  └─src
+│  │      └─main
+│  │          ├─java
+│  │          │  └─com
+│  │          │      └─shoong
+│  │          └─res
+│  │              ├─drawable
+│  │              ├─mipmap-anydpi-v26
+│  │              ├─mipmap-hdpi
+│  │              ├─mipmap-mdpi
+│  │              ├─mipmap-xhdpi
+│  │              ├─mipmap-xxhdpi
+│  │              ├─mipmap-xxxhdpi
+│  │              └─values
+│  ├─build
+│  │  └─kotlin
+│  │      └─sessions
+│  └─gradle
+│      └─wrapper
+├─app
+│  ├─atoms
+│  ├─components	// 컴포넌트
+│  ├─config	// 설정파일
+│  ├─containers	// 컴포넌트를 바탕으로 구성하는 컨테이너
+│  ├─screens	// 컨테이너를 바탕으로 구성하는 스크린
+│  ├─services	
+│  │  ├─api	// api 관련
+│  │  ├─notifications
+│  │  ├─sens	
+│  │  └─web3
+│  ├─theme	// 테마관련(컬러, 폰트, ...)
+│  └─utils	// 외부 라이브러리
+├─assets	// 활용 이미지 및 폰트파일 등
+├─ios
+│  ├─Shoong
+│  │  ├─Images.xcassets
+│  │  │  ├─AppIcon.appiconset
+│  │  │  ├─SplashScreen.imageset
+│  │  │  └─SplashScreenBackground.imageset
+│  │  └─Supporting
+│  ├─Shoong.xcodeproj
+│  │  └─xcshareddata
+│  │      └─xcschemes
+│  └─Shoong.xcworkspace
+│      └─xcshareddata
+│          └─swiftpm
+├─storybook
+│  └─stories
+│      ├─Button
+│      ├─CenterView
+│      └─Welcome
+```
 ## 3️⃣ 프로젝트 산출물
 
 ---
 
 - 프로젝트 관리 : [Notion](https://important-leopon-e7f.notion.site/TEAM-SHOONG-6671e3cd539c4146b273fed54ccfa520)
-- [서비스 흐름도]()
-- [ERD]()
-- [서비스 아키텍처]()
-- [API 문서]()
+- 외부 서비스 : [외부 서비스](https://lab.ssafy.com/s06-final/S06P31A103/-/blob/develop/exec/2.%20%EC%99%B8%EB%B6%80%20%EC%84%9C%EB%B9%84%EC%8A%A4.pdf)
+- 시연 시나리오 : [시연 시나리오](https://lab.ssafy.com/s06-final/S06P31A103/-/blob/develop/exec/4.%20%EC%8B%9C%EC%97%B0%20%EC%8B%9C%EB%82%98%EB%A6%AC%EC%98%A4.pdf)
 
 ## 4️⃣ 프로젝트 빌드
 
 ---
 
-- [포팅 메뉴얼]()
+- [포팅 메뉴얼](https://lab.ssafy.com/s06-final/S06P31A103/-/blob/develop/exec/1.%20%ED%8F%AC%ED%8C%85%20%EB%A7%A4%EB%89%B4%EC%96%BC.pdf)
