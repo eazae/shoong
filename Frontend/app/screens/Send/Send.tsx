@@ -31,7 +31,6 @@ import SenderCardItem from '@containers/Send/SenderCardItem/SenderCardItem';
 import { getCoinPrice } from '@services/api/token/tokenAPI';
 import { CardType } from 'types/apiTypes';
 import SendConfirmModal from '@containers/Send/SendConfirmModal/SendConfirmModal';
-import { setGas } from '@services/web3/setGas';
 
 interface SendProps {
   presetAddress?: string;
@@ -209,13 +208,12 @@ const Send: React.FC<SendProps> = ({ route }) => {
         <Divider size="small" />
         <ProgressTab
           // 외부에서 주소 설정해서 들어왔을 시 정보 초기화 되는 것 방지하기 위해 'presetAddress' 사용
-          title={`송금할 주소${
-            targetAddress
+          title={`송금할 주소${targetAddress
               ? `: ${targetAddress.substring(0, 15)}...`
               : presetAddress
-              ? `: ${presetAddress.substring(0, 15)}...`
-              : ''
-          }`}
+                ? `: ${presetAddress.substring(0, 15)}...`
+                : ''
+            }`}
           index={2}
           onPress={() => {
             expandSwitch(target);
