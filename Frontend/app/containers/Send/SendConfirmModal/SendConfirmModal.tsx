@@ -6,7 +6,9 @@ import { requestAddFriend, requestDeleteFriend } from '@services/api/friends/fri
 import { TokenSymbol } from '@services/api/token/tokenTypes';
 import { ethereumTransfer, ethereumTokenTransfer } from '@services/web3/transfer';
 import Typography from '@theme/Typography';
+import { getCardPrivateKeyValue } from '@utils/secureStore';
 import { UserCircle } from 'phosphor-react-native';
+import { useState } from 'react';
 import { Alert, Modal, TouchableWithoutFeedback } from 'react-native';
 import styled, { useTheme } from 'styled-components/native';
 import { FriendType, TransactionType, UserInfoType } from 'types/apiTypes';
@@ -71,18 +73,26 @@ interface SendConfirmModalProps {
 }
 
 const SendConfirmModal = ({ modalVisible, onModalClosed, data }: SendConfirmModalProps) => {
-  const handleTransaction = () => {
-    // TODO
-    Alert.alert('승현님 여기요!');
-    ////////
-    if (data.token === 'ethereum') {
-      ethereumTransfer(data.sendAddress, myPrivate, data.targetAddress, data.amount, gasFee);
-    }
-    else if (data.token === 'solana') {
+  const [gasFee, setGasFee] = useState(0);
 
-    }
-    else {
-      ethereumTokenTransfer(data.sendAddress, privateKey, data.targetAddress, data.token, data.amount, gasFee);
+  Alert.alert(JSON.stringify(data));
+
+  const handleTransaction = async () => {
+    /* 출금 주소의 개인키 가져오기  */
+    const privateKey = await getCardPrivateKeyValue(data.sendAddress);
+
+    if (data.token === 'ethereum') {
+      await ethereumTransfer(data.sendAddress, privateKey, data.targetAddress, data.amount, gasFee);
+    } else if (data.token === 'solana') {
+    } else {
+      ethereumTokenTransfer(
+        data.sendAddress,
+        privateKey,
+        data.targetAddress,
+        data.token,
+        data.amount,
+        gasFee
+      );
     }
     onModalClosed();
   };
@@ -118,19 +128,18 @@ const SendConfirmModal = ({ modalVisible, onModalClosed, data }: SendConfirmModa
               </Content>
               <Content>
                 <Label>송금 수수료</Label>
-                <Info>???????</Info>
+                <Info>{`${gasFee} GWEI`}</Info>
               </Content>
               <Divider />
+
               <ButtonGroup>
                 <Button
                   title="네, 확인했어요"
                   onPress={handleTransaction}
                   variant="primary"
-                // disabled={data.cards.length < 1}
+                  // disabled={data.cards.length < 1}
                 />
                 <Divider orientation="horizontal" size="small" />
-                {/* <Button title="친구삭제" onPress={deleteFriend} variant="error" /> */}
-                {/* <Button title="닫기" /> */}
               </ButtonGroup>
             </Container>
           </TouchableWithoutFeedback>
