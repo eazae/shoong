@@ -5,20 +5,24 @@ import * as solanaWeb3 from '@solana/web3.js';
 const MAINNET = 'https://mainnet.infura.io/v3/43b62be4d86946688b1fb5b4bf4df6c9';
 const GOERNET = 'https://goerli.infura.io/v3/43b62be4d86946688b1fb5b4bf4df6c9';
 
-const web3 = new Web3(MAINNET);
+const web3 = new Web3(GOERNET);
 
 // main
+// export const contractAddr = {
+//   mana: '0x0F5D2fB29fb7d3CFeE444a200298f468908cC942',
+//   tether: '0xdAC17F958D2ee523a2206206994597C13D831ec7',
+// };
+
 export const contractAddr = {
-  mana: '0x0F5D2fB29fb7d3CFeE444a200298f468908cC942',
-  tether: '0xdAC17F958D2ee523a2206206994597C13D831ec7',
+  mana: '0xe7fdae84acaba2a5ba817b6e6d8a2d415dbfedbe',
+  tether: '0x509Ee0d083DdF8AC028f2a56731412edD63223B9',
 };
 
 export const getEthBalance = async (address: string) => {
   // ether 잔액 조회
   const ethBalance = await web3.eth.getBalance(address);
   const convertEth = await web3.utils.fromWei(ethBalance.toString(), 'ether');
-  // return Number(convertEth);
-  return 0.02;
+  return Number(convertEth);
 };
 
 export const getTokenBalance = async (address: string, contractAddr: string) => {
